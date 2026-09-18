@@ -29,8 +29,9 @@
   /* 하락 표시 */
   --color-down: #c0563f;
 
-  --font-sans: "Noto Sans KR", system-ui, -apple-system, sans-serif;
-  --font-num: "Schibsted Grotesk", system-ui, sans-serif;
+  --font-sans:
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, sans-serif;
 
   --radius-card: 14px;
   --radius-panel: 16px;
@@ -50,9 +51,10 @@
   }
 }
 
+/* 숫자는 서체를 바꾸지 않는다. 자릿수만 고정한다. */
 @utility num {
-  font-family: var(--font-num);
   font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
 }
 
 @utility no-scrollbar {

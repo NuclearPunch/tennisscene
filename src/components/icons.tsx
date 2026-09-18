@@ -1,18 +1,36 @@
-import type { SVGProps } from "react";
+"use client";
+
+import {
+  CalendarBlank,
+  CaretDown as PhCaretDown,
+  CaretUp as PhCaretUp,
+  ChartBar,
+  ChatCircle,
+  CloudRain,
+  Heart as PhHeart,
+  House,
+  MagnifyingGlass,
+  Package,
+  PencilSimple,
+  Play as PhPlay,
+  Repeat,
+  TennisBall,
+  User,
+} from "@phosphor-icons/react";
 import type { AvatarIcon } from "@/lib/types";
 
-type I = SVGProps<SVGSVGElement>;
+/**
+ * UI 아이콘은 직접 그리지 않는다. 획 굵기와 광학 크기가 미세하게 어긋나면
+ * 아마추어처럼 보인다. 손으로 그리는 건 로고 마크 하나뿐이다.
+ */
 
-const stroke = {
-  fill: "none",
-  stroke: "currentColor",
-  strokeLinecap: "round",
-  strokeLinejoin: "round",
-} as const;
+type Sized = { className?: string; size?: number };
 
-export function BallMark({ size = 20, ...p }: I & { size?: number }) {
+/* ── 로고 ───────────────────────────────────────── */
+
+export function BallMark({ size = 20, className }: Sized) {
   return (
-    <svg width={size} height={size} viewBox="0 0 100 100" aria-hidden {...p}>
+    <svg width={size} height={size} viewBox="0 0 100 100" className={className} aria-hidden>
       <circle cx="50" cy="50" r="46" fill="var(--color-ball)" />
       <path
         d="M20 14 Q46 50 20 86"
@@ -32,10 +50,10 @@ export function BallMark({ size = 20, ...p }: I & { size?: number }) {
   );
 }
 
-/** 랭킹 카드 우상단에 반쯤 걸치는 장식용 공 */
-export function BallTexture(p: I) {
+/** 랭킹 카드 우상단에 반쯤 걸치는 장식 */
+export function BallTexture({ className }: Sized) {
   return (
-    <svg viewBox="0 0 100 100" aria-hidden {...p}>
+    <svg viewBox="0 0 100 100" className={className} aria-hidden>
       <circle cx="50" cy="50" r="46" fill="var(--color-ball)" />
       <path
         d="M20 14 Q46 50 20 86"
@@ -55,59 +73,8 @@ export function BallTexture(p: I) {
   );
 }
 
-export function Cloud(p: I) {
-  return (
-    <svg viewBox="0 0 32 32" strokeWidth="1.9" {...stroke} {...p}>
-      <path d="M9.5 19.5a4.6 4.6 0 0 1 .5-9.2 6.7 6.7 0 0 1 12.6 1.9 4.2 4.2 0 0 1-.7 7.3" />
-      <path d="M12 23.5l-1 2.8M17 23.5l-1 2.8M22 23.5l-1 2.8" />
-    </svg>
-  );
-}
-
-export function Chart(p: I) {
-  return (
-    <svg viewBox="0 0 24 24" strokeWidth="2.1" {...stroke} {...p}>
-      <path d="M4.5 19.5V13M12 19.5V5M19.5 19.5v-8" />
-    </svg>
-  );
-}
-
-export function Play(p: I) {
-  return (
-    <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden {...p}>
-      <path d="M4.8 2.6 13.4 8l-8.6 5.4z" />
-    </svg>
-  );
-}
-
-export function Calendar(p: I) {
-  return (
-    <svg viewBox="0 0 24 24" strokeWidth="1.7" {...stroke} {...p}>
-      <rect x="3.5" y="5" width="15" height="13.5" rx="3" />
-      <path d="M3.5 9.5h15M7.5 3v4M14.5 3v4" />
-    </svg>
-  );
-}
-
-export function Box(p: I) {
-  return (
-    <svg viewBox="0 0 24 24" strokeWidth="1.7" {...stroke} {...p}>
-      <path d="M4 7.6 12 3.6l8 4v8.8l-8 4-8-4z" />
-      <path d="M4 7.6 12 11.6l8-4M12 11.6v8.8" />
-    </svg>
-  );
-}
-
-export function BallOutline(p: I) {
-  return (
-    <svg viewBox="0 0 24 24" strokeWidth="1.8" {...stroke} {...p}>
-      <circle cx="12" cy="12" r="8.4" />
-      <path d="M4.4 6.6a9.4 9.4 0 0 1 15.2 0M4.4 17.4a9.4 9.4 0 0 0 15.2 0" />
-    </svg>
-  );
-}
-
-export function Verified({ size = 13 }: { size?: number }) {
+/** 자동 게시 계정 배지 — 브랜드 요소라 직접 그린다 */
+export function Verified({ size = 13 }: Sized) {
   return (
     <svg width={size} height={size} viewBox="0 0 14 14" aria-label="자동 게시 계정">
       <circle cx="7" cy="7" r="6.2" fill="var(--color-green-bg)" />
@@ -123,122 +90,71 @@ export function Verified({ size = 13 }: { size?: number }) {
   );
 }
 
-export function Reply(p: I) {
-  return (
-    <svg viewBox="0 0 20 20" strokeWidth="1.55" {...stroke} {...p}>
-      <path d="M17.5 9.5c0 3.7-3.4 6.7-7.5 6.7-1 0-2-.2-2.9-.5L3 17.2l1.5-3.4A6.3 6.3 0 0 1 2.5 9.5c0-3.7 3.4-6.7 7.5-6.7s7.5 3 7.5 6.7z" />
-    </svg>
-  );
-}
+/* ── 포스트 액션 ─────────────────────────────────── */
 
-export function Repost(p: I) {
-  return (
-    <svg viewBox="0 0 20 20" strokeWidth="1.55" {...stroke} {...p}>
-      <path d="M3.8 8.5V6.8a2.4 2.4 0 0 1 2.4-2.4h7.4L11.4 2.2" />
-      <path d="M16.2 11.5v1.7a2.4 2.4 0 0 1-2.4 2.4H6.4l2.2 2.2" />
-    </svg>
-  );
-}
+export const Reply = ({ className }: Sized) => (
+  <ChatCircle className={className} weight="regular" />
+);
 
-export function Heart({ filled, ...p }: I & { filled?: boolean }) {
-  return (
-    <svg
-      viewBox="0 0 20 20"
-      fill={filled ? "currentColor" : "none"}
-      stroke={filled ? "none" : "currentColor"}
-      strokeWidth="1.55"
-      strokeLinejoin="round"
-      aria-hidden
-      {...p}
-    >
-      <path d="M10 16.6S2.6 12.4 2.6 7.8A3.9 3.9 0 0 1 10 5.9a3.9 3.9 0 0 1 7.4 1.9c0 4.6-7.4 8.8-7.4 8.8z" />
-    </svg>
-  );
-}
+export const Repost = ({ className }: Sized) => (
+  <Repeat className={className} weight="regular" />
+);
 
-export function CaretUp({ size = 9 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 8 8" aria-hidden>
-      <path d="M4 1 7.4 6.8H0.6z" fill="var(--color-green-hi)" />
-    </svg>
-  );
-}
+export const Heart = ({ filled, className }: Sized & { filled?: boolean }) => (
+  <PhHeart className={className} weight={filled ? "fill" : "regular"} />
+);
 
-export function CaretDown({ size = 9 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 8 8" aria-hidden>
-      <path d="M4 7 0.6 1.2h6.8z" fill="var(--color-down)" />
-    </svg>
-  );
-}
+/* ── 순위 변동 ───────────────────────────────────── */
 
-/* 탭바 */
-export function TabHome({ active, ...p }: I & { active?: boolean }) {
-  if (active) {
-    return (
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden {...p}>
-        <path d="M11.24 3.3a1.2 1.2 0 0 1 1.52 0l7.5 6.06c.28.23.44.57.44.93v9.06c0 .66-.54 1.2-1.2 1.2h-4.6v-5.7a.9.9 0 0 0-.9-.9h-4a.9.9 0 0 0-.9.9v5.7H4.5c-.66 0-1.2-.54-1.2-1.2v-9.06c0-.36.16-.7.44-.93z" />
-      </svg>
-    );
-  }
-  return (
-    <svg viewBox="0 0 24 24" strokeWidth="1.9" {...stroke} {...p}>
-      <path d="M3.5 10 12 3.7l8.5 6.3v9.4a1.2 1.2 0 0 1-1.2 1.2h-4.5v-6h-5.6v6H4.7a1.2 1.2 0 0 1-1.2-1.2z" />
-    </svg>
-  );
-}
+export const CaretUp = ({ size = 11 }: Sized) => (
+  <PhCaretUp size={size} weight="fill" color="var(--color-green-hi)" />
+);
 
-export function TabSearch({ active, ...p }: I & { active?: boolean }) {
-  return (
-    <svg viewBox="0 0 24 24" strokeWidth={active ? 2.4 : 1.9} {...stroke} {...p}>
-      <circle cx="10.6" cy="10.6" r="6.9" />
-      <path d="M15.6 15.6 20.4 20.4" />
-    </svg>
-  );
-}
+export const CaretDown = ({ size = 11 }: Sized) => (
+  <PhCaretDown size={size} weight="fill" color="var(--color-down)" />
+);
 
-export function TabCompose(p: I) {
-  return (
-    <svg viewBox="0 0 24 24" strokeWidth="2" {...stroke} {...p}>
-      <path d="M16.4 4.4a2 2 0 0 1 2.8 2.8L9.5 16.9l-3.7 1 1-3.7z" />
-      <path d="M14.6 6.2l3.2 3.2" />
-    </svg>
-  );
-}
+/* ── 첨부 ────────────────────────────────────────── */
 
-export function TabActivity({ active, ...p }: I & { active?: boolean }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill={active ? "currentColor" : "none"}
-      stroke={active ? "none" : "currentColor"}
-      strokeWidth="1.9"
-      strokeLinejoin="round"
-      aria-hidden
-      {...p}
-    >
-      <path d="M12 19.8S3.4 14.9 3.4 9.5A4.6 4.6 0 0 1 12 7.3a4.6 4.6 0 0 1 8.6 2.2c0 5.4-8.6 10.3-8.6 10.3z" />
-    </svg>
-  );
-}
+export const Box = ({ className }: Sized) => (
+  <Package className={className} weight="regular" />
+);
 
-export function TabProfile({ active, ...p }: I & { active?: boolean }) {
-  return (
-    <svg viewBox="0 0 24 24" strokeWidth={active ? 2.3 : 1.9} {...stroke} {...p}>
-      <circle cx="12" cy="8.4" r="3.9" />
-      <path d="M4.9 20.3c0-3.9 3.2-6.5 7.1-6.5s7.1 2.6 7.1 6.5" />
-    </svg>
-  );
-}
+export const Play = ({ className }: Sized) => (
+  <PhPlay className={className} weight="fill" />
+);
 
-const AVATAR_ICONS: Record<AvatarIcon, (p: I) => React.ReactElement> = {
-  weather: Cloud,
-  chart: Chart,
-  play: Play,
-  calendar: Calendar,
-  box: Box,
-  ball: BallOutline,
-};
+/* ── 탭바 — 활성은 fill, 비활성은 regular ─────────── */
+
+type Tab = Sized & { active?: boolean };
+const w = (active?: boolean): "fill" | "regular" => (active ? "fill" : "regular");
+
+export const TabHome = ({ active, className }: Tab) => (
+  <House className={className} weight={w(active)} />
+);
+export const TabSearch = ({ active, className }: Tab) => (
+  <MagnifyingGlass className={className} weight={active ? "bold" : "regular"} />
+);
+export const TabCompose = ({ className }: Sized) => (
+  <PencilSimple className={className} weight="regular" />
+);
+export const TabActivity = ({ active, className }: Tab) => (
+  <PhHeart className={className} weight={w(active)} />
+);
+export const TabProfile = ({ active, className }: Tab) => (
+  <User className={className} weight={w(active)} />
+);
+
+/* ── 계정 아바타 ─────────────────────────────────── */
+
+const AVATAR_ICONS = {
+  weather: CloudRain,
+  chart: ChartBar,
+  play: PhPlay,
+  calendar: CalendarBlank,
+  box: Package,
+  ball: TennisBall,
+} as const;
 
 export function AvatarGlyph({
   name,
@@ -248,5 +164,5 @@ export function AvatarGlyph({
   className?: string;
 }) {
   const C = AVATAR_ICONS[name];
-  return <C className={className} />;
+  return <C className={className} weight="regular" />;
 }

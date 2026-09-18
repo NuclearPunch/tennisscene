@@ -29,7 +29,7 @@ function Ranking({ a }: { a: Extract<A, { type: "ranking" }> }) {
   const scope = [a.region, a.division].filter(Boolean).join(" ");
   return (
     <div className="relative mt-0.5 rounded-panel bg-green-deep p-5 overflow-hidden">
-      <BallTexture className="absolute -right-10 -top-11 w-[150px] h-[150px] opacity-[0.17]" />
+      <BallTexture className="absolute -right-10 -top-11 w-[150px] h-[150px] opacity-[0.14]" />
       <p className="num relative text-[10.5px] font-semibold tracking-[0.13em] text-ball">
         {a.week} · {scope}
       </p>

@@ -21,7 +21,8 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 |---|---|---|
 | `planner` | 스펙 쪼개기, 태스크 정의, 결정 기록 | `docs/**` 만 |
 | `backend` | 데이터 수집·API·스키마 | `src/lib/**`, `src/app/api/**`, `scripts/**`, `supabase/**` |
-| `frontend` | 화면·컴포넌트·스타일 | `src/components/**`, `src/app/(app)/**`, `src/app/compose/**`, `src/app/globals.css` |
+| `frontend` | 화면·컴포넌트 조립 | `src/components/post/**`, `src/app/(app)/**`, `src/app/compose/**` |
+| `designer` | 타이포·색·아이콘·로고 | `src/app/globals.css`, `src/components/icons.tsx`, `docs/DESIGN.md` |
 | `reviewer` | 결함 지적 | **없음** (읽기 전용) |
 | `qa` | 실제 브라우저로 동작 검증 | `tests/**` 만 |
 
@@ -31,7 +32,8 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ```
 backend  소유   src/lib/  src/app/api/  scripts/  supabase/
-frontend 소유   src/components/  src/app/(app)/  src/app/compose/  src/app/globals.css
+frontend 소유   src/components/post/  src/app/(app)/  src/app/compose/
+designer 소유   src/app/globals.css  src/components/icons.tsx
 공유            src/lib/types.ts        ← 계약. backend 가 소유하고 frontend 는 읽기만
 아무도 못 건드림  AGENTS.md 의 next 블록, next.config.ts, package.json (메인 세션만)
 ```
