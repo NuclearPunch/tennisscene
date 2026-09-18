@@ -38,3 +38,12 @@ src/app/compose/       탭바 없는 전체화면
 쓰고 전수 수집·회원 DB 구축은 하지 않는다.
 
 선수 실명은 파싱하되 검색 인덱스로 공개하지 않는다. 시드 데이터도 가상 인물을 쓴다.
+
+## 팀
+
+서브에이전트 역할과 파일 소유권은 `AGENTS.md`, 작업 목록은 `docs/ROADMAP.md`,
+철회된 결정은 `docs/DECISIONS.md` 에 있다.
+
+에이전트: `planner` `backend` `frontend` `reviewer` `qa`
+
+**역할이 다르다고 무조건 병렬이 되는 게 아니다. 같은 파일을 만지면 순차다.**
