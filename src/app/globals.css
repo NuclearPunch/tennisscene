@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  /* 지면 */
+  --color-bg: #fbfcfb;
+  --color-surface: #ffffff;
+  --color-grouped: #f2f5f3;
+  --color-hairline: #e6ebe8;
+  --color-line: #d9e2dc;
+
+  /* 글자 */
+  --color-ink: #0e1a14;
+  --color-ink-2: #5a6b62;
+  --color-ink-3: #657771;
+  --color-ink-4: #8a9a92;
+  --color-muted: #afbab4;
+
+  /* 그린 */
+  --color-green: #0f7a4f;
+  --color-green-hi: #16a06a;
+  --color-green-bg: #e3f2ea;
+  --color-green-deep: #0a5637;
+  --color-on-deep: #a9dcc2;
+  --color-on-deep-2: #dceae2;
+
+  /* 테니스공 — 흰 배경 위 대비가 1.1:1이라 딥그린 위에서만 쓴다 */
+  --color-ball: #d8f550;
+
+  /* 하락 표시 */
+  --color-down: #c0563f;
+
+  --font-sans: "Noto Sans KR", system-ui, -apple-system, sans-serif;
+  --font-num: "Schibsted Grotesk", system-ui, sans-serif;
+
+  --radius-card: 14px;
+  --radius-panel: 16px;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@utility num {
+  font-family: var(--font-num);
+  font-variant-numeric: tabular-nums;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
