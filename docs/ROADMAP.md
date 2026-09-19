@@ -13,8 +13,10 @@
 
 | ID | 담당 | 할 일 | 파일 범위 | 선행 | 완료 기준 | 상태 |
 |---|---|---|---|---|---|---|
-| B-0.1 | backend | Supabase 프로젝트 + 스키마 (`users` `posts` `ranking_snapshots` `tournaments` `videos` `likes` `reposts` `follows`) | `supabase/**` | — | 마이그레이션이 로컬에서 적용되고 시드 계정 6개(봇)가 들어간다 | todo |
-| B-0.2 | backend | `types.ts` 를 스키마와 맞춘다. 불일치 제거 | `src/lib/types.ts` | B-0.1 | `tsc --noEmit` 깨끗 + 기존 mock 이 새 타입으로 통과 | todo |
+| B-0.1 | backend | Supabase 스키마 (`accounts` `posts` `ranking_snapshots` `tournaments` `videos` `likes` `reposts` `follows`) | `supabase/**` | — | 마이그레이션이 로컬에서 적용되고 시드 계정 6개(봇)가 들어간다 | **done** |
+| B-0.2 | backend | `types.ts` 를 스키마와 맞춘다. 불일치 제거 | `src/lib/types.ts` | B-0.1 | `tsc --noEmit` 깨끗 + 기존 mock 이 새 타입으로 통과 | **done** |
+
+| B-0.3 | backend | 코드 리뷰 지적사항 수정 (카운터 트리거 권한, 차단/익명, auth 삭제, 억제 경로 등 11건) | `supabase/**` `src/lib/**` | B-0.2 | PG17 에서 재현 테스트 전부 통과 | **done** |
 
 ---
 
@@ -75,7 +77,7 @@ B-1.2 와 B-1.6 은 앞의 결과를 먹으므로 순차.
 | ID | 담당 | 할 일 | 파일 범위 | 선행 | 완료 기준 | 상태 |
 |---|---|---|---|---|---|---|
 | B-5.1 | backend | 신고·차단 (누적 3건 자동 블라인드) | `src/app/api/moderation/**` | B-3.1 | 차단 시 상대 글이 내 피드에서 사라진다 | todo |
-| B-5.2 | backend | **선수 본인 이름 삭제 요청 경로** | `src/app/api/moderation/**` | B-5.1 | 접수되면 해당 이름이 마스킹된다 | todo |
+| B-5.2 | backend | **발행된 payload 소급 마스킹** — 접수·억제·뷰 마스킹은 B-0.3 에서 끝났다. 이미 나간 `posts.payload` 안의 이름을 `posts_payload_gin` 으로 되짚어 지우는 잡만 남았다 | `scripts/**` `src/app/api/moderation/**` | B-5.1 | 억제된 선수가 기존 피드 포스트에서도 사라진다 | todo |
 | B-5.3 | backend | 배포 (Vercel + 수집 잡 스케줄) | `vercel.json` `scripts/**` | Phase 2 | 랭킹은 월 09:00, 대회는 목 08:00, 영상은 매시간 | todo |
 
 ---

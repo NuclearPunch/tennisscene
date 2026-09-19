@@ -1,6 +1,6 @@
 import type { Author } from "./types";
 
-/** 봇도 유저와 같은 계정 테이블의 row다. is_bot 플래그만 다르다. */
+/** 봇도 유저와 같은 accounts 테이블의 row다. kind 값만 다르다. */
 export const BOTS = {
   today: {
     id: "b_today",

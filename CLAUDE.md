@@ -21,7 +21,7 @@
 
 ```
 src/lib/types.ts       Post·Attachment 판별 유니온
-src/lib/accounts.ts    봇 계정 (users 테이블의 row와 같은 모양)
+src/lib/accounts.ts    봇 계정 (accounts 테이블의 row와 같은 모양)
 src/lib/mock.ts        시드 데이터 — 수집 파이프라인 붙기 전까지
 src/components/post/   PostCard → Attachment 가 type 으로 분기
 src/app/(app)/         탭바가 붙는 셸. / · /search · /activity · /me
