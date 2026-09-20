@@ -1,5 +1,5 @@
 import { publicClient } from "./supabase";
-import { formatIsoWeek } from "./week";
+import { formatWeekShort } from "./week";
 import type {
   Attachment,
   Author,
@@ -23,6 +23,13 @@ const COLUMNS =
   "id, type, body, payload, is_anonymous, like_count, comment_count, repost_count, created_at, author_handle, author_name, author_kind, author_icon, author_initial, author_tone";
 
 export const PAGE_SIZE = 20;
+
+/** 단체 코드 → 화면 표시명. DB 에는 코드로 저장한다. */
+const ORG_LABEL: Record<string, string> = {
+  kato: "카토",
+  kta: "생체",
+  kata: "카타",
+};
 
 function timeLabel(iso: string, now = Date.now()): string {
   const diff = Math.max(0, now - new Date(iso).getTime());
@@ -75,15 +82,16 @@ function toAttachment(row: Row): Attachment | undefined {
     const p = row.payload as RankingPayload;
     return {
       type: "ranking",
-      org: p.org,
+      org: ORG_LABEL[p.org] ?? p.org,
       division: `${p.division}부`,
       region: p.region ?? undefined,
-      week: formatIsoWeek(p.week),
+      week: formatWeekShort(p.week),
       leader: {
         rank: p.leader.rank,
         name: p.leader.name,
         club: p.leader.club ?? undefined,
         delta: p.leader.delta,
+        isNew: p.leader.isNew,
       },
       story: p.story ?? undefined,
       runnersUp: p.runnersUp.map((r) => ({
@@ -91,6 +99,7 @@ function toAttachment(row: Row): Attachment | undefined {
         name: r.name,
         club: r.club ?? undefined,
         delta: r.delta,
+        isNew: r.isNew,
       })),
     };
   }

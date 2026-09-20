@@ -28,14 +28,30 @@ const base = {
   recentLeaders: [] as string[],
 };
 
-test("1위와 2~4위를 담는다", () => {
+test("1위와 2~10위를 담는다 — 카드는 3명만 보여주고 나머지는 더보기로 편다", () => {
+  const names = ["가","나","다","라","마","바","사","아","자","차","카","타"];
   const post = buildRankingPost({
     ...base,
-    rows: [row(1, "a", "가"), row(2, "b", "나"), row(3, "c", "다"), row(4, "d", "라"), row(5, "e", "마")],
+    rows: names.map((n, i) => row(i + 1, `k${i}`, n)),
   })!;
   assert.equal(post.payload.leader.name, "가");
-  assert.deepEqual(post.payload.runnersUp.map((r) => r.name), ["나", "다", "라"]);
-  assert.equal(post.body, "2026 W38 오픈부 1위는 가 선수입니다.");
+  // 12명을 줘도 10위까지만 담는다
+  assert.equal(post.payload.runnersUp.length, 9);
+  assert.equal(post.payload.runnersUp.at(-1)!.rank, 10);
+  assert.equal(post.body, "2026년 38주차 오픈부 1위는 가 선수입니다.");
+});
+
+test("payload 가 비교 불가와 신규 진입을 구분해서 나른다", () => {
+  // 화면이 첫 주차에 전원 NEW 를 찍지 않으려면 isNew 가 payload 까지 와야 한다.
+  const post = buildRankingPost({
+    ...base,
+    rows: [
+      row(1, "a", "가", { delta: null, isNew: false }),
+      row(2, "b", "나", { delta: null, isNew: true }),
+    ],
+  })!;
+  assert.equal(post.payload.leader.isNew, false);
+  assert.equal(post.payload.runnersUp[0].isNew, true);
 });
 
 test("payload 에 playerKey 가 들어간다 — 나중에 이름을 되짚으려면 필요하다", () => {
@@ -50,7 +66,7 @@ test("5계단 이상 오르면 스토리가 붙는다", () => {
     rows: [row(1, "a", "가", { delta: 5 })],
   })!;
   assert.equal(post.payload.story, "지난주 6위 → 1위");
-  assert.match(post.body, /지난주 6위 → 1위입니다/);
+  assert.match(post.body, /2026년 38주차 .*지난주 6위 → 1위입니다/);
 });
 
 test("4계단은 붙이지 않는다 — 매주 같은 말을 하게 된다", () => {

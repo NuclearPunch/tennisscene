@@ -130,8 +130,13 @@ export type RankingEntry = {
   playerKey: string;
   name: string;
   club: string | null;
-  /** 직전 주차와 비교해 계산한 값. 첫 주차이거나 신규면 null. */
+  /**
+   * 직전 주차 대비. 양수 상승, 음수 하락, 0 유지.
+   * `null` 은 **비교 불가**다 — 첫 주차이거나 이전 스냅샷이 없을 때.
+   */
   delta: number | null;
+  /** 이전 주차에 없던 선수. 비교 불가(`delta === null`)와 반드시 구분한다. */
+  isNew: boolean;
   points: number | null;
 };
 
@@ -407,6 +412,8 @@ export type RankRow = {
   rank: number;
   name: string;
   club?: string;
+  /** 이전 주차에 없던 선수. `delta === null`(비교 불가)과 다르다. */
+  isNew?: boolean;
   /** 지난주 대비. 양수 상승, 음수 하락, null 신규, 0 유지 */
   delta: number | null;
   points?: number;

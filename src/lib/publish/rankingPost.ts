@@ -1,6 +1,6 @@
 import type { RankedRow } from "@/lib/ranking";
 import type { RankingEntry, RankingPayload } from "@/lib/types";
-import { formatIsoWeek } from "@/lib/week";
+import { formatWeekKo } from "@/lib/week";
 
 /**
  * 스냅샷을 랭킹 포스트로 바꾼다. DB 를 모르는 순수 함수다.
@@ -9,7 +9,8 @@ import { formatIsoWeek } from "@/lib/week";
  * (docs/DECISIONS.md). 한 포스트가 한 랭킹만 말한다.
  */
 
-const RUNNERS_UP = 3;
+/** 2~10위. 카드는 기본 3명만 보여주고 나머지는 더보기로 편다. */
+const RUNNERS_UP = 9;
 /** 이 이상 뛰어야 "지난주 N위 → 1위"를 붙인다. 1~2계단은 이야깃거리가 아니다. */
 const BIG_JUMP = 5;
 /** 이 이상이어야 "N주 연속"을 붙인다. 2주는 연속이라 부르기 민망하다. */
@@ -39,6 +40,7 @@ function toEntry(row: RankedRow): RankingEntry {
     name: row.playerName,
     club: row.club,
     delta: row.delta,
+    isNew: row.isNew,
     points: row.points,
   };
 }
@@ -97,7 +99,7 @@ export function buildRankingPost(input: BuildInput): BuiltPost | null {
     story,
   };
 
-  const label = `${formatIsoWeek(input.week)} ${input.division}부`;
+  const label = `${formatWeekKo(input.week)} ${input.division}부`;
   const body = story
     ? `${label} 1위는 ${leader.playerName} 선수. ${story}입니다.`
     : `${label} 1위는 ${leader.playerName} 선수입니다.`;

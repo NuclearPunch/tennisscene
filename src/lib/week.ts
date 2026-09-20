@@ -21,9 +21,20 @@ export function isoWeekOf(date: Date): IsoWeek {
   return `${year}-W${String(week).padStart(2, "0")}`;
 }
 
-/** `2026-W37` → 화면 표기 `2026 W37` */
+/** `2026-W37` → `2026 W37`. 로그·디버그용 기술 표기다. */
 export function formatIsoWeek(week: IsoWeek): string {
   return week.replace("-W", " W");
+}
+
+/** `2026-W37` → `2026년 37주차`. 본문처럼 맥락이 필요한 곳에 쓴다. */
+export function formatWeekKo(week: IsoWeek): string {
+  const [year, w] = week.split("-W");
+  return `${year}년 ${Number(w)}주차`;
+}
+
+/** `2026-W37` → `37주차`. 칩처럼 좁은 곳에 쓴다. */
+export function formatWeekShort(week: IsoWeek): string {
+  return `${Number(week.split("-W")[1])}주차`;
 }
 
 export function isValidIsoWeek(week: string): boolean {

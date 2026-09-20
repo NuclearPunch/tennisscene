@@ -1,55 +1,32 @@
-import { BallTexture, CaretDown, CaretUp, Box, Play } from "@/components/icons";
+import { BallTexture, Box, Play } from "@/components/icons";
 import { CourtThumb } from "./CourtThumb";
-import type { Attachment as A, RankRow } from "@/lib/types";
+import { RankingList } from "./RankingList";
+import type { Attachment as A } from "@/lib/types";
 
 const won = (n: number) => n.toLocaleString("ko-KR");
 
-function Delta({ delta }: { delta: number | null }) {
-  if (delta === null)
-    return (
-      <span className="text-[10px] font-semibold tracking-wide text-green bg-green-bg rounded-md px-1.5 py-0.5">
-        NEW
-      </span>
-    );
-  if (delta === 0) return <span className="text-xs text-muted">—</span>;
-  const up = delta > 0;
-  return (
-    <span className="flex items-center gap-1">
-      {up ? <CaretUp /> : <CaretDown />}
-      <span
-        className={`num text-xs font-medium ${up ? "text-green" : "text-[var(--color-down)]"}`}
-      >
-        {Math.abs(delta)}
-      </span>
-    </span>
-  );
-}
-
 function Ranking({ a }: { a: Extract<A, { type: "ranking" }> }) {
-  const scope = [a.region, a.division].filter(Boolean).join(" ");
+  // 카토 챌린저부 · 38주차 — 어느 단체의 랭킹인지가 먼저 보여야 한다.
+  // 단체마다 부수 체계가 다르고 랭킹도 따로 돌아간다(docs/DECISIONS.md).
+  const scope = [a.org, a.region, a.division].filter(Boolean).join(" ");
+
   return (
-    <div className="relative mt-0.5 rounded-panel bg-green-deep p-5 overflow-hidden">
-      <BallTexture className="absolute -right-10 -top-11 w-[150px] h-[150px] opacity-[0.14]" />
-      <p className="num relative text-[10.5px] font-semibold tracking-[0.13em] text-ball">
-        {a.week} · {scope}
-      </p>
-      <p className="relative mt-1 text-[32px] font-bold tracking-[-0.03em] leading-[1.14] text-white">
-        {a.leader.name}
-      </p>
-      <p className="relative text-[13px] text-on-deep">
-        {[a.leader.club, a.story].filter(Boolean).join(" · ")}
-      </p>
-      {a.runnersUp.length > 0 && (
-        <div className="relative mt-3 pt-3 border-t border-[rgba(216,245,80,0.22)] flex gap-5">
-          {a.runnersUp.map((r: RankRow) => (
-            <span key={r.rank} className="text-[12.5px] text-on-deep-2">
-              <span className="num font-semibold text-ball">{r.rank}</span>
-              &nbsp;&nbsp;{r.name}
-            </span>
-          ))}
-        </div>
-      )}
-    </div>
+    <>
+      <div className="relative mt-0.5 rounded-panel bg-green-deep p-5 overflow-hidden">
+        <BallTexture className="absolute -right-10 -top-11 w-[150px] h-[150px] opacity-[0.14]" />
+        <p className="relative text-[10.5px] font-semibold tracking-[0.1em] text-ball">
+          {scope} · {a.week}
+        </p>
+        <p className="relative mt-1 text-[32px] font-bold tracking-[-0.03em] leading-[1.14] text-white">
+          {a.leader.name}
+        </p>
+        <p className="relative text-[13px] text-on-deep">
+          {[a.leader.club, a.story].filter(Boolean).join(" · ")}
+        </p>
+      </div>
+
+      {a.runnersUp.length > 0 && <RankingList rows={a.runnersUp} />}
+    </>
   );
 }
 
