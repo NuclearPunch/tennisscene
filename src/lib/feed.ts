@@ -8,6 +8,7 @@ import type {
   Post,
   PostType,
   RankingPayload,
+  TournamentPayload,
 } from "./types";
 
 /**
@@ -30,6 +31,19 @@ const ORG_LABEL: Record<string, string> = {
   kta: "생체",
   kata: "카타",
 };
+
+/** `2026-09-17` → `09.17 (목)` */
+function dayLabel(iso: string): string {
+  // UTC 자정으로 만들고 UTC 로 읽는다. KST 로 만들어 UTC 로 읽으면 9시간만큼
+  // 하루가 밀려서 요일이 틀린다. 날짜 문자열의 요일은 시간대와 무관해야 한다.
+  const d = new Date(`${iso}T00:00:00Z`);
+  const dow = ["일", "월", "화", "수", "목", "금", "토"][d.getUTCDay()];
+  return `${iso.slice(5, 7)}.${iso.slice(8, 10)} (${dow})`;
+}
+
+function dateRangeLabel(from: string, to: string): string {
+  return from === to ? dayLabel(from) : `${dayLabel(from)} — ${dayLabel(to)}`;
+}
 
 function timeLabel(iso: string, now = Date.now()): string {
   const diff = Math.max(0, now - new Date(iso).getTime());
@@ -103,7 +117,18 @@ function toAttachment(row: Row): Attachment | undefined {
       })),
     };
   }
-  // 다른 타입은 수집 잡이 붙는 대로 여기에 추가한다 (B-1.3~1.5).
+  if (row.type === "tournament") {
+    const p = row.payload as TournamentPayload;
+    return {
+      type: "tournament",
+      name: p.name,
+      venue: p.venue ?? undefined,
+      dateLabel: dateRangeLabel(p.startsOn, p.endsOn),
+      divisions: p.divisions,
+      status: p.status,
+    };
+  }
+  // 나머지 타입은 수집 잡이 붙는 대로 여기에 추가한다 (B-1.4~1.5).
   return undefined;
 }
 

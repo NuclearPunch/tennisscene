@@ -150,17 +150,27 @@ export type RankingPayload = {
   story: string | null;
 };
 
+/** 목록 페이지의 상태. 화면 텍스트가 아니라 클래스로 잡은 값이다. */
+export type TournamentStatus = "open" | "upcoming" | "closed";
+
 export type TournamentPayload = {
-  /** tournaments.id */
-  tournamentId: string;
+  org: string;
+  /** 소스의 대회 ID. 중복 게시를 막는 키다. */
+  sourceId: string;
   name: string;
+  /** 그룹 등급 (group1~4 등). 없을 수 있다. */
+  grade: string | null;
+  /**
+   * 상세 페이지에서 얻는다. 요강이 자유 텍스트라 못 읽을 때가 있어 nullable.
+   * 접수 마감일은 자유 텍스트 안에만 있어 아예 담지 않는다 — 틀린 마감일은
+   * 없는 것보다 나쁘다.
+   */
   venue: string | null;
-  region: string | null;
-  startsOn: IsoDate | null;
-  endsOn: IsoDate | null;
-  deadlineAt: IsoTimestamp | null;
+  startsOn: IsoDate;
+  endsOn: IsoDate;
   divisions: string[];
-  sourceUrl: string | null;
+  status: TournamentStatus;
+  sourceUrl: string;
 };
 
 export type VideoPayload = {
@@ -463,13 +473,13 @@ export type Attachment =
   | {
       type: "tournament";
       name: string;
-      venue: string;
-      /** 예: "09.24 (수) — 09.27 (토)" */
+      /** 상세를 못 읽으면 비어 있다. */
+      venue?: string;
+      /** 예: "09.17 (목) — 09.20 (일)" */
       dateLabel: string;
-      /** 예: "09.21 18:00" */
-      deadlineLabel: string;
-      daysLeft: number;
       divisions: string[];
+      /** 마감일은 자유 텍스트라 신뢰할 수 없다. 대신 접수 상태를 보여준다. */
+      status: TournamentStatus;
     };
 
 export type Quote = {

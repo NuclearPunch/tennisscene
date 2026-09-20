@@ -117,15 +117,22 @@ function Score({ a }: { a: Extract<A, { type: "score" }> }) {
   );
 }
 
+const STATUS_LABEL = {
+  open: "접수 중",
+  upcoming: "접수 예정",
+  closed: "접수 마감",
+} as const;
+
 function Tournament({ a }: { a: Extract<A, { type: "tournament" }> }) {
+  const open = a.status === "open";
   return (
-    <div className="mt-0.5 rounded-card border border-hairline bg-surface overflow-hidden">
+    <div className="mt-0.5 overflow-hidden rounded-card border border-hairline bg-surface">
       <div className="px-3.5 py-3">
         <p className="text-[14.5px] font-semibold leading-[1.4] tracking-[-0.01em]">
           {a.name}
         </p>
         <p className="mt-1 text-[11.5px] text-ink-3">
-          {a.dateLabel} · {a.venue}
+          {[a.dateLabel, a.venue].filter(Boolean).join(" · ")}
         </p>
         <div className="mt-2 flex flex-wrap gap-1.5">
           {a.divisions.map((d) => (
@@ -138,10 +145,11 @@ function Tournament({ a }: { a: Extract<A, { type: "tournament" }> }) {
           ))}
         </div>
       </div>
-      <div className="border-t border-hairline bg-green-bg px-3.5 py-2.5">
-        <p className="text-xs text-green-deep">
-          접수 마감 <span className="num font-semibold">{a.deadlineLabel}</span> ·{" "}
-          {a.daysLeft}일 남음
+      <div
+        className={`border-t border-hairline px-3.5 py-2.5 ${open ? "bg-green-bg" : "bg-grouped"}`}
+      >
+        <p className={`text-xs ${open ? "text-green-deep font-medium" : "text-ink-3"}`}>
+          {STATUS_LABEL[a.status]}
         </p>
       </div>
     </div>
