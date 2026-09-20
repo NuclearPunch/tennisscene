@@ -27,7 +27,7 @@ B-1.2 와 B-1.6 은 앞의 결과를 먹으므로 순차.
 
 | ID | 담당 | 할 일 | 파일 범위 | 선행 | 완료 기준 | 상태 |
 |---|---|---|---|---|---|---|
-| B-1.1 | backend | 카토 랭킹 스크래퍼 + 소스 어댑터 계층 | `scripts/sources/kato.ts` `src/lib/sources/**` | B-0.2 | 부서 5개 상위 50명이 내부 형태로 파싱되고, URL 구조를 어댑터가 감싼다 | todo |
+| B-1.1 | backend | 카토 랭킹 스크래퍼 + 소스 어댑터 계층 | `scripts/sources/kato.ts` `src/lib/sources/**` | B-0.2 | 부서 5개 상위 50명이 내부 형태로 파싱되고, URL 구조를 어댑터가 감싼다 | **done** |
 | B-1.3 | backend | 카토 대회 목록·요강 스크래퍼 | `scripts/sources/kato-tour.ts` | B-0.2 | 대회명·장소·기간·마감일·부서가 구조화되어 나온다 | todo |
 | B-1.4 | backend | 유튜브 수집 (`channels.list` 1회 캐시 → `playlistItems.list` 순회) | `scripts/sources/youtube.ts` | B-0.2 | `search.list` 가 루프에 없고, 제목에서 부수·라운드·대회명이 파싱된다 | todo |
 | B-1.5 | backend | 기상청 단기예보 연동 | `scripts/sources/weather.ts` | B-0.2 | 지역별 오늘 강수·기온·풍속이 나온다 | todo |
