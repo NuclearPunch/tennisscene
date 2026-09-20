@@ -8,7 +8,7 @@
  * 수집이 실패해도 손쓸 시간이 생긴다. 이 잡은 DB 에 이미 있는 스냅샷만 읽는다.
  */
 import { readFileSync } from "node:fs";
-import { serviceClient } from "../src/lib/db";
+import { jobDb } from "../src/lib/db";
 import { buildRankingPost } from "../src/lib/publish/rankingPost";
 import { computeDeltas } from "../src/lib/ranking";
 import {
@@ -17,6 +17,7 @@ import {
 } from "../src/lib/repositories/posts";
 import {
   findPreviousWeek,
+  loadDivisionRows,
   loadDivisions,
   loadRecentLeaders,
   loadWeek,
@@ -59,7 +60,7 @@ async function dryRun() {
 }
 
 async function publish() {
-  const db = serviceClient();
+  const db = jobDb();
   const week = isoWeekOf(new Date());
 
   const divisions = await loadDivisions(db, ORG, week);
@@ -80,25 +81,7 @@ async function publish() {
   let skipped = 0;
 
   for (const division of divisions) {
-    const { data, error } = await db
-      .from("ranking_snapshots")
-      .select("division, rank, player_key, player_name, club, points")
-      .eq("org", ORG)
-      .eq("week", week)
-      .eq("division", division)
-      .order("rank", { ascending: true });
-    if (error) throw error;
-
-    const rows = (data ?? []).map((r) => ({
-      division: r.division as string,
-      rank: r.rank as number,
-      playerKey: r.player_key as string,
-      playerName: r.player_name as string,
-      club: r.club as string | null,
-      points: r.points as number | null,
-      note: null,
-    }));
-
+    const rows = await loadDivisionRows(db, ORG, week, division);
     const { rows: ranked } = computeDeltas(rows, previous);
     const recentLeaders = await loadRecentLeaders(db, ORG, division, week);
 
@@ -116,11 +99,13 @@ async function publish() {
     }
 
     const outcome = await insertRankingPost(db, BOT, post.body, post.payload);
-    outcome === "inserted" ? inserted++ : skipped++;
+    if (outcome === "inserted") inserted++;
+    else skipped++;
     console.log(`  ${outcome === "inserted" ? "게시" : "중복"} — ${post.body}`);
   }
 
   console.log(`\n게시 ${inserted}건 · 중복 건너뜀 ${skipped}건`);
+  await db.end();
 }
 
 const main = args.has("--dry-run") ? dryRun : publish;

@@ -40,7 +40,7 @@ B-1.2 와 B-1.6 은 앞의 결과를 먹으므로 순차.
 
 | ID | 담당 | 할 일 | 파일 범위 | 선행 | 완료 기준 | 상태 |
 |---|---|---|---|---|---|---|
-| B-2.1 | backend | 피드 API (커서 페이지네이션, 20개) | `src/app/api/feed/**` | B-1.6 | 커서로 다음 장을 받고, 봇 3연속이 안 나오게 섞인다 | todo |
+| B-2.1 | backend | 피드 API (커서 페이지네이션, 20개) | `src/app/api/feed/**` | B-1.6 | 커서로 다음 장을 받고, 봇 3연속이 안 나오게 섞인다 | **done** |
 | F-2.2 | frontend | 피드를 API 에 연결 + 무한 스크롤 | `src/app/(app)/page.tsx` `src/components/**` | B-2.1 | mock 제거, 하단 3개 지점에서 선패치, 끝에 "여기까지입니다" | todo |
 | F-2.3 | frontend | 새 글 표시 + 당겨서 새로고침 | `src/components/**` | F-2.2 | 보던 위치를 임의로 옮기지 않고 상단에 "새 글 N개" | todo |
 
@@ -81,6 +81,15 @@ B-1.2 와 B-1.6 은 앞의 결과를 먹으므로 순차.
 | B-5.3 | backend | 배포 (Vercel + 수집 잡 스케줄) | `vercel.json` `scripts/**` | Phase 2 | 랭킹은 월 09:00, 대회는 목 08:00, 영상은 매시간 | todo |
 
 ---
+
+## 운영 메모
+
+프로젝트는 **ap-southeast-2** 에 있다. 직접 연결(`db.<ref>.supabase.co`)은 IPv6 전용이라
+IPv4 망에서 안 붙는다. **Session pooler** 를 쓴다:
+`aws-0-ap-southeast-2.pooler.supabase.com:5432`, 유저는 `postgres.<ref>`.
+
+배치 잡(`snapshot` `publish`)은 PostgREST 가 아니라 Postgres 에 직접 붙는다(`DATABASE_URL`).
+250행 upsert 와 트랜잭션에 supabase-js 는 맞지 않는다. 앱은 공개 키 + RLS 다.
 
 ## 지금 할 수 있는 것
 

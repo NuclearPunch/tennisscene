@@ -10,13 +10,15 @@
     "test": "tsx --test tests/*.test.ts",
     "kato": "tsx scripts/sources/kato.ts",
     "snapshot": "tsx scripts/snapshot.ts",
-    "publish": "tsx scripts/publish.ts"
+    "publish": "tsx scripts/publish.ts",
+    "schema": "tsx scripts/build-schema.ts"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
     "@supabase/supabase-js": "^2.116.0",
     "next": "16.3.5",
     "node-html-parser": "^9.0.4",
+    "postgres": "^3.4.9",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
