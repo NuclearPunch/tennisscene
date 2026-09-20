@@ -480,6 +480,11 @@ export type Attachment =
       divisions: string[];
       /** 마감일은 자유 텍스트라 신뢰할 수 없다. 대신 접수 상태를 보여준다. */
       status: TournamentStatus;
+      /**
+       * 원문 대회 요강. 마감일·참가비·계좌처럼 우리가 못 담는 정보가 거기 있다.
+       * 출처로 트래픽을 돌려주는 의미도 있다(docs/DECISIONS.md 법적 리스크).
+       */
+      sourceUrl: string;
     };
 
 export type Quote = {

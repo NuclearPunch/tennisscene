@@ -13,6 +13,7 @@ import {
   Package,
   PencilSimple,
   Play as PhPlay,
+  ArrowUpRight as PhArrowUpRight,
   Repeat,
   TennisBall,
   User,
@@ -115,6 +116,11 @@ export const CaretDown = ({ size = 11 }: Sized) => (
 );
 
 /* ── 첨부 ────────────────────────────────────────── */
+
+/** 외부 링크 표시. 새 탭으로 나간다는 신호다. */
+export const ArrowUpRight = ({ className }: Sized) => (
+  <PhArrowUpRight className={className} weight="bold" />
+);
 
 export const Box = ({ className }: Sized) => (
   <Package className={className} weight="regular" />

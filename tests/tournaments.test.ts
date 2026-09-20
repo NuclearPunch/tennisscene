@@ -70,3 +70,11 @@ test("장소를 못 읽어도 포스트는 만든다", () => {
   assert.match(body, /접수가 시작됐습니다/);
   assert.equal(body.includes("에서 열립니다"), false);
 });
+
+test("payload 가 원문 요강 링크를 나른다", () => {
+  // 마감일·참가비·계좌는 우리가 못 담는다. 거기로 보내야 한다.
+  // 출처로 트래픽을 돌려주는 건 법적 리스크를 낮추는 쪽이기도 하다.
+  const stub = K.parseList(LIST).find((t) => t.sourceId === "0321")!;
+  const { payload } = buildTournamentPost(stub, null);
+  assert.equal(payload.sourceUrl, "https://kato.kr/openGame/0321");
+});

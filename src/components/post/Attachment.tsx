@@ -1,4 +1,4 @@
-import { BallTexture, Box, Play } from "@/components/icons";
+import { ArrowUpRight, BallTexture, Box, Play } from "@/components/icons";
 import { CourtThumb } from "./CourtThumb";
 import { RankingList } from "./RankingList";
 import type { Attachment as A } from "@/lib/types";
@@ -145,13 +145,28 @@ function Tournament({ a }: { a: Extract<A, { type: "tournament" }> }) {
           ))}
         </div>
       </div>
-      <div
-        className={`border-t border-hairline px-3.5 py-2.5 ${open ? "bg-green-bg" : "bg-grouped"}`}
+      <a
+        href={a.sourceUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`flex items-center gap-2 border-t border-hairline px-3.5 py-2.5 ${
+          open ? "bg-green-bg" : "bg-grouped"
+        }`}
       >
-        <p className={`text-xs ${open ? "text-green-deep font-medium" : "text-ink-3"}`}>
+        <span
+          className={`grow text-xs ${open ? "font-medium text-green-deep" : "text-ink-3"}`}
+        >
           {STATUS_LABEL[a.status]}
-        </p>
-      </div>
+        </span>
+        <span
+          className={`flex items-center gap-1 text-xs font-medium ${
+            open ? "text-green-deep" : "text-ink-2"
+          }`}
+        >
+          {open ? "신청하러 가기" : "대회 요강"}
+          <ArrowUpRight className="h-3.5 w-3.5" />
+        </span>
+      </a>
     </div>
   );
 }

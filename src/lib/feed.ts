@@ -126,6 +126,7 @@ function toAttachment(row: Row): Attachment | undefined {
       dateLabel: dateRangeLabel(p.startsOn, p.endsOn),
       divisions: p.divisions,
       status: p.status,
+      sourceUrl: p.sourceUrl,
     };
   }
   // 나머지 타입은 수집 잡이 붙는 대로 여기에 추가한다 (B-1.4~1.5).
