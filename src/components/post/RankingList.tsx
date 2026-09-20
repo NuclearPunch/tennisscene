@@ -4,8 +4,12 @@ import { useState } from "react";
 import { CaretDown, CaretUp } from "@/components/icons";
 import type { RankRow } from "@/lib/types";
 
-/** 기본으로 보여주는 인원. 나머지는 접어둔다. */
-const PREVIEW = 3;
+/**
+ * 2위 아래는 접어둔다.
+ *
+ * 카드의 일은 "이번 주 1위가 누구인지"를 한눈에 알리는 것이다.
+ * 기본으로 표를 펼치면 헤드라인이 묻힌다. 더 보고 싶은 사람만 편다.
+ */
 
 /**
  * 비교 불가와 신규 진입은 다르다.
@@ -14,12 +18,13 @@ const PREVIEW = 3;
 function Delta({ delta, isNew }: { delta: number | null; isNew?: boolean }) {
   if (isNew)
     return (
-      <span className="text-[10px] font-semibold tracking-wide text-green bg-green-bg rounded-md px-1.5 py-0.5">
+      <span className="rounded-md bg-green-bg px-1.5 py-0.5 text-[10px] font-semibold tracking-wide text-green">
         NEW
       </span>
     );
   if (delta === null || delta === 0)
     return <span className="text-xs text-muted">—</span>;
+
   const up = delta > 0;
   return (
     <span className="flex items-center gap-1">
@@ -35,24 +40,36 @@ function Delta({ delta, isNew }: { delta: number | null; isNew?: boolean }) {
 
 export function RankingList({ rows }: { rows: RankRow[] }) {
   const [open, setOpen] = useState(false);
-  const shown = open ? rows : rows.slice(0, PREVIEW);
-  const hidden = rows.length - PREVIEW;
+  const last = rows.at(-1)?.rank ?? 1;
+
+  if (!open) {
+    return (
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-expanded={false}
+        className="mt-1.5 w-full cursor-pointer rounded-card border border-hairline bg-surface py-2.5 text-[12.5px] font-medium text-green"
+      >
+        {last}위까지 보기
+      </button>
+    );
+  }
 
   return (
-    <div className="mt-0.5 rounded-card border border-hairline bg-surface overflow-hidden">
-      {shown.map((r, i) => (
-        <div key={r.rank + r.name}>
-          {i > 0 && <div className="h-px ml-[42px] bg-hairline" />}
+    <div className="mt-1.5 overflow-hidden rounded-card border border-hairline bg-surface">
+      {rows.map((r, i) => (
+        <div key={`${r.rank}-${r.name}`}>
+          {i > 0 && <div className="ml-[42px] h-px bg-hairline" />}
           <div className="flex items-center gap-3 px-3.5 py-2.5">
             <span className="num w-[18px] text-right text-[13px] font-semibold text-ink-2">
               {r.rank}
             </span>
-            <div className="grow min-w-0">
-              <p className="text-[13.5px] font-medium tracking-[-0.01em] truncate">
+            <div className="min-w-0 grow">
+              <p className="truncate text-[13.5px] font-medium tracking-[-0.01em]">
                 {r.name}
               </p>
               {r.club && (
-                <p className="text-[11px] text-ink-3 truncate">{r.club}</p>
+                <p className="truncate text-[11px] text-ink-3">{r.club}</p>
               )}
             </div>
             <Delta delta={r.delta} isNew={r.isNew} />
@@ -60,16 +77,14 @@ export function RankingList({ rows }: { rows: RankRow[] }) {
         </div>
       ))}
 
-      {hidden > 0 && (
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          className="w-full border-t border-hairline py-2.5 text-[12.5px] font-medium text-green cursor-pointer"
-        >
-          {open ? "접기" : `${rows.length + 1}위까지 보기`}
-        </button>
-      )}
+      <button
+        type="button"
+        onClick={() => setOpen(false)}
+        aria-expanded
+        className="w-full cursor-pointer border-t border-hairline py-2.5 text-[12.5px] font-medium text-ink-3"
+      >
+        접기
+      </button>
     </div>
   );
 }
