@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { katoSource } from "../src/lib/sources/kato";
 import { SourceStructureError } from "../src/lib/sources/types";
+import { computeDeltas, formatDelta } from "../src/lib/ranking";
 import { isoWeekOf } from "../src/lib/week";
 
 const FIXTURE = readFileSync("tests/fixtures/kato-ranking.html", "utf-8");
@@ -59,4 +60,54 @@ test("ISO 주차는 목요일 기준으로 연도를 잡는다", () => {
   assert.equal(isoWeekOf(new Date("2027-01-01T00:00:00Z")), "2026-W53");
   // 2026-01-01 은 목요일이라 그 해 1주차다
   assert.equal(isoWeekOf(new Date("2026-01-01T00:00:00Z")), "2026-W01");
+});
+
+/* ── B-1.2 변동 계산 ─────────────────────────────────────── */
+
+test("첫 주차는 전원 NEW 가 아니라 비교 불가다", () => {
+  const { rows } = katoSource.parse(FIXTURE, AT);
+  const { comparable, rows: ranked } = computeDeltas(rows, []);
+  assert.equal(comparable, false);
+  assert.equal(ranked.every((r) => r.delta === null && !r.isNew), true);
+  assert.equal(formatDelta(ranked[0]), "—");
+});
+
+test("순위가 오르면 양수다 — 5위에서 2위면 +3", () => {
+  const current = [
+    { division: "개나리", rank: 2, playerKey: "a", playerName: "가", club: null, points: 100, note: null },
+  ];
+  const { rows } = computeDeltas(current, [
+    { division: "개나리", playerKey: "a", rank: 5 },
+  ]);
+  assert.equal(rows[0].delta, 3);
+  assert.equal(formatDelta(rows[0]), "+3");
+});
+
+test("부서가 다르면 다른 랭킹이다 — 같은 선수라도 섞이지 않는다", () => {
+  const current = [
+    { division: "챌린저", rank: 1, playerKey: "16888", playerName: "김동현", club: null, points: 435, note: null },
+    { division: "마스터스", rank: 18, playerKey: "16888", playerName: "김동현", club: null, points: 355, note: null },
+  ];
+  const { rows } = computeDeltas(current, [
+    { division: "챌린저", playerKey: "16888", rank: 3 },
+    // 마스터스에는 없었다 → 그 부서에서만 신규
+  ]);
+  assert.equal(rows[0].delta, 2);
+  assert.equal(rows[0].isNew, false);
+  assert.equal(rows[1].delta, null);
+  assert.equal(rows[1].isNew, true);
+});
+
+test("최대 상승자는 하락·신규를 빼고 고른다", () => {
+  const mk = (key: string, rank: number) => ({
+    division: "개나리", rank, playerKey: key, playerName: key,
+    club: null, points: null, note: null,
+  });
+  const { topRiser } = computeDeltas([mk("a", 1), mk("b", 5), mk("c", 9)], [
+    { division: "개나리", playerKey: "a", rank: 3 },  // +2
+    { division: "개나리", playerKey: "b", rank: 12 }, // +7
+    { division: "개나리", playerKey: "c", rank: 2 },  // -7
+  ]);
+  assert.equal(topRiser?.playerKey, "b");
+  assert.equal(topRiser?.delta, 7);
 });
