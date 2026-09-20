@@ -32,7 +32,7 @@ B-1.2 와 B-1.6 은 앞의 결과를 먹으므로 순차.
 | B-1.4 | backend | 유튜브 수집 (`channels.list` 1회 캐시 → `playlistItems.list` 순회) | `scripts/sources/youtube.ts` | B-0.2 | `search.list` 가 루프에 없고, 제목에서 부수·라운드·대회명이 파싱된다 | todo |
 | B-1.5 | backend | 기상청 단기예보 연동 | `scripts/sources/weather.ts` | B-0.2 | 지역별 오늘 강수·기온·풍속이 나온다 | todo |
 | B-1.2 | backend | 주차 스냅샷 저장 + 지난주 대비 변동 계산 | `src/lib/ranking.ts` `scripts/snapshot.ts` | B-1.1 | 첫 주차는 변동을 표시하지 않고, 둘째 주부터 `delta`/`NEW` 가 맞다 | **done** |
-| B-1.6 | backend | 봇 게시 잡 — 스냅샷을 읽어 `posts` 를 만든다 | `scripts/publish.ts` | B-1.2 | 수집 실패 시 게시하지 않고 운영 알림만 남긴다 | todo |
+| B-1.6 | backend | 봇 게시 잡 — 스냅샷을 읽어 `posts` 를 만든다 | `scripts/publish.ts` | B-1.2 | 수집 실패 시 게시하지 않고 운영 알림만 남긴다 | **done** |
 
 ---
 

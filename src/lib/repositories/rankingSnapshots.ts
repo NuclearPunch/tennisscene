@@ -75,3 +75,51 @@ export async function saveSnapshot(
   if (error) throw error;
   return rows.length;
 }
+
+/**
+ * 최근 주차들의 1위 playerKey 를 직전 주차부터 과거 순으로 돌려준다.
+ * "N주 연속 1위" 칩을 붙이려면 한 주만으로는 모자란다.
+ */
+export async function loadRecentLeaders(
+  db: SupabaseClient,
+  org: string,
+  division: string,
+  beforeWeek: IsoWeek,
+  weeks = 8,
+): Promise<string[]> {
+  const { data, error } = await db
+    .from(TABLE)
+    .select("week, player_key, rank")
+    .eq("org", org)
+    .eq("division", division)
+    .eq("rank", 1)
+    .lt("week", beforeWeek)
+    .order("week", { ascending: false })
+    .limit(weeks * 4); // 동순위 1위가 여럿일 수 있어 넉넉히 받는다
+
+  if (error) throw error;
+
+  // 주차별로 첫 1위만 — 동순위면 어느 쪽이든 연속 판정엔 영향이 같다
+  const byWeek = new Map<string, string>();
+  for (const row of data ?? []) {
+    const week = row.week as string;
+    if (!byWeek.has(week)) byWeek.set(week, row.player_key as string);
+  }
+  return [...byWeek.values()].slice(0, weeks);
+}
+
+/** 이번 주차에 실제로 들어온 부서 목록 */
+export async function loadDivisions(
+  db: SupabaseClient,
+  org: string,
+  week: IsoWeek,
+): Promise<string[]> {
+  const { data, error } = await db
+    .from(TABLE)
+    .select("division")
+    .eq("org", org)
+    .eq("week", week);
+
+  if (error) throw error;
+  return [...new Set((data ?? []).map((r) => r.division as string))];
+}
