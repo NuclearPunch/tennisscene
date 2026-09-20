@@ -1,13 +1,13 @@
-import { PostCard } from "@/components/post/PostCard";
+import { FeedStream } from "@/components/FeedStream";
 import { loadFeed } from "@/lib/feed";
 
 // 수집 잡이 새 포스트를 올리므로 매 요청마다 읽는다.
 export const dynamic = "force-dynamic";
 
 export default async function FeedPage() {
-  const { posts } = await loadFeed();
+  const initial = await loadFeed();
 
-  if (posts.length === 0) {
+  if (initial.posts.length === 0) {
     return (
       <div className="flex flex-col items-center gap-2 px-8 py-24 text-center">
         <p className="text-[17px] font-semibold tracking-[-0.02em]">
@@ -20,11 +20,5 @@ export default async function FeedPage() {
     );
   }
 
-  return (
-    <div>
-      {posts.map((post) => (
-        <PostCard key={post.id} post={post} />
-      ))}
-    </div>
-  );
+  return <FeedStream initial={initial} />;
 }

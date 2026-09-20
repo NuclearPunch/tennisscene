@@ -41,7 +41,7 @@ B-1.2 와 B-1.6 은 앞의 결과를 먹으므로 순차.
 | ID | 담당 | 할 일 | 파일 범위 | 선행 | 완료 기준 | 상태 |
 |---|---|---|---|---|---|---|
 | B-2.1 | backend | 피드 API (커서 페이지네이션, 20개) | `src/app/api/feed/**` | B-1.6 | 커서로 다음 장을 받고, 봇 3연속이 안 나오게 섞인다 | **done** |
-| F-2.2 | frontend | 피드를 API 에 연결 + 무한 스크롤 | `src/app/(app)/page.tsx` `src/components/**` | B-2.1 | mock 제거, 하단 3개 지점에서 선패치, 끝에 "여기까지입니다" | todo |
+| F-2.2 | frontend | 피드를 API 에 연결 + 무한 스크롤 | `src/app/(app)/page.tsx` `src/components/**` | B-2.1 | mock 제거, 하단 3개 지점에서 선패치, 끝에 "여기까지입니다" | **done** |
 | F-2.3 | frontend | 새 글 표시 + 당겨서 새로고침 | `src/components/**` | F-2.2 | 보던 위치를 임의로 옮기지 않고 상단에 "새 글 N개" | todo |
 
 ---
