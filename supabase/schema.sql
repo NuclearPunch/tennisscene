@@ -1147,3 +1147,93 @@ create unique index posts_ranking_once_idx
 
 comment on index public.posts_ranking_once_idx is
   '단체×부서×주차당 랭킹 포스트 1개. 게시 잡 재실행 시 중복을 DB 가 막는다.';
+
+-- ═══ 20260920000200_tournament_post_once.sql ═════════════════════
+-- ─────────────────────────────────────────────────────────────
+-- 대회 하나당 포스트 하나.
+--
+-- 대회는 접수 시작부터 종료까지 몇 달을 산다. 게시 잡이 매주 돌면서
+-- 같은 대회를 계속 올리면 피드가 같은 대회로 도배된다.
+-- 접수가 열릴 때 한 번만 올리고, 그 뒤로는 DB 가 막는다.
+-- ─────────────────────────────────────────────────────────────
+create unique index posts_tournament_once_idx
+  on public.posts ((payload ->> 'org'), (payload ->> 'sourceId'))
+  where type = 'tournament' and deleted_at is null;
+
+comment on index public.posts_tournament_once_idx is
+  '대회당 포스트 1개. 접수가 열릴 때 한 번만 올린다.';
+
+-- ═══ 20260920000300_post_type_result.sql ═════════════════════════
+-- ─────────────────────────────────────────────────────────────
+-- post_type 에 'result' 추가 — 대회 결과 (우승·준우승·공동 3위)
+--
+-- 'score' 를 재사용하지 않는다. score 는 한 경기의 세트 스코어(home/away)이고
+-- result 는 한 부서의 시상대다. payload 모양이 아예 다르다.
+--
+-- **enum 값 추가는 이 파일에만 둔다.**
+-- 같은 트랜잭션에서 새 값을 쓸 수 없어서(ALTER TYPE ... ADD VALUE),
+-- 이 값을 쓰는 인덱스는 다음 마이그레이션으로 뺐다.
+-- ─────────────────────────────────────────────────────────────
+alter type public.post_type add value if not exists 'result';
+
+-- ═══ 20260920000400_result_post_once.sql ═════════════════════════
+-- ─────────────────────────────────────────────────────────────
+-- 대회 × 부서 하나당 결과 포스트 하나.
+--
+-- 결과는 부서별로 따로 올라온다 — 개나리부가 끝난 날 결과가 뜨고
+-- 마스터스부는 사흘 뒤에 뜬다. 그래서 대회 단위가 아니라 부서 단위로 막는다.
+-- 수집 잡은 진행 중·최근 종료 대회를 매일 다시 훑는다. 중복은 여기서 막힌다.
+-- ─────────────────────────────────────────────────────────────
+create unique index posts_result_once_idx
+  on public.posts ((payload ->> 'org'), (payload ->> 'sourceId'), (payload ->> 'partCode'))
+  where type = 'result' and deleted_at is null;
+
+comment on index public.posts_result_once_idx is
+  '대회 부서당 결과 포스트 1개. 결과는 부서별로 따로 확정된다.';
+
+-- ═══ 20260921000100_auth_delete_soft_deletes_account.sql ═════════
+-- ─────────────────────────────────────────────────────────────
+-- auth.users 를 지우면 프로필도 함께 탈퇴 처리한다.
+--
+-- accounts.auth_user_id 는 `on delete set null` 이다. 그런데
+-- accounts_auth_link_matches_kind 는 kind='user' 인 행의 auth_user_id 가 null 이 되는 걸
+-- **deleted_at 이 채워져 있을 때만** 허용한다. 그래서 순서가 어긋나면
+--
+--     delete from auth.users where id = ...;
+--     → UPDATE accounts SET auth_user_id = NULL
+--     → 23514 check_violation
+--
+-- 로 삭제 자체가 막힌다. B-0.3 에서 제약에 예외를 더했지만, 그건 **이미 탈퇴 처리된**
+-- 계정만 구제한다. 살아 있는 계정은 여전히 못 지운다.
+--
+-- 이게 왜 중요한가: 개인정보 삭제 요청이 오면 auth.users 를 지워야 한다.
+-- 대시보드에서 유저를 지우는 건 운영자가 늘 하는 일인데, 지금은 알 수 없는 제약 오류로 실패한다.
+--
+-- 제약을 푸는 대신 **순서를 자동으로 맞춘다.** 계정은 여전히 soft delete 로 남아서
+-- 남긴 글의 author_id 가 끊기지 않고 제재 이력도 보존된다.
+-- ─────────────────────────────────────────────────────────────
+create or replace function public.accounts_soft_delete_on_auth_removal()
+returns trigger
+language plpgsql
+as $$
+begin
+  -- auth 연결이 끊기는 순간(= auth.users 행이 지워진 순간) 탈퇴로 본다.
+  if old.auth_user_id is not null
+     and new.auth_user_id is null
+     and new.kind = 'user'
+     and new.deleted_at is null
+  then
+    new.deleted_at := now();
+  end if;
+  return new;
+end;
+$$;
+
+-- accounts_touch_updated_at 보다 먼저 돌 필요는 없다. 이름 순서로 정해지므로
+-- 'a' 로 시작하는 이 트리거가 먼저 돌지만, 둘은 서로 간섭하지 않는다.
+create trigger accounts_soft_delete_on_auth_removal
+  before update of auth_user_id on public.accounts
+  for each row execute function public.accounts_soft_delete_on_auth_removal();
+
+comment on function public.accounts_soft_delete_on_auth_removal() is
+  'auth.users 삭제 시 on delete set null 이 제약에 걸리지 않게 프로필을 함께 탈퇴 처리한다.';

@@ -4,38 +4,35 @@
  *   npx tsx scripts/snapshot.ts --dry-run             DB 없이 이번 주 수집만
  *   npx tsx scripts/snapshot.ts --dry-run --fixture   네트워크도 없이
  *   npx tsx scripts/snapshot.ts                       수집해서 DB 에 저장
- *   npx tsx scripts/snapshot.ts --sql | psql ...       service_role 키 없이 직접 연결로
+ *   npx tsx scripts/snapshot.ts --sql | psql ...      DB 에 직접 넣을 SQL 만 뽑는다
  *
- * 수집과 게시는 분리한다. 이 잡은 스냅샷만 쌓고 포스트는 만들지 않는다(B-1.6).
- * 일요일에 스냅샷을 뜨고 월요일에 게시하면, 수집이 실패해도 손쓸 시간이 생긴다.
+ * **실제 저장 경로는 src/lib/jobs/snapshot.ts 다.** 크론(/api/cron/daily)도 같은 함수를 부른다.
+ * 여기 남은 건 DB 를 안 건드리는 CLI 전용 경로뿐이다.
  */
+import "./env";
 import { readFileSync } from "node:fs";
-import { jobDb } from "../src/lib/db";
-import { computeDeltas, formatDelta } from "../src/lib/ranking";
-import {
-  findPreviousWeek,
-  loadWeek,
-  saveSnapshot,
-} from "../src/lib/repositories/rankingSnapshots";
+import { runSnapshot } from "../src/lib/jobs/snapshot";
+import { computeDeltas } from "../src/lib/ranking";
 import { katoSource } from "../src/lib/sources/kato";
-import { SourceStructureError } from "../src/lib/sources/types";
+import { bail, withDb } from "./run";
 
 const args = new Set(process.argv.slice(2));
-const dryRun = args.has("--dry-run");
 
 async function main() {
+  if (!args.has("--dry-run") && !args.has("--sql")) {
+    await withDb(runSnapshot);
+    return;
+  }
+
   const raw = args.has("--fixture")
     ? readFileSync("tests/fixtures/kato-ranking.html", "utf-8")
     : await katoSource.fetchRaw();
-
   const result = katoSource.parse(raw);
   // --sql 모드에선 stdout 이 SQL 이다. 요약은 stderr 로 보낸다.
   console.error(`${result.org} · ${result.week} · ${result.rows.length}행 수집`);
 
   if (args.has("--sql")) {
-    // service_role 키 없이 DB 에 직접 넣을 때. 배치 잡은 PostgREST 를 거칠 이유가 없다.
-    const lit = (v: string | null) =>
-      v === null ? "null" : `'${v.replace(/'/g, "''")}'`;
+    const lit = (v: string | null) => (v === null ? "null" : `'${v.replace(/'/g, "''")}'`);
     const num = (v: number | null) => (v === null ? "null" : String(v));
 
     console.log("begin;");
@@ -53,51 +50,10 @@ async function main() {
     return;
   }
 
-  if (dryRun) {
-    const { comparable } = computeDeltas(result.rows, []);
-    console.log(
-      `\n[dry-run] 저장하지 않았다. 이전 주차를 못 보므로 변동은 계산하지 않는다 (comparable=${comparable}).`,
-    );
-    return;
-  }
-
-  const db = jobDb();
-
-  const prevWeek = await findPreviousWeek(db, result.org, result.week);
-  const previous = prevWeek ? await loadWeek(db, result.org, prevWeek) : [];
+  const { comparable } = computeDeltas(result.rows, []);
   console.log(
-    prevWeek
-      ? `직전 주차 ${prevWeek} · ${previous.length}행과 비교한다`
-      : "직전 주차가 없다. 이번 주는 변동을 표시하지 않는다",
+    `\n[dry-run] 저장하지 않았다. 이전 주차를 못 보므로 변동은 계산하지 않는다 (comparable=${comparable}).`,
   );
-
-  const saved = await saveSnapshot(db, result);
-  console.log(`스냅샷 ${saved}행 저장`);
-
-  const { rows, comparable, topRiser } = computeDeltas(result.rows, previous);
-  if (!comparable) {
-    await db.end();
-    return;
-  }
-
-  const moved = rows.filter((r) => r.delta !== null && r.delta !== 0);
-  const entered = rows.filter((r) => r.isNew);
-  console.log(`\n변동 ${moved.length}건 · 신규 진입 ${entered.length}명`);
-  if (topRiser) {
-    console.log(
-      `최대 상승 ${topRiser.playerName} (${topRiser.division}) ${formatDelta(topRiser)}`,
-    );
-  }
-
-  await db.end();
 }
 
-main().catch((err) => {
-  if (err instanceof SourceStructureError) {
-    // 구조가 바뀌면 저장하지 않는다. 잘못된 스냅샷은 다음 주 변동까지 오염시킨다.
-    console.error(`[구조 변경] ${err.org}: ${err.message}`);
-    process.exit(2);
-  }
-  console.error(err instanceof Error ? err.message : err);
-  process.exit(1);
-});
+main().catch(bail);

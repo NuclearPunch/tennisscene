@@ -12,7 +12,9 @@
     "snapshot": "tsx scripts/snapshot.ts",
     "publish": "tsx scripts/publish.ts",
     "schema": "tsx scripts/build-schema.ts",
-    "tournaments": "tsx scripts/sources/kato-tour.ts"
+    "tournaments": "tsx scripts/sources/kato-tour.ts",
+    "results": "tsx scripts/sources/kato-result.ts",
+    "stories": "tsx scripts/backfill-stories.ts"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
