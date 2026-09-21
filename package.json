@@ -14,7 +14,8 @@
     "schema": "tsx scripts/build-schema.ts",
     "tournaments": "tsx scripts/sources/kato-tour.ts",
     "results": "tsx scripts/sources/kato-result.ts",
-    "stories": "tsx scripts/backfill-stories.ts"
+    "stories": "tsx scripts/backfill-stories.ts",
+    "youtube": "tsx scripts/sources/youtube.ts"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

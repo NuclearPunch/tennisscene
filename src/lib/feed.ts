@@ -11,6 +11,7 @@ import type {
   PostType,
   RankingPayload,
   ResultPayload,
+  VideoPayload,
   ResultTeam,
   TournamentPayload,
 } from "./types";
@@ -86,6 +87,15 @@ function podium(team: ResultTeam): PodiumTeam {
     names: team.players.map((p) => p.name).join("·"),
     clubs: clubs || undefined,
   };
+}
+
+/** 초 → `12:04` · `1:02:03` */
+function durationLabel(sec: number): string {
+  const h = Math.floor(sec / 3600);
+  const m = Math.floor((sec % 3600) / 60);
+  const s = sec % 60;
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`;
 }
 
 function dateRangeLabel(from: string, to: string): string {
@@ -192,7 +202,21 @@ function toAttachment(row: Row): Attachment | undefined {
       sourceUrl: p.sourceUrl,
     };
   }
-  // 나머지 타입은 수집 잡이 붙는 대로 여기에 추가한다 (B-1.4~1.5).
+  if (row.type === "video") {
+    const p = row.payload as VideoPayload;
+    return {
+      type: "video",
+      title: p.title,
+      channel: p.channelTitle ?? "",
+      duration: p.durationSeconds ? durationLabel(p.durationSeconds) : undefined,
+      thumbnailUrl: p.thumbnailUrl ?? undefined,
+      watchUrl: p.watchUrl,
+      tournament: p.tournamentName ?? undefined,
+      division: p.division ?? undefined,
+      round: p.round ?? undefined,
+    };
+  }
+  // 나머지 타입은 수집 잡이 붙는 대로 여기에 추가한다 (B-1.5).
   return undefined;
 }
 

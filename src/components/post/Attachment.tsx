@@ -167,20 +167,36 @@ function Tournament({ a }: { a: Extract<A, { type: "tournament" }> }) {
 }
 
 function Video({ a }: { a: Extract<A, { type: "video" }> }) {
+  // 재생은 유튜브에서 한다(API 약관). 눌러서 나가고, 우리는 썸네일만 보여준다.
+  const meta = [a.channel, a.duration].filter(Boolean).join(" · ");
+  const tag = [a.tournament, a.division, a.round].filter(Boolean).join(" · ");
+
   return (
     <Card>
-      <div className="relative h-[190px] w-full bg-grouped">
-        <CourtThumb className="absolute inset-0 block h-full w-full" />
-        <div className="absolute top-1/2 left-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white">
-          <Play className="h-5 w-5" />
+      <a href={a.watchUrl} target="_blank" rel="noopener noreferrer" className="block">
+        <div className="relative h-[190px] w-full bg-grouped">
+          {a.thumbnailUrl ? (
+            // 썸네일은 유튜브에서 바로 가져온다. 우리 서버에 저장하지 않는다.
+            // eslint-disable-next-line @next/next/no-img-element -- 외부 CDN 이라 next/image 최적화 대상이 아니다
+            <img
+              src={a.thumbnailUrl}
+              alt=""
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          ) : (
+            <CourtThumb className="absolute inset-0 block h-full w-full" />
+          )}
+          <span className="absolute top-1/2 left-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white">
+            <Play className="h-5 w-5" />
+          </span>
         </div>
-      </div>
-      <div className="hair-t px-3 pt-2.5 pb-3">
-        <p className="font-semibold">{a.title}</p>
-        <p className={`mt-0.5 ${META}`}>
-          {a.channel} · {a.duration} · {a.source}
-        </p>
-      </div>
+        <div className="hair-t px-3 pt-2.5 pb-3">
+          {tag && <p className={META}>{tag}</p>}
+          <p className="font-semibold">{a.title}</p>
+          {meta && <p className={`mt-0.5 ${META}`}>{meta}</p>}
+        </div>
+      </a>
     </Card>
   );
 }

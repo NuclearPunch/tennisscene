@@ -4,6 +4,7 @@ import { runPublish } from "@/lib/jobs/publish";
 import { runResults } from "@/lib/jobs/results";
 import { runSnapshot } from "@/lib/jobs/snapshot";
 import { runTournaments } from "@/lib/jobs/tournaments";
+import { runYoutube } from "@/lib/jobs/youtube";
 import type { Job, JobReport } from "@/lib/jobs/types";
 import { SourceStructureError } from "@/lib/sources/types";
 
@@ -61,6 +62,8 @@ export async function GET(request: Request) {
       : []),
     ["tournaments", runTournaments],
     ["results", runResults],
+    // 영상은 매일 본다. 대회 중계는 경기 당일에 올라온다.
+    ["youtube", runYoutube],
   ];
 
   const db = jobDb();

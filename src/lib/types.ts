@@ -225,6 +225,8 @@ export type ResultPayload = {
 export type VideoPayload = {
   /** videos.id */
   videoId: string;
+  /** 재생은 유튜브에서 한다. 우리가 직접 틀지 않는다(API 약관). */
+  watchUrl: string;
   provider: string;
   providerVideoId: string;
   title: string;
@@ -511,9 +513,16 @@ export type Attachment =
       type: "video";
       title: string;
       channel: string;
-      /** 이미 포맷된 재생시간. 예: "12:04" */
-      duration: string;
-      source: string;
+      /** 이미 포맷된 재생시간. 예: "12:04". 못 읽으면 없다. */
+      duration?: string;
+      /** 유튜브 썸네일 주소. 우리 서버에 저장하지 않는다. */
+      thumbnailUrl?: string;
+      /** 눌러서 유튜브로 나가는 주소 */
+      watchUrl: string;
+      /** 제목에서 건진 것. 확신이 없으면 없다. */
+      tournament?: string;
+      division?: string;
+      round?: string;
     }
   | {
       type: "gear";

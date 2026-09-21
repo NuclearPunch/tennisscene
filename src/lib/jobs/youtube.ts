@@ -1,0 +1,146 @@
+import type { Sql } from "postgres";
+import { buildVideoPost } from "@/lib/publish/videoPost";
+import { insertVideoPost, upsertVideo } from "@/lib/repositories/posts";
+import { CHANNELS, parseTitle, youtube } from "@/lib/sources/youtube";
+import { SourceStructureError } from "@/lib/sources/types";
+import type { JobReport } from "./types";
+
+const BOT = "b_match";
+
+/** 채널당 훑는 업로드 수. 하루 한 번 도니까 20이면 놓치지 않는다. */
+const PER_CHANNEL = 20;
+
+/**
+ * 이보다 오래된 영상은 올리지 않는다.
+ * 카토 채널은 마지막 업로드가 8개월 전이다 — 그걸 "새 영상입니다" 라고 올리면 거짓말이다.
+ * 수집(videos 테이블)은 그대로 한다. 게시만 안 한다.
+ */
+const FRESH_DAYS = 30;
+
+/**
+ * **경기 영상만 올린다.**
+ *
+ * 채널에는 쇼츠 하이라이트("도대체 몇 번을 살리는 거야?!"), 시상식, 장학금 전달도 섞여 있다.
+ * 제목에서 대회나 (부서 + 라운드)를 건졌다는 건 그게 경기 영상이라는 뜻이다.
+ * 못 건졌으면 올리지 않는다 — 거르지 않으면 한 번에 60건이 피드를 덮는다.
+ */
+function isMatchVideo(parts: { tournamentName: string | null; division: string | null; round: string | null }): boolean {
+  return Boolean(parts.tournamentName || (parts.division && parts.round));
+}
+
+function isFresh(publishedAt: string, now: Date): boolean {
+  const age = now.getTime() - Date.parse(publishedAt);
+  return Number.isFinite(age) && age <= FRESH_DAYS * 86400_000;
+}
+
+/**
+ * 동호인 경기 영상 수집·게시 — B-1.4
+ *
+ * **search.list 를 루프에 넣지 않는다.** 100 유닛이라 하루 할당량을 금방 태운다.
+ * 채널 ID 는 상수로 박아두고 `playlistItems.list`(1 유닛)로 업로드만 훑는다.
+ * 재생시간은 `videos.list`(50개당 1 유닛). 채널 셋이면 하루 6 유닛쯤 쓴다.
+ *
+ * 한 채널이 죽어도 나머지는 돈다 — 채널 하나가 비공개로 바뀌었다고
+ * 그날 영상을 통째로 못 올릴 이유가 없다.
+ */
+export async function runYoutube(
+  db: Sql,
+  opts: { dryRun?: boolean } = {},
+): Promise<JobReport> {
+  const key = process.env.YOUTUBE_API_KEY;
+  if (!key) {
+    return {
+      job: "youtube",
+      summary: "YOUTUBE_API_KEY 가 없다. 수집하지 않았다",
+      lines: [],
+    };
+  }
+
+  const lines: string[] = [];
+  const dry = opts.dryRun === true;
+  const now = new Date();
+  let inserted = 0;
+  let duplicate = 0;
+  let failed = 0;
+  let skipped = 0;
+
+  for (const channel of CHANNELS) {
+    let videos;
+    try {
+      videos = await youtube.fetchUploads(channel.uploads, key, PER_CHANNEL);
+    } catch (err) {
+      failed++;
+      lines.push(
+        `${channel.title}: 못 받았다 — ${err instanceof Error ? err.message : err}`,
+      );
+      continue;
+    }
+
+    const durations = await youtube
+      .fetchDurations(videos.map((v) => v.providerVideoId), key)
+      .catch(() => new Map<string, number | null>());
+
+    lines.push(`${channel.title} — 업로드 ${videos.length}건`);
+
+    for (const v of videos) {
+      const parts = parseTitle(v.title);
+      const worth = isMatchVideo(parts) && isFresh(v.publishedAt, now);
+
+      if (dry) {
+        if (!worth) {
+          skipped++;
+          continue;
+        }
+        const what = [parts.tournamentName, parts.division, parts.round]
+          .filter(Boolean)
+          .join(" ");
+        lines.push(`  ${what || "—"}  ${v.title.slice(0, 44)}`);
+        inserted++;
+        continue;
+      }
+
+      // videos 에 먼저 넣는다. 게시를 건너뛰더라도 수집 기록은 남아야
+      // 유튜브 약관이 요구하는 30일 갱신 대상을 추적할 수 있다.
+      // 게시하지 않더라도 수집은 한다 — 30일 갱신 대상을 추적해야 하고,
+      // 나중에 대회 결과와 영상을 맞출 때 쓸 재료이기도 하다.
+      const videoId = await upsertVideo(db, {
+        providerVideoId: v.providerVideoId,
+        title: v.title,
+        channelTitle: v.channelTitle,
+        durationSeconds: durations.get(v.providerVideoId) ?? null,
+        thumbnailUrl: v.thumbnailUrl,
+        publishedAt: v.publishedAt,
+        ...parts,
+      });
+
+      if (!worth) {
+        skipped++;
+        continue;
+      }
+
+      const post = buildVideoPost(
+        v,
+        parts,
+        durations.get(v.providerVideoId) ?? null,
+        videoId,
+      );
+      const outcome = await insertVideoPost(db, BOT, post.body, post.payload);
+      if (outcome === "inserted") inserted++;
+      else duplicate++;
+    }
+  }
+
+  if (failed === CHANNELS.length) {
+    // 전부 실패했으면 유튜브 쪽 문제다. 조용히 넘기면 영상이 왜 안 오는지 모른다.
+    throw new SourceStructureError("모든 채널에서 업로드를 못 받았다", "youtube");
+  }
+
+  return {
+    job: "youtube",
+    summary:
+      `영상 ${dry ? "게시 예정" : "게시"} ${inserted}건 · 중복 ${duplicate}건 · ` +
+      `경기 아니거나 오래됨 ${skipped}건` +
+      (failed > 0 ? ` · 채널 ${failed}개 실패` : ""),
+    lines,
+  };
+}

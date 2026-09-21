@@ -8,6 +8,7 @@ import type {
   RankingPayload,
   ResultPayload,
   TournamentPayload,
+  VideoPayload,
 } from "@/lib/types";
 
 // postgres.js 의 json 헬퍼는 구조적 타입을 받는다. payload 는 평범한 객체라 그대로 넘어간다.
@@ -216,4 +217,62 @@ export async function loadDivisionPoints(
     out.set(r.division, list);
   }
   return out;
+}
+
+/** 영상 포스트. 같은 영상을 이미 올렸으면 조용히 건너뛴다. */
+export async function insertVideoPost(
+  db: Sql,
+  authorId: string,
+  body: string,
+  payload: VideoPayload,
+): Promise<"inserted" | "duplicate"> {
+  try {
+    await db`
+      insert into posts (author_id, type, body, payload)
+      values (${authorId}, 'video', ${body}, ${db.json(payload)})`;
+    return "inserted";
+  } catch (err) {
+    // posts_video_once_idx 위반. 매일 같은 업로드 목록을 훑으므로 정상 동작이다.
+    if ((err as { code?: string }).code === "23505") return "duplicate";
+    throw err;
+  }
+}
+
+/**
+ * 수집한 영상을 `videos` 에 넣고 id 를 돌려준다.
+ * 이미 있으면 메타를 갱신한다 — **유튜브 약관이 30일 안에 다시 확인하라고 한다.**
+ */
+export async function upsertVideo(
+  db: Sql,
+  v: {
+    providerVideoId: string;
+    title: string;
+    channelTitle: string;
+    durationSeconds: number | null;
+    thumbnailUrl: string | null;
+    publishedAt: string;
+    tournamentName: string | null;
+    division: string | null;
+    round: string | null;
+  },
+): Promise<string> {
+  const [row] = await db<{ id: string }[]>`
+    insert into videos (
+      provider, provider_video_id, channel_title, title, duration_seconds,
+      thumbnail_url, published_at, tournament_name, division, round
+    ) values (
+      'youtube', ${v.providerVideoId}, ${v.channelTitle}, ${v.title}, ${v.durationSeconds},
+      ${v.thumbnailUrl}, ${v.publishedAt}, ${v.tournamentName}, ${v.division}, ${v.round}
+    )
+    on conflict (provider, provider_video_id) do update set
+      title = excluded.title,
+      channel_title = excluded.channel_title,
+      duration_seconds = excluded.duration_seconds,
+      thumbnail_url = excluded.thumbnail_url,
+      tournament_name = excluded.tournament_name,
+      division = excluded.division,
+      round = excluded.round,
+      refreshed_at = now()
+    returning id`;
+  return row.id;
 }
