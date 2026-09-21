@@ -14,7 +14,14 @@ import { browserClient } from "@/lib/supabase-browser";
  * 비회원에게도 **보인다.** 눌러야 로그인 시트가 뜬다 —
  * 입력칸이 아예 없으면 여기서 이야기할 수 있다는 걸 모른다.
  */
-export function CommentComposer({ postId }: { postId: string }) {
+export function CommentComposer({
+  postId,
+  placeholder,
+}: {
+  postId: string;
+  /** 피드에서 보던 유도 질문. 없으면 기본 문구. */
+  placeholder?: string;
+}) {
   const router = useRouter();
   const { me } = useMe();
   const [body, setBody] = useState("");
@@ -82,7 +89,7 @@ export function CommentComposer({ postId }: { postId: string }) {
             ref={area}
             rows={1}
             value={body}
-            placeholder="댓글 남기기"
+            placeholder={placeholder ?? "댓글 남기기"}
             onFocus={() => {
               if (me.status === "guest" || me.status === "needs-profile") setLogin(true);
             }}

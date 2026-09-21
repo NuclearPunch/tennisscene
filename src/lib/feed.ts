@@ -1,3 +1,4 @@
+import { commentPrompt } from "./prompt";
 import { publicClient } from "./supabase";
 import { formatWeekShort } from "./week";
 import type {
@@ -207,6 +208,13 @@ function toPost(row: Row, now?: number): Post {
       reposts: row.repost_count,
       likes: row.like_count,
     },
+    prompt:
+      commentPrompt({
+        type: row.type,
+        payload: row.payload,
+        authorKind: row.author_kind,
+        commentCount: row.comment_count,
+      }) ?? undefined,
   };
 }
 

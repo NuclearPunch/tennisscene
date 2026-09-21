@@ -587,4 +587,9 @@ export type Post = {
   attachment?: Attachment;
   quote?: Quote;
   stats: PostStats;
+  /**
+   * 봇 글에 붙는 댓글 유도 한 줄. 저장하지 않고 조회 시점에 만든다(src/lib/prompt.ts).
+   * 댓글이 이미 있거나 유저 글이면 없다.
+   */
+  prompt?: string;
 };

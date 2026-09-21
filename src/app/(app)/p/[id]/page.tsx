@@ -25,8 +25,9 @@ export default async function ThreadPage({
   return (
     <div>
       <HydrateReactions ids={[thread.post.id, ...thread.comments.map((c) => c.id)]} />
-      <PostCard post={thread.post} />
-      <CommentComposer postId={id} />
+      <PostCard post={thread.post} variant="thread" />
+      {/* 피드에서 보던 그 질문이 여기서는 입력칸 안내문이 된다. */}
+      <CommentComposer postId={id} placeholder={thread.post.prompt} />
 
       {thread.comments.map((c) => (
         <PostCard key={c.id} post={c} />

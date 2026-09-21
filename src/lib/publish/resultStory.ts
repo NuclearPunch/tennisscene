@@ -19,6 +19,25 @@ import { gradeLabel, rankingPoints, type Podium } from "./rankingPoints";
 
 export type Place = "우승" | "준우승" | "공동 3위";
 
+/**
+ * 해석 줄이 어떤 이야기를 골랐는지 알아보는 표식.
+ *
+ * 화면(`src/lib/prompt.ts`)이 이 문장을 다시 읽어서 어울리는 질문을 고른다.
+ * **문구를 고치면 여기도 같이 고쳐야 한다.** 그래서 상수로 빼서 한 군데만 보게 했다.
+ */
+export const STORY_MARKS = {
+  /** 최근 N개 대회에서 모두 시상대 */
+  streak: "모두 시상대에",
+  /** 랭킹 1위가 그대로 우승 */
+  topSeed: "1위가 그대로",
+  /** 직전 대회 준우승·3위에서 올라섬 */
+  stepUp: "한 계단 올라섰",
+  /** 직전 대회도 우승 */
+  alsoWon: "에서도 정상에",
+  /** 랭킹 순위만 말한 경우. 뒤의 숫자를 읽어 쓴다. */
+  rank: /랭킹 (\d+)위입니다/,
+} as const;
+
 /** 이 선수가 과거에 시상대에 오른 기록 한 건. */
 export type PodiumAppearance = {
   sourceId: string;
