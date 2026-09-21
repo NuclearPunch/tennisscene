@@ -2,7 +2,6 @@ import { parse as parseHtml } from "node-html-parser";
 import { isoWeekOf } from "@/lib/week";
 import {
   SourceStructureError,
-  type RankingFetchResult,
   type RankingSource,
   type ScrapedRankingRow,
 } from "./types";

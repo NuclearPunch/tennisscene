@@ -1,9 +1,87 @@
-import { ArrowUpRight, BallTexture, Box, Play } from "@/components/icons";
+import { ArrowUpRight, Box, Play } from "@/components/icons";
 import { CourtThumb } from "./CourtThumb";
 import { RankingList } from "./RankingList";
-import type { Attachment as A } from "@/lib/types";
+import type { Attachment as A, MatchSide, PodiumTeam } from "@/lib/types";
+
+/*
+ * 첨부는 전부 같은 그릇에 담긴다 — 지면과 같은 바탕, 0.5px 테두리, 12px 모서리.
+ * 쓰레드의 링크 미리보기와 같은 무게다. 첨부가 본문보다 시끄러우면 안 된다.
+ *
+ * 글자 크기는 셋뿐이다: 13(메타) · 15(기본) · 20(카드의 주인공 한 줄).
+ */
 
 const won = (n: number) => n.toLocaleString("ko-KR");
+
+const META = "text-[13px] leading-[18px] text-ink-3";
+
+function Card({ children }: { children: React.ReactNode }) {
+  return <div className="hair mt-2 overflow-hidden rounded-card">{children}</div>;
+}
+
+/**
+ * 테니스공 색 표식. 이 앱에서 색이 가장 크게 쓰이는 곳이 이 작은 조각이다.
+ * 밝은 바탕 위 옐로우 **글자**는 안 보이지만(1.1:1), 옐로우 **채움** 위 딥그린 글자는 9.6:1 이다.
+ * 라이트·다크 어느 쪽에서도 같은 색이다.
+ */
+function Pill({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="num shrink-0 rounded-[5px] bg-ball px-1.5 text-[12px] leading-[20px] font-bold text-green-deep">
+      {children}
+    </span>
+  );
+}
+
+/** 카드의 주인공 한 줄 — 1위, 우승. */
+function Lead({
+  eyebrow,
+  mark,
+  name,
+  sub,
+}: {
+  eyebrow: string;
+  mark: string;
+  name: string;
+  sub?: string;
+}) {
+  return (
+    <div className="px-3 pt-2.5 pb-3">
+      <p className={META}>{eyebrow}</p>
+      <div className="mt-1 flex items-center gap-2">
+        <Pill>{mark}</Pill>
+        <p className="min-w-0 text-[20px] leading-[26px] font-bold tracking-[-0.01em]">
+          {name}
+        </p>
+      </div>
+      {sub && <p className={`mt-0.5 ${META}`}>{sub}</p>}
+    </div>
+  );
+}
+
+/** 카드 맨 아래 나가는 줄. 출처로 트래픽을 돌려준다. */
+function OutLink({
+  href,
+  left,
+  label,
+}: {
+  href: string;
+  left: React.ReactNode;
+  label: string;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hair-t flex h-11 items-center gap-3 px-3 text-[13px] leading-[18px]"
+    >
+      <span className="min-w-0 grow truncate text-ink-3">{left}</span>
+      <span className="flex shrink-0 items-center gap-0.5 font-semibold">
+        {label}
+        <ArrowUpRight className="h-3.5 w-3.5" />
+      </span>
+    </a>
+  );
+}
 
 function Ranking({ a }: { a: Extract<A, { type: "ranking" }> }) {
   // 카토 챌린저부 · 38주차 — 어느 단체의 랭킹인지가 먼저 보여야 한다.
@@ -11,109 +89,47 @@ function Ranking({ a }: { a: Extract<A, { type: "ranking" }> }) {
   const scope = [a.org, a.region, a.division].filter(Boolean).join(" ");
 
   return (
-    <>
-      <div className="relative mt-0.5 rounded-panel bg-green-deep p-5 overflow-hidden">
-        <BallTexture className="absolute -right-10 -top-11 w-[150px] h-[150px] opacity-[0.14]" />
-        <p className="relative text-[10.5px] font-semibold tracking-[0.1em] text-ball">
-          {scope} · {a.week}
-        </p>
-        <p className="relative mt-1 text-[32px] font-bold tracking-[-0.03em] leading-[1.14] text-white">
-          {a.leader.name}
-        </p>
-        <p className="relative text-[13px] text-on-deep">
-          {[a.leader.club, a.story].filter(Boolean).join(" · ")}
-        </p>
-      </div>
-
+    <Card>
+      <Lead
+        eyebrow={`${scope} · ${a.week}`}
+        // 1위가 이름 비공개면 그다음 선수가 올라오되 순위는 원래 값을 지킨다.
+        mark={`${a.leader.rank}위`}
+        name={a.leader.name}
+        sub={[a.leader.club, a.story].filter(Boolean).join(" · ") || undefined}
+      />
       {a.runnersUp.length > 0 && <RankingList rows={a.runnersUp} />}
-    </>
+    </Card>
   );
 }
 
-function Video({ a }: { a: Extract<A, { type: "video" }> }) {
+function PodiumRow({ label, team }: { label: string; team: PodiumTeam }) {
   return (
-    <div className="mt-0.5 rounded-panel overflow-hidden bg-[#edf2ef]">
-      <div className="relative w-full h-[178px]">
-        <CourtThumb className="absolute inset-0 w-full h-full block" />
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[50px] h-[50px] rounded-full bg-white/[0.93] shadow-[0_2px_10px_rgba(14,26,20,0.12)] flex items-center justify-center">
-          <Play className="w-[17px] h-[17px] text-ink" />
-        </div>
-      </div>
-      <div className="bg-surface px-3.5 py-3">
-        <p className="text-[13.5px] font-semibold leading-[1.4] tracking-[-0.01em]">
-          {a.title}
-        </p>
-        <p className="mt-0.5 text-[11.5px] text-ink-3">
-          {a.channel} · {a.duration} · {a.source}
-        </p>
+    <div className="hair-t flex gap-3 px-3 py-2">
+      <span className={`w-[50px] shrink-0 pt-0.5 ${META}`}>{label}</span>
+      <div className="min-w-0 grow">
+        <p className="truncate">{team.names}</p>
+        {team.clubs && <p className={`truncate ${META}`}>{team.clubs}</p>}
       </div>
     </div>
   );
 }
 
-function Gear({ a }: { a: Extract<A, { type: "gear" }> }) {
+function Result({ a }: { a: Extract<A, { type: "result" }> }) {
   return (
-    <div className="mt-0.5 flex items-center gap-3 rounded-card border border-hairline bg-surface px-3 py-3">
-      <div className="shrink-0 w-11 h-11 rounded-[10px] bg-grouped flex items-center justify-center text-[#9fb3a8]">
-        <Box className="w-6 h-6" />
-      </div>
-      <div className="grow min-w-0">
-        <p className="text-[13.5px] font-semibold leading-snug tracking-[-0.01em]">
-          {a.product}
-        </p>
-        <p className="mt-0.5 truncate text-[11.5px] text-ink-3">{a.spec}</p>
-      </div>
-      <div className="shrink-0 text-right">
-        <p className="num text-[15px] font-semibold tracking-[-0.015em] text-green">
-          {won(a.price)}
-        </p>
-        {a.wasPrice && (
-          <p className="num text-[11px] text-ink-4 line-through">{won(a.wasPrice)}</p>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function Score({ a }: { a: Extract<A, { type: "score" }> }) {
-  const setsWon = (me: number[], other: number[]) =>
-    me.filter((g, i) => g > (other[i] ?? 0)).length;
-
-  const Row = ({
-    side,
-    opponent,
-  }: {
-    side: (typeof a)["home"];
-    opponent: (typeof a)["home"];
-  }) => (
-    <div className="flex items-center gap-3">
-      <span
-        className={`grow text-[14.5px] ${side.won ? "font-semibold" : "text-ink-2"}`}
-      >
-        {side.name}
-      </span>
-      <span className={`num text-[13.5px] ${side.won ? "text-ink-2" : "text-ink-4"}`}>
-        {side.sets.join("  ")}
-      </span>
-      <span
-        className={`num w-3.5 text-right text-base ${side.won ? "font-bold text-green" : "text-ink-4"}`}
-      >
-        {setsWon(side.sets, opponent.sets)}
-      </span>
-    </div>
-  );
-
-  return (
-    <div className="mt-0.5 rounded-card border border-hairline bg-surface px-4 py-3.5">
-      <p className="num mb-2.5 text-[10.5px] font-semibold tracking-[0.1em] text-ink-4">
-        {a.event}
-      </p>
-      <div className="flex flex-col gap-2.5">
-        <Row side={a.home} opponent={a.away} />
-        <div className="h-px bg-hairline" />
-        <Row side={a.away} opponent={a.home} />
-      </div>
-    </div>
+    <Card>
+      <Lead
+        eyebrow={[a.scope, a.dateLabel].filter(Boolean).join(" · ")}
+        mark="우승"
+        name={a.champion.names}
+        sub={a.champion.clubs}
+      />
+      {a.runnerUp && <PodiumRow label="준우승" team={a.runnerUp} />}
+      {a.semifinalists.map((t) => (
+        <PodiumRow key={t.names} label="공동 3위" team={t} />
+      ))}
+      {/* 8강부터는 담지 않는다. 더 보고 싶으면 원문 대진표로 보낸다. */}
+      <OutLink href={a.sourceUrl} left={a.tournament} label="대진표" />
+    </Card>
   );
 }
 
@@ -126,58 +142,111 @@ const STATUS_LABEL = {
 function Tournament({ a }: { a: Extract<A, { type: "tournament" }> }) {
   const open = a.status === "open";
   return (
-    <div className="mt-0.5 overflow-hidden rounded-card border border-hairline bg-surface">
-      <div className="px-3.5 py-3">
-        <p className="text-[14.5px] font-semibold leading-[1.4] tracking-[-0.01em]">
-          {a.name}
-        </p>
-        <p className="mt-1 text-[11.5px] text-ink-3">
+    <Card>
+      <div className="px-3 pt-2.5 pb-3">
+        <p className="font-semibold">{a.name}</p>
+        <p className={`mt-0.5 ${META}`}>
           {[a.dateLabel, a.venue].filter(Boolean).join(" · ")}
         </p>
-        <div className="mt-2 flex flex-wrap gap-1.5">
-          {a.divisions.map((d) => (
-            <span
-              key={d}
-              className="rounded-md bg-grouped px-2 py-1 text-[11px] text-ink-2"
-            >
-              {d}
-            </span>
-          ))}
+        {a.divisions.length > 0 && (
+          <p className={META}>{a.divisions.join(" · ")}</p>
+        )}
+      </div>
+      <OutLink
+        href={a.sourceUrl}
+        left={
+          <span className={`flex items-center gap-1.5 ${open ? "text-ink" : ""}`}>
+            {open && <span className="h-1.5 w-1.5 rounded-full bg-green-hi" />}
+            {STATUS_LABEL[a.status]}
+          </span>
+        }
+        label={open ? "신청하러 가기" : "대회 요강"}
+      />
+    </Card>
+  );
+}
+
+function Video({ a }: { a: Extract<A, { type: "video" }> }) {
+  return (
+    <Card>
+      <div className="relative h-[190px] w-full bg-grouped">
+        <CourtThumb className="absolute inset-0 block h-full w-full" />
+        <div className="absolute top-1/2 left-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white">
+          <Play className="h-5 w-5" />
         </div>
       </div>
-      <a
-        href={a.sourceUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`flex items-center gap-2 border-t border-hairline px-3.5 py-2.5 ${
-          open ? "bg-green-bg" : "bg-grouped"
-        }`}
-      >
-        <span
-          className={`grow text-xs ${open ? "font-medium text-green-deep" : "text-ink-3"}`}
-        >
-          {STATUS_LABEL[a.status]}
-        </span>
-        <span
-          className={`flex items-center gap-1 text-xs font-medium ${
-            open ? "text-green-deep" : "text-ink-2"
-          }`}
-        >
-          {open ? "신청하러 가기" : "대회 요강"}
-          <ArrowUpRight className="h-3.5 w-3.5" />
-        </span>
-      </a>
+      <div className="hair-t px-3 pt-2.5 pb-3">
+        <p className="font-semibold">{a.title}</p>
+        <p className={`mt-0.5 ${META}`}>
+          {a.channel} · {a.duration} · {a.source}
+        </p>
+      </div>
+    </Card>
+  );
+}
+
+function Gear({ a }: { a: Extract<A, { type: "gear" }> }) {
+  return (
+    <Card>
+      <div className="flex items-center gap-3 p-3">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-media bg-grouped text-ink-3">
+          <Box className="h-6 w-6" />
+        </div>
+        <div className="min-w-0 grow">
+          <p className="truncate font-semibold">{a.product}</p>
+          <p className={`truncate ${META}`}>{a.spec}</p>
+        </div>
+        <div className="shrink-0 text-right">
+          <p className="num font-semibold">{won(a.price)}원</p>
+          {a.wasPrice && (
+            <p className={`num line-through ${META}`}>{won(a.wasPrice)}원</p>
+          )}
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+const setsWon = (me: number[], other: number[]) =>
+  me.filter((g, i) => g > (other[i] ?? 0)).length;
+
+// Score 안에 두면 렌더마다 새 컴포넌트 타입이 만들어져 상태가 리셋된다. 밖에 둔다.
+function ScoreRow({ side, opponent }: { side: MatchSide; opponent: MatchSide }) {
+  return (
+    <div className={`flex items-center gap-3 ${side.won ? "" : "text-ink-3"}`}>
+      <span className={`min-w-0 grow truncate ${side.won ? "font-semibold" : ""}`}>
+        {side.name}
+      </span>
+      <span className="num text-[13px] leading-[18px] text-ink-3">
+        {side.sets.join("  ")}
+      </span>
+      <span className={`num w-4 text-right ${side.won ? "font-bold" : ""}`}>
+        {setsWon(side.sets, opponent.sets)}
+      </span>
     </div>
   );
 }
 
-function Weather({ a }: { a: Extract<A, { type: "weather" }> }) {
+function Score({ a }: { a: Extract<A, { type: "score" }> }) {
   return (
-    <div className="flex items-center gap-3.5 text-[12.5px] text-ink-2">
-      <span className="num text-sm font-medium text-ink">{a.temp}°</span>
-      <span>강수 {a.rainChance}%</span>
-      <span>풍속 {a.wind}</span>
-    </div>
+    <Card>
+      <div className="px-3 pt-2.5 pb-3">
+        <p className={META}>{a.event}</p>
+        <div className="mt-1.5 flex flex-col gap-1">
+          <ScoreRow side={a.home} opponent={a.away} />
+          <ScoreRow side={a.away} opponent={a.home} />
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+function Weather({ a }: { a: Extract<A, { type: "weather" }> }) {
+  // 카드에 담지 않는다. 숫자 셋은 글 한 줄이면 된다.
+  return (
+    <p className="num text-ink-3">
+      {a.temp}° · 강수 {a.rainChance}% · 풍속 {a.wind}
+    </p>
   );
 }
 
@@ -191,6 +260,8 @@ export function Attachment({ a }: { a: A }) {
       return <Gear a={a} />;
     case "score":
       return <Score a={a} />;
+    case "result":
+      return <Result a={a} />;
     case "tournament":
       return <Tournament a={a} />;
     case "weather":

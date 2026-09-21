@@ -58,6 +58,7 @@ export type PostType =
   | "text"
   | "ranking"
   | "tournament"
+  | "result"
   | "video"
   | "gear"
   | "score"
@@ -173,6 +174,54 @@ export type TournamentPayload = {
   sourceUrl: string;
 };
 
+/** 대회 결과 한 명. 복식이라 팀은 보통 2인이다. */
+export type ResultPlayer = {
+  /**
+   * 카토 `/careers/{id}`. **랭킹 스냅샷의 player_key 와 같은 값이다.**
+   * 그래서 이름 비공개 승인(suppressed_players)이 결과에도 그대로 걸린다.
+   * 단식이나 소스가 코드를 안 줄 때는 null 이다.
+   */
+  playerKey: string | null;
+  name: string;
+  club: string | null;
+};
+
+export type ResultTeam = { players: ResultPlayer[] };
+
+/**
+ * 대회 한 부서의 시상대.
+ *
+ * 8강·16강은 담지 않는다. 소스는 32강까지 주지만 뉴스가 되는 건 시상대이고,
+ * 그 아래까지 재게시하면 남의 참가자 명단을 옮겨오는 것에 가까워진다.
+ */
+export type ResultPayload = {
+  org: string;
+  /** 소스의 대회 ID */
+  sourceId: string;
+  /** 부서 코드. 결과는 대회가 아니라 **부서 단위로** 확정된다. */
+  partCode: string;
+  tournamentName: string;
+  division: string;
+  /** 대회 종료일. 목록에서 온다. 못 맞추면 null. */
+  endsOn: IsoDate | null;
+  champion: ResultTeam;
+  /** 결승이 기권으로 끝나면 없을 수 있다. */
+  runnerUp: ResultTeam | null;
+  /** 공동 3위. 보통 2팀. */
+  semifinalists: ResultTeam[];
+  /**
+   * 해석 한 줄. 이 우승이 왜 이야기인지 — 우리가 가진 사실로만 만든다.
+   * 쓸 이야기가 없으면 null 이고, 그땐 아무 말도 붙이지 않는다.
+   */
+  story: string | null;
+  /** 랭킹 포인트 한 줄. 배점을 확신할 수 없는 부서·등급이면 null. */
+  pointsLine: string | null;
+  /** 대회 등급 (`group1` `groupma`). 포인트의 근거다. */
+  grade: string | null;
+  /** 부서 대진표. 전 라운드는 거기서 본다. */
+  sourceUrl: string;
+};
+
 export type VideoPayload = {
   /** videos.id */
   videoId: string;
@@ -219,6 +268,7 @@ export type PostPayloadMap = {
   weather: WeatherPayload;
   ranking: RankingPayload;
   tournament: TournamentPayload;
+  result: ResultPayload;
   video: VideoPayload;
   gear: GearPayload;
   score: ScorePayload;
@@ -429,6 +479,14 @@ export type RankRow = {
   points?: number;
 };
 
+/** 시상대 한 팀. 화면용이라 이미 이어붙인 문자열이다. */
+export type PodiumTeam = {
+  /** "조호선 · 최혁열" */
+  names: string;
+  /** "천안한우리 · 천안 한우리". 소속을 하나도 못 읽으면 없다. */
+  clubs?: string;
+};
+
 export type Attachment =
   | {
       type: "weather";
@@ -471,6 +529,25 @@ export type Attachment =
       away: MatchSide;
     }
   | {
+      type: "result";
+      /** "카토 챌린저부" — 어느 단체 어느 부서인지가 먼저 보여야 한다. */
+      scope: string;
+      tournament: string;
+      /** 대회 종료일. 예: "09.20 (일)". 못 맞추면 없다. */
+      dateLabel?: string;
+      champion: PodiumTeam;
+      /** 해석 한 줄. 본문에도 들어가 있어 카드에서는 소속 옆에 작게 붙인다. */
+      story?: string;
+      /** 랭킹 포인트 한 줄. */
+      pointsLine?: string;
+      /** 결승이 기권으로 끝나면 없다. */
+      runnerUp?: PodiumTeam;
+      /** 공동 3위. 보통 2팀. */
+      semifinalists: PodiumTeam[];
+      /** 부서 대진표. 8강부터는 거기서 본다. */
+      sourceUrl: string;
+    }
+  | {
       type: "tournament";
       name: string;
       /** 상세를 못 읽으면 비어 있다. */
@@ -510,5 +587,4 @@ export type Post = {
   attachment?: Attachment;
   quote?: Quote;
   stats: PostStats;
-  liked?: boolean;
 };

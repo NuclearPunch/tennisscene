@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { CaretDown, CaretUp } from "@/components/icons";
+import { CaretDown, CaretUp, Chevron } from "@/components/icons";
 import type { RankRow } from "@/lib/types";
 
 /**
- * 2위 아래는 접어둔다.
+ * 2위 아래는 접어둔다. 카드 **안에서** 펴진다 — 바깥에 두 번째 상자를 만들지 않는다.
  *
  * 카드의 일은 "이번 주 1위가 누구인지"를 한눈에 알리는 것이다.
  * 기본으로 표를 펼치면 헤드라인이 묻힌다. 더 보고 싶은 사람만 편다.
@@ -17,20 +17,15 @@ import type { RankRow } from "@/lib/types";
  */
 function Delta({ delta, isNew }: { delta: number | null; isNew?: boolean }) {
   if (isNew)
-    return (
-      <span className="rounded-md bg-green-bg px-1.5 py-0.5 text-[10px] font-semibold tracking-wide text-green">
-        NEW
-      </span>
-    );
-  if (delta === null || delta === 0)
-    return <span className="text-xs text-muted">—</span>;
+    return <span className="text-[12px] leading-[18px] font-bold text-green">NEW</span>;
+  if (delta === null || delta === 0) return null;
 
   const up = delta > 0;
   return (
-    <span className="flex items-center gap-1">
-      {up ? <CaretUp /> : <CaretDown />}
+    <span className="flex items-center gap-0.5">
+      {up ? <CaretUp size={10} /> : <CaretDown size={10} />}
       <span
-        className={`num text-xs font-medium ${up ? "text-green" : "text-[var(--color-down)]"}`}
+        className={`num text-[13px] leading-[18px] font-semibold ${up ? "text-green-hi" : "text-down"}`}
       >
         {Math.abs(delta)}
       </span>
@@ -38,9 +33,13 @@ function Delta({ delta, isNew }: { delta: number | null; isNew?: boolean }) {
   );
 }
 
+const TOGGLE =
+  "hair-t flex h-11 w-full cursor-pointer items-center justify-between px-3 text-[13px] leading-[18px] font-semibold";
+
 export function RankingList({ rows }: { rows: RankRow[] }) {
   const [open, setOpen] = useState(false);
-  const last = rows.at(-1)?.rank ?? 1;
+  const first = rows[0]?.rank ?? 2;
+  const last = rows.at(-1)?.rank ?? first;
 
   if (!open) {
     return (
@@ -48,32 +47,29 @@ export function RankingList({ rows }: { rows: RankRow[] }) {
         type="button"
         onClick={() => setOpen(true)}
         aria-expanded={false}
-        className="mt-1.5 w-full cursor-pointer rounded-card border border-hairline bg-surface py-2.5 text-[12.5px] font-medium text-green"
+        className={TOGGLE}
       >
-        {last}위까지 보기
+        {first}–{last}위
+        <Chevron className="h-3.5 w-3.5 text-ink-3" />
       </button>
     );
   }
 
   return (
-    <div className="mt-1.5 overflow-hidden rounded-card border border-hairline bg-surface">
-      {rows.map((r, i) => (
-        <div key={`${r.rank}-${r.name}`}>
-          {i > 0 && <div className="ml-[42px] h-px bg-hairline" />}
-          <div className="flex items-center gap-3 px-3.5 py-2.5">
-            <span className="num w-[18px] text-right text-[13px] font-semibold text-ink-2">
-              {r.rank}
-            </span>
-            <div className="min-w-0 grow">
-              <p className="truncate text-[13.5px] font-medium tracking-[-0.01em]">
-                {r.name}
-              </p>
-              {r.club && (
-                <p className="truncate text-[11px] text-ink-3">{r.club}</p>
-              )}
-            </div>
-            <Delta delta={r.delta} isNew={r.isNew} />
+    <>
+      {rows.map((r) => (
+        <div
+          key={`${r.rank}-${r.name}`}
+          className="hair-t flex items-center gap-3 px-3 py-2"
+        >
+          <span className="num w-5 shrink-0 text-center text-ink-3">{r.rank}</span>
+          <div className="min-w-0 grow">
+            <p className="truncate">{r.name}</p>
+            {r.club && (
+              <p className="truncate text-[13px] leading-[18px] text-ink-3">{r.club}</p>
+            )}
           </div>
+          <Delta delta={r.delta} isNew={r.isNew} />
         </div>
       ))}
 
@@ -81,10 +77,11 @@ export function RankingList({ rows }: { rows: RankRow[] }) {
         type="button"
         onClick={() => setOpen(false)}
         aria-expanded
-        className="w-full cursor-pointer border-t border-hairline py-2.5 text-[12.5px] font-medium text-ink-3"
+        className={`${TOGGLE} text-ink-3`}
       >
         접기
+        <Chevron up className="h-3.5 w-3.5" />
       </button>
-    </div>
+    </>
   );
 }
