@@ -33,6 +33,8 @@ B-1.2 와 B-1.6 은 앞의 결과를 먹으므로 순차.
 | B-1.5 | backend | 기상청 단기예보 연동 | `scripts/sources/weather.ts` | B-0.2 | 지역별 오늘 강수·기온·풍속이 나온다 | todo |
 | B-1.2 | backend | 주차 스냅샷 저장 + 지난주 대비 변동 계산 | `src/lib/ranking.ts` `scripts/snapshot.ts` | B-1.1 | 첫 주차는 변동을 표시하지 않고, 둘째 주부터 `delta`/`NEW` 가 맞다 | **done** |
 | B-1.6 | backend | 봇 게시 잡 — 스냅샷을 읽어 `posts` 를 만든다 | `scripts/publish.ts` | B-1.2 | 수집 실패 시 게시하지 않고 운영 알림만 남긴다 | **done** |
+| B-1.8 | backend | 결과 포스트에 **해석 한 줄** (`resultStory.ts`) + 기존 글 소급 적용 | `src/lib/publish/resultStory.ts` `src/lib/jobs/backfillStories.ts` | B-1.7 | 우리 DB 의 사실로만 만들고, 없으면 아무 말도 안 붙인다 | **done** |
+| B-1.7 | backend | 카토 대회 결과 — 부서별 시상대 수집·게시 | `scripts/sources/kato-result.ts` `src/lib/sources/katoResults.ts` | B-1.3 | 우승·준우승·공동3위만 담고, 같은 부서를 두 번 안 올린다 | **done** |
 
 ---
 
@@ -43,6 +45,7 @@ B-1.2 와 B-1.6 은 앞의 결과를 먹으므로 순차.
 | B-2.1 | backend | 피드 API (커서 페이지네이션, 20개) | `src/app/api/feed/**` | B-1.6 | 커서로 다음 장을 받고, 봇 3연속이 안 나오게 섞인다 | **done** |
 | F-2.2 | frontend | 피드를 API 에 연결 + 무한 스크롤 | `src/app/(app)/page.tsx` `src/components/**` | B-2.1 | mock 제거, 하단 3개 지점에서 선패치, 끝에 "여기까지입니다" | **done** |
 | F-2.3 | frontend | 새 글 표시 + 당겨서 새로고침 | `src/components/**` | F-2.2 | 보던 위치를 임의로 옮기지 않고 상단에 "새 글 N개" | todo |
+| F-2.4 | frontend | 해시태그 모아보기 (`TagBar` + `?tag=`) | `src/components/TagBar.tsx` `src/components/FeedStream.tsx` `src/lib/feed.ts` | F-2.2 | 기본 선택 칩이 없고, 걸어도 정렬은 시간순 그대로다 | **done** |
 
 ---
 
@@ -50,13 +53,14 @@ B-1.2 와 B-1.6 은 앞의 결과를 먹으므로 순차.
 
 | ID | 담당 | 할 일 | 파일 범위 | 선행 | 완료 기준 | 상태 |
 |---|---|---|---|---|---|---|
-| B-3.1 | backend | 카카오 소셜 로그인 | `src/app/api/auth/**` `src/lib/auth.ts` | B-0.1 | 비회원도 피드를 읽고, 반응하려 할 때만 로그인 시트가 뜬다 | todo |
-| B-3.2 | backend | 글쓰기 저장 API (500자, 5분 내 수정) | `src/app/api/posts/**` | B-3.1 | 수정은 5분 내만 허용하고 `(수정됨)` 플래그가 남는다 | todo |
-| F-3.3 | frontend | 글쓰기 화면을 API 에 연결 | `src/app/compose/**` | B-3.2 | 글자수 표시, 게시 후 피드 상단 복귀 | todo |
-| B-3.4 | backend | 좋아요·리포스트·인용 API | `src/app/api/reactions/**` | B-3.1 | 카운트는 비정규화 컬럼으로 읽는다 | todo |
-| F-3.5 | frontend | 반응을 서버에 연동 (낙관적 갱신) | `src/components/post/PostActions.tsx` | B-3.4 | 실패 시 롤백되고 토스트가 뜬다 | todo |
-| B-3.6 | backend | 댓글 API (**1단계만**, 대댓글 없음) | `src/app/api/comments/**` | B-3.1 | `parent_id` 가 2단계를 허용하지 않는다 | todo |
-| F-3.7 | frontend | 포스트 상세 + 댓글 화면 | `src/app/(app)/p/[id]/**` | B-3.6 | 봇 포스트에도 댓글이 달린다 | todo |
+| B-3.1 | backend | 로그인 — **이메일은 됐고 카카오는 대시보드 설정 대기** | `src/lib/me.ts` `src/lib/supabase-browser.ts` `src/components/AuthGate.tsx` | B-0.1 | 비회원도 피드를 읽고, 쓰려 할 때만 로그인 문이 나온다. 카카오는 Supabase 에서 켜는 순간 버튼이 나타난다 | **doing** |
+| B-3.2 | backend | 글쓰기 저장 API (500자) | `src/app/api/posts/**` `src/lib/postInput.ts` | B-3.1 | 유저 토큰으로 돌아 RLS 가 그 사람으로 적용된다. 화면과 같은 검증 함수를 쓴다 | **done** |
+| B-3.2b | backend | 5분 내 수정 | `src/app/api/posts/**` | B-3.2 | 수정은 5분 내만 허용하고 `(수정됨)` 플래그가 남는다 | todo |
+| F-3.3 | frontend | 글쓰기 화면 (쓰레드식) | `src/app/compose/**` `src/components/Composer.tsx` | B-3.2 | 익명 전환, 50자 남으면 글자 수, 임시 저장, 게시 후 피드 상단 복귀 | **done** |
+| B-3.4 | backend | 좋아요·리포스트 API (PUT/DELETE, 멱등) | `src/app/api/posts/[id]/**` `src/app/api/reactions/**` | B-3.1 | 카운터는 DB 트리거가 센다. 두 번 눌러도 같은 자리 | **done** |
+| F-3.5 | frontend | 반응 낙관적 갱신 + 비회원 로그인 시트 | `src/lib/reactions.tsx` `src/components/LoginSheet.tsx` | B-3.4 | 누르는 즉시 칠해지고 실패하면 되돌아간다 | **done** |
+| B-3.6 | backend | 댓글 API (**1단계만**, 대댓글 없음) | `src/app/api/posts/[id]/comments/**` | B-3.1 | 대댓글은 DB 트리거가 거부하고 API 가 400 으로 옮긴다 | **done** |
+| F-3.7 | frontend | 포스트 상세 + 댓글 화면 | `src/app/(app)/p/[id]/**` `src/components/post/CommentComposer.tsx` | B-3.6 | 봇 포스트에도 댓글이 달린다. 비회원에게도 입력칸이 보인다 | **done** |
 
 ---
 
@@ -78,7 +82,9 @@ B-1.2 와 B-1.6 은 앞의 결과를 먹으므로 순차.
 |---|---|---|---|---|---|---|
 | B-5.1 | backend | 신고·차단 (누적 3건 자동 블라인드) | `src/app/api/moderation/**` | B-3.1 | 차단 시 상대 글이 내 피드에서 사라진다 | todo |
 | B-5.2 | backend | **발행된 payload 소급 마스킹** — 접수·억제·뷰 마스킹은 B-0.3 에서 끝났다. 이미 나간 `posts.payload` 안의 이름을 `posts_payload_gin` 으로 되짚어 지우는 잡만 남았다 | `scripts/**` `src/app/api/moderation/**` | B-5.1 | 억제된 선수가 기존 피드 포스트에서도 사라진다 | todo |
-| B-5.3 | backend | 배포 (Vercel + 수집 잡 스케줄) | `vercel.json` `scripts/**` | Phase 2 | 랭킹은 월 09:00, 대회는 목 08:00, 영상은 매시간 | todo |
+| B-5.3 | backend | 수집 잡 스케줄 (`vercel.json` + `/api/cron/daily`) | `vercel.json` `src/lib/jobs/**` `src/app/api/cron/**` | Phase 2 | 크론 하나가 매일 09:00(KST) 돌고, 월요일에만 랭킹까지 한다. 로컬 실측 22초 | **done (배포 대기)** |
+| B-5.4 | backend | **Vercel 배포** — 이게 돼야 크론도 PWA 설치도 실제로 된다 | — | B-5.3 | 배포되고 환경변수 4개가 꽂혀 크론이 하루 한 번 성공한다 | todo |
+| B-5.5 | frontend | PWA — 홈 화면 설치, 오프라인 안내, 노치 대응 | `src/app/manifest.ts` `public/sw.js` `src/components/InstallHint.tsx` | — | 매니페스트·아이콘·워커가 서고, 설치하면 주소창이 사라진다 | **done (배포 대기)** |
 
 ---
 
@@ -88,8 +94,116 @@ B-1.2 와 B-1.6 은 앞의 결과를 먹으므로 순차.
 IPv4 망에서 안 붙는다. **Session pooler** 를 쓴다:
 `aws-0-ap-southeast-2.pooler.supabase.com:5432`, 유저는 `postgres.<ref>`.
 
-배치 잡(`snapshot` `publish`)은 PostgREST 가 아니라 Postgres 에 직접 붙는다(`DATABASE_URL`).
-250행 upsert 와 트랜잭션에 supabase-js 는 맞지 않는다. 앱은 공개 키 + RLS 다.
+배치 잡(`snapshot` `publish` `tournaments` `results`)은 PostgREST 가 아니라
+Postgres 에 직접 붙는다(`DATABASE_URL`). 250행 upsert 와 트랜잭션에 supabase-js 는
+맞지 않는다. 앱은 공개 키 + RLS 다.
+잡은 `scripts/env.ts` 가 `.env.local` 을 읽는다 — 이미 들어 있는 환경변수는 덮지 않아서
+Vercel 에서도 그대로 돈다.
+
+**대회 결과는 대회가 아니라 부서 단위로 확정된다.** 개나리부 결과가 뜬 날
+마스터스부는 아직 진행 중인 일이 흔하다. 그래서 `results` 는 종료 후 21일까지
+매일 다시 훑고, 이미 올린 부서는 `/resultPart` 를 두드리지도 않는다.
+
+**배포 전에 `public/fonts.html` 을 지운다.** 로고 서체를 고르려고 만든 비교판이고
+외부 글꼴 30여 개를 불러온다. 결정이 끝났으니(`docs/DESIGN.md` 로고 절) 프로덕션에 나갈 이유가 없다.
+
+## 앱으로 쓰기 — PWA (B-5.5)
+
+**스토어 앱이 아니라 홈 화면에 설치하는 PWA 다.** 심사도 비용도 없고,
+지금 웹을 그대로 쓴다. 스토어로 가더라도 껍데기 안에 싣는 건 같은 웹이라 이 작업이 그대로 남는다.
+
+| | |
+|---|---|
+| 매니페스트 | `src/app/manifest.ts` → `/manifest.webmanifest` |
+| 아이콘 | `public/icons/` 192·512·maskable(안드로이드가 제 모양대로 자른다) |
+| 서비스 워커 | `public/sw.js` — **개발 중에는 등록하지 않는다**(청크를 캐시해서 고친 코드가 안 보인다) |
+| 확인 방법 | `npm run build && npm start` — 개발 서버로는 워커가 안 돈다 |
+
+**워커가 캐시하지 않는 것:** 피드 HTML 과 `/api/*`. 랭킹·대회 결과는 바뀌는 값이라
+캐시해서 보여주면 지난주 순위를 이번 주인 척 보여주게 된다. 화면은 언제나 네트워크 먼저이고,
+끊겼을 때만 `/offline` 을 띄운다. `/_next/static` 만 캐시한다 — 파일 이름에 해시가 박혀 있다.
+
+**아는 제약:** Next 는 `apple-mobile-web-app-capable`(옛 이름)을 내보내지 않는다.
+직접 달아도 표준 이름으로 바꿔 지운다. 사파리가 표준 이름을 읽는 건 iOS 17.4(2024-03)부터라
+그 아래 기기는 홈 화면에서 열어도 주소창이 남는다. 읽고 쓰는 데는 지장이 없다.
+
+**확인 못 한 것:** 서비스 워커 등록 자체. 개발용 브라우저 창이 워커를 막아둬서
+없는 파일로 등록해도 같은 오류가 난다. 배포한 뒤 크롬 개발자도구 → Application → Service Workers
+에서 한 번 봐야 한다.
+
+**다음 결정 — 스토어에 낼 것인가.** 낸다면 Capacitor 로 이 웹을 감싼다.
+연 $99(애플) + $25(구글), 심사 있음. 애플은 웹사이트를 그냥 감싼 앱을 반려하므로
+(4.2 최소 기능) 푸시 알림 같은 네이티브 기능이 하나는 붙어야 한다.
+**유저가 생긴 뒤에 하는 게 맞다** — 지금은 배포가 먼저다.
+
+## 반응·댓글 (2026-09-21)
+
+`likes` `reposts` 는 처음부터 있었지만 **화면이 아무 데도 안 보내고 있었다** — 하트를 눌러도
+`useState` 만 바뀌고 새로고침하면 사라졌다. 이제 서버로 간다.
+
+| | |
+|---|---|
+| 좋아요·리포스트 | `PUT` 켜기 / `DELETE` 끄기. **토글 하나로 안 만든다** — 빠르게 두 번 누르면 어느 쪽이 먼저 닿느냐로 결과가 갈린다 |
+| 낙관적 갱신 | 누르는 즉시 칠하고, 서버가 거절하면 되돌린다 (`src/lib/reactions.tsx`) |
+| 상태 공유 | 같은 글이 피드에도 상세에도 있다. 각자 들고 있으면 한쪽 하트가 빈 채로 남는다 |
+| 비회원 | 반응을 누르면 **로그인 시트**가 올라온다. 읽기에는 로그인이 없다 |
+| 댓글 | `posts` 한 행이고 `parent_id` 만 있다. 1단계만 — 대댓글은 DB 트리거가 거부 |
+| 카운터 | 전부 DB 트리거가 센다. 애플리케이션이 만지지 않는다 |
+
+**피드는 여전히 익명 키로 서버에서 그린다.** 그래서 "내 하트가 켜져 있나"는 화면이 뜬 뒤
+`/api/reactions?ids=` 로 따로 묻는다. 이 한 번의 왕복이 "피드는 누구나 읽는다"를 지키는 값이다.
+
+## 콘텐츠 — 경쟁사에서 배운 것 (2026-09-21)
+
+tennispick.net 과 @tennispicker 를 뜯어본 결론은 하나다.
+**우리는 데이터 파이프라인을 만들고 그걸 콘텐츠 엔진이라 불렀다.** 둘은 다르다.
+
+| 그들이 하는 것 | 우리 대응 |
+|---|---|
+| 사실 요약 밑에 **해석 한 줄** | B-1.8 로 넣음. 재료는 우리 DB (랭킹 ↔ 결과가 같은 player_key) |
+| 섹션마다 **댓글 유도 질문** | 아직. 지금 봇 글 21건의 댓글이 전부 0 이다 |
+| 하루 한 호로 **묶기** (오늘의 테니스픽) | 아직. 낱개로 뿌려서 같은 카드가 연달아 쌓이는 문제가 그대로다 |
+| 인스타에 **실용 콘텐츠** (포핸드 레슨, 코트 표면 10종) | 아직. 우리 버전은 "개나리→국화 승격 조건", "그룹 등급 GM·MA·1~4" |
+| ATP/WTA 랭킹·경기 | 아직. `b_pro` 봇과 `score` 타입이 시드만 되고 논다 |
+
+**따라 하지 않는 것:** 그들은 기사 요약에 출처를 하나도 안 단다(외부 링크 0개).
+우리는 매체명을 남긴다 — 법보다 업계 때문이다(docs/DECISIONS.md).
+그들은 생체(KTA) 데이터도 쓴다. 경쟁사가 한다고 우리가 해도 되는 건 아니다.
+
+## 자동화 — 지금 상태
+
+**잡은 준비됐고, 배포가 안 돼서 아직 아무것도 자동으로 돌지 않는다.**
+2026-09-21 기준 지금까지의 모든 실행은 개발 맥에서 손으로 한 것이다.
+
+알맹이는 `src/lib/jobs/*.ts` 에 있고 **CLI 와 크론이 같은 함수를 부른다.**
+`scripts/*.ts` 에는 `--dry-run` `--fixture` `--sql` 처럼 DB 를 안 건드리는 경로만 남았다.
+
+| | |
+|---|---|
+| 일정 | `vercel.json` — 매일 `0 0 * * *` UTC = **09:00 KST** |
+| 하는 일 | 매일: 대회 일정 · 대회 결과 / **월요일만**: 랭킹 수집 + 게시 |
+| 왜 아침 9시 | 대회 결과는 경기 끝난 저녁에 입력된다. 저녁에 돌리면 그날 입력분을 하루 미룬다 |
+| 왜 크론 하나 | Vercel 무료는 크론 2개·하루 1회가 상한이다. 요일 분기는 라우트 안에서 한다 |
+| 안전장치 | `CRON_SECRET` 없으면 503, 틀리면 401. 없으면 누구나 카토에 요청을 쏟아부을 수 있다 |
+| 잡 하나가 죽으면 | 나머지는 계속 돈다. 랭킹 파서가 깨졌다고 대회 결과까지 멈추면 손해가 두 배다 |
+| 두 번 돌면 | 전부 멱등이라 안전하다. 실패한 날 손으로 다시 돌려도 된다 |
+
+**배포하려면 (B-5.4):**
+1. `vercel` — 프로젝트 연결
+2. Vercel → Settings → Environment Variables 에 넷: `DATABASE_URL`,
+   `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`,
+   `CRON_SECRET`(`openssl rand -base64 32` 로 직접 만든다)
+3. 배포 후 Vercel → Cron Jobs 에서 한 번 수동 실행해 성공하는지 본다
+
+**배포 전에 `public/fonts.html` 을 지운다.** 코드는 끝나 있다 — `AuthGate` 가 `/auth/v1/settings` 를 읽어서
+`external.kakao` 가 true 면 버튼을 그린다. 남은 건 설정뿐이다:
+1. developers.kakao.com 에서 앱 생성 → 카카오 로그인 활성화 → Redirect URI 에
+   `https://vrfkkfdhpevdkfnagxds.supabase.co/auth/v1/callback`
+2. Supabase → Authentication → Sign In / Providers → Kakao 에 REST API 키와 Client Secret
+3. Supabase → Authentication → URL Configuration 의 Redirect URLs 에 앱 주소(`/compose` 포함)
+
+같은 화면의 **Site URL 도 앱 주소로 바꿔야 한다.** 기본값이 `localhost:3000` 이라 이메일 가입
+확인 링크를 누르면 죽은 페이지로 떨어진다(확인 자체는 된다 — 돌아와서 로그인하면 된다).
 
 ## 지금 할 수 있는 것
 
