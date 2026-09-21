@@ -1,0 +1,34 @@
+import { NextResponse } from "next/server";
+import { userClient } from "@/lib/supabase";
+import type { SupabaseClient } from "@supabase/supabase-js";
+
+/**
+ * 라우트 핸들러 공통 — 토큰을 꺼내고 계정을 확인한다.
+ *
+ * **여기서 하는 검사는 친절한 오류 메시지를 위한 것이다.** 진짜 방어는 DB 가 한다:
+ * 유저의 JWT 를 그대로 PostgREST 에 실어 보내므로 RLS 가 그 사람으로 돈다.
+ * 남의 이름으로 좋아요, 카운터 조작, 대댓글은 API 코드가 실수해도 DB 가 막는다.
+ */
+export const fail = (status: number, error: string) =>
+  NextResponse.json({ error }, { status });
+
+export type Caller = { db: SupabaseClient; accountId: string };
+
+export async function requireAccount(
+  request: Request,
+): Promise<Caller | NextResponse> {
+  const token = request.headers.get("authorization")?.match(/^Bearer (.+)$/)?.[1];
+  if (!token) return fail(401, "로그인이 필요합니다");
+
+  const db = userClient(token);
+  const me = await db.rpc("current_account_id");
+  // 만료됐거나 위조된 토큰은 PostgREST 가 여기서 거른다.
+  if (me.error) return fail(401, "로그인이 만료됐습니다. 다시 로그인해주세요");
+  if (!me.data) return fail(403, "프로필을 먼저 만들어주세요");
+
+  return { db, accountId: me.data as string };
+}
+
+export function isCaller(v: Caller | NextResponse): v is Caller {
+  return "accountId" in v;
+}
