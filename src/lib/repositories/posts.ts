@@ -276,3 +276,38 @@ export async function upsertVideo(
     returning id`;
   return row.id;
 }
+
+/**
+ * 이미 알고 있고 **아직 갱신할 때가 안 된** 영상들.
+ *
+ * 유튜브 약관은 저장한 메타데이터를 30일 안에 다시 확인하라고 한다. 그래서 전부
+ * 건너뛰면 안 되고, `refreshed_at` 이 오래된 것만 다시 쓴다. 20일로 잡아 여유를 둔다.
+ *
+ * 이게 없으면 매일 영상 120건을 전부 다시 써서 DB 왕복만 수십 초가 된다.
+ */
+export async function loadFreshVideoIds(
+  db: Sql,
+  provider: string,
+  maxAgeDays = 20,
+): Promise<Set<string>> {
+  const rows = await db<{ provider_video_id: string }[]>`
+    select provider_video_id
+    from videos
+    where provider = ${provider}
+      and refreshed_at > now() - (${maxAgeDays} || ' days')::interval`;
+  return new Set(rows.map((r) => r.provider_video_id));
+}
+
+/** 이미 포스트로 올린 영상. 중복 insert 를 시도조차 안 하게 한다. */
+export async function loadPostedVideoIds(
+  db: Sql,
+  provider: string,
+): Promise<Set<string>> {
+  const rows = await db<{ id: string }[]>`
+    select payload ->> 'providerVideoId' as id
+    from posts
+    where type = 'video'
+      and deleted_at is null
+      and payload ->> 'provider' = ${provider}`;
+  return new Set(rows.map((r) => r.id));
+}

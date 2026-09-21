@@ -84,7 +84,7 @@ B-1.2 와 B-1.6 은 앞의 결과를 먹으므로 순차.
 | B-5.1 | backend | 신고·차단 (누적 3건 자동 블라인드) | `src/app/api/moderation/**` | B-3.1 | 차단 시 상대 글이 내 피드에서 사라진다 | todo |
 | B-5.2 | backend | **발행된 payload 소급 마스킹** — 접수·억제·뷰 마스킹은 B-0.3 에서 끝났다. 이미 나간 `posts.payload` 안의 이름을 `posts_payload_gin` 으로 되짚어 지우는 잡만 남았다 | `scripts/**` `src/app/api/moderation/**` | B-5.1 | 억제된 선수가 기존 피드 포스트에서도 사라진다 | todo |
 | B-5.3 | backend | 수집 잡 스케줄 (`vercel.json` + `/api/cron/daily`) | `vercel.json` `src/lib/jobs/**` `src/app/api/cron/**` | Phase 2 | 크론 하나가 매일 09:00(KST) 돌고, 월요일에만 랭킹까지 한다. 로컬 실측 22초 | **done (배포 대기)** |
-| B-5.4 | backend | **Vercel 배포** — 이게 돼야 크론도 PWA 설치도 실제로 된다 | — | B-5.3 | 배포되고 환경변수 4개가 꽂혀 크론이 하루 한 번 성공한다 | todo |
+| B-5.4 | backend | **Vercel 배포** — https://tennisscene.vercel.app | — | B-5.3 | 배포됨. 크론이 배포 서버에서 19.7초에 전부 성공 | **done** |
 | B-5.5 | frontend | PWA — 홈 화면 설치, 오프라인 안내, 노치 대응 | `src/app/manifest.ts` `public/sw.js` `src/components/InstallHint.tsx` | — | 매니페스트·아이콘·워커가 서고, 설치하면 주소창이 사라진다 | **done (배포 대기)** |
 
 ---
@@ -250,12 +250,19 @@ tennispick.net 과 @tennispicker 를 뜯어본 결론은 하나다.
 | 잡 하나가 죽으면 | 나머지는 계속 돈다. 랭킹 파서가 깨졌다고 대회 결과까지 멈추면 손해가 두 배다 |
 | 두 번 돌면 | 전부 멱등이라 안전하다. 실패한 날 손으로 다시 돌려도 된다 |
 
-**배포하려면 (B-5.4):**
-1. `vercel` — 프로젝트 연결
-2. Vercel → Settings → Environment Variables 에 넷: `DATABASE_URL`,
-   `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`,
-   `CRON_SECRET`(`openssl rand -base64 32` 로 직접 만든다)
-3. 배포 후 Vercel → Cron Jobs 에서 한 번 수동 실행해 성공하는지 본다
+**배포됐다 (2026-09-21).** https://tennisscene.vercel.app · 프로젝트 `tennisscene`
+환경변수 다섯(`DATABASE_URL` · Supabase URL·키 · `YOUTUBE_API_KEY` · `CRON_SECRET`)이
+production·preview 양쪽에 들어가 있다. 다시 배포하려면 `npx vercel deploy --prod`.
+
+**서울 리전(`icn1`)에서 돈다.** 카토가 한국에 있어서, 미국 리전이면 요청마다 태평양을 건넌다.
+
+**잡 순서는 짧은 것부터다.** 무료 플랜 상한이 60초라, 걸려서 죽더라도 앞의 것은 끝나 있어야 한다.
+그래서 제일 오래 걸리는 결과 수집이 맨 뒤다. 리포트에 잡별 소요 시간이 찍힌다.
+
+**한 번 60초에 걸려 죽었다.** 유튜브 잡이 혼자 49.6초를 먹고 있었다 —
+채널 여섯을 훑으면 영상 120건이 나오는데 거의 전부 어제도 본 것들을 매번 DB 에 다시 썼다.
+`loadFreshVideoIds` · `loadPostedVideoIds` 로 아는 것을 건너뛰게 바꾸니 3.0초가 됐다(전체 21초).
+유튜브 약관이 요구하는 30일 갱신은 `refreshed_at` 이 20일 넘은 것만 다시 쓰는 식으로 지킨다.
 
 **배포 전에 `public/fonts.html` 을 지운다.** 코드는 끝나 있다 — `AuthGate` 가 `/auth/v1/settings` 를 읽어서
 `external.kakao` 가 true 면 버튼을 그린다. 남은 건 설정뿐이다:

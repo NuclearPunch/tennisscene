@@ -1,6 +1,11 @@
 import type { Sql } from "postgres";
 import { buildVideoPost } from "@/lib/publish/videoPost";
-import { insertVideoPost, upsertVideo } from "@/lib/repositories/posts";
+import {
+  insertVideoPost,
+  loadFreshVideoIds,
+  loadPostedVideoIds,
+  upsertVideo,
+} from "@/lib/repositories/posts";
 import { CHANNELS, parseTitle, youtube } from "@/lib/sources/youtube";
 import { SourceStructureError } from "@/lib/sources/types";
 import type { JobReport } from "./types";
@@ -59,6 +64,20 @@ export async function runYoutube(
   const lines: string[] = [];
   const dry = opts.dryRun === true;
   const now = new Date();
+
+  /*
+   * 아는 것은 건드리지 않는다.
+   *
+   * 채널 여섯을 매일 훑으면 영상 120건이 나오는데, 거의 전부가 어제도 본 것들이다.
+   * 그걸 매번 다시 쓰면 DB 왕복만 120번이라 잡 하나가 50초를 먹었다.
+   * 두 번의 조회로 바꾼다.
+   */
+  const [fresh, posted] = dry
+    ? [new Set<string>(), new Set<string>()]
+    : await Promise.all([
+        loadFreshVideoIds(db, "youtube"),
+        loadPostedVideoIds(db, "youtube"),
+      ]);
   let inserted = 0;
   let duplicate = 0;
   let failed = 0;
@@ -76,11 +95,13 @@ export async function runYoutube(
       continue;
     }
 
+    // 새로 쓸 것만 재생시간을 받는다. 이미 아는 영상은 길이도 이미 안다.
+    const need = videos.filter((v) => !fresh.has(v.providerVideoId));
     const durations = await youtube
-      .fetchDurations(videos.map((v) => v.providerVideoId), key)
+      .fetchDurations(need.map((v) => v.providerVideoId), key)
       .catch(() => new Map<string, number | null>());
 
-    lines.push(`${channel.title} — 업로드 ${videos.length}건`);
+    lines.push(`${channel.title} — 업로드 ${videos.length}건 · 새로 볼 것 ${need.length}건`);
 
     for (const v of videos) {
       const parts = parseTitle(v.title);
@@ -101,20 +122,36 @@ export async function runYoutube(
 
       // videos 에 먼저 넣는다. 게시를 건너뛰더라도 수집 기록은 남아야
       // 유튜브 약관이 요구하는 30일 갱신 대상을 추적할 수 있다.
+      // 이미 알고 갱신할 때도 안 됐으면 건드리지 않는다.
+      const known = fresh.has(v.providerVideoId);
+      if (known && (!worth || posted.has(v.providerVideoId))) {
+        if (!worth) skipped++;
+        else duplicate++;
+        continue;
+      }
+
       // 게시하지 않더라도 수집은 한다 — 30일 갱신 대상을 추적해야 하고,
       // 나중에 대회 결과와 영상을 맞출 때 쓸 재료이기도 하다.
-      const videoId = await upsertVideo(db, {
-        providerVideoId: v.providerVideoId,
-        title: v.title,
-        channelTitle: v.channelTitle,
-        durationSeconds: durations.get(v.providerVideoId) ?? null,
-        thumbnailUrl: v.thumbnailUrl,
-        publishedAt: v.publishedAt,
-        ...parts,
-      });
+      const videoId = known
+        ? null
+        : await upsertVideo(db, {
+            providerVideoId: v.providerVideoId,
+            title: v.title,
+            channelTitle: v.channelTitle,
+            durationSeconds: durations.get(v.providerVideoId) ?? null,
+            thumbnailUrl: v.thumbnailUrl,
+            publishedAt: v.publishedAt,
+            ...parts,
+          });
 
       if (!worth) {
         skipped++;
+        continue;
+      }
+      if (videoId === null) {
+        // 영상은 아는데 포스트가 없다. 흔치 않지만(전에 걸러졌다가 조건이 바뀐 경우)
+        // 그때는 id 를 다시 받아와야 한다.
+        duplicate++;
         continue;
       }
 

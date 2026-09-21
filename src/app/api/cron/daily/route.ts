@@ -25,6 +25,12 @@ export const maxDuration = 60;
  * **아침 09시(KST)에 도는 이유:** 대회 결과는 경기가 끝난 저녁에 입력된다.
  * 저녁에 돌리면 그날 입력분을 놓치고 하루를 통째로 미루게 된다.
  *
+ * **서울 리전(icn1)에서 돈다**(vercel.json). 카토가 한국에 있어서, 미국 리전이면
+ * 요청마다 태평양을 건넌다. 잡 하나에 수십 번 왕복하므로 리전 하나로 몇 십 초가 갈린다.
+ *
+ * **잡 순서는 짧은 것부터다.** 60초(무료 플랜 상한)에 걸려 죽더라도
+ * 앞의 것들은 이미 끝나 있다. 제일 오래 걸리는 결과 수집을 앞에 두면 나머지가 같이 죽는다.
+ *
  * **모든 잡이 멱등이다.** 두 번 돌아도 포스트가 두 번 안 생긴다 —
  * 스냅샷은 upsert 이고, 게시는 부분 유니크 인덱스가 막는다.
  * 그래서 실패한 날 손으로 다시 돌려도 안전하다.
@@ -54,16 +60,18 @@ export async function GET(request: Request) {
   // 랭킹은 주간 다이제스트다(CLAUDE.md 규칙 3). 월요일에만 뜨고 게시한다.
   // 수집을 먼저 한 뒤 게시해야 그 주 스냅샷을 읽는다.
   const jobs: [string, Job][] = [
+    // 대회 목록 한 번 + 상세 몇 번. 제일 가볍다.
+    ["tournaments", runTournaments],
+    // 유튜브는 API 가 빠르다. 채널 수만큼 호출하고 끝난다.
+    ["youtube", runYoutube],
     ...(monday
       ? ([
           ["snapshot", runSnapshot],
           ["publish", runPublish],
         ] as [string, Job][])
       : []),
-    ["tournaments", runTournaments],
+    // 카토에 예의를 지키느라 요청 사이를 쉰다. 제일 오래 걸려서 맨 뒤에 둔다.
     ["results", runResults],
-    // 영상은 매일 본다. 대회 중계는 경기 당일에 올라온다.
-    ["youtube", runYoutube],
   ];
 
   const db = jobDb();
@@ -72,10 +80,13 @@ export async function GET(request: Request) {
 
   try {
     for (const [name, job] of jobs) {
+      const started = Date.now();
       try {
         const report = await job(db);
-        done.push(report);
-        console.log(`[cron] ${report.summary}`);
+        // 얼마나 걸렸는지 남긴다. 무료 플랜 상한이 60초라 어느 잡이 먹는지 보여야 한다.
+        const ms = Date.now() - started;
+        done.push({ ...report, summary: `${report.summary} (${(ms / 1000).toFixed(1)}초)` });
+        console.log(`[cron] ${report.job} ${(ms / 1000).toFixed(1)}s — ${report.summary}`);
       } catch (err) {
         // 한 잡이 죽어도 나머지는 돌린다. 카토가 랭킹 페이지만 바꿨는데
         // 대회 결과까지 못 올리면 손해가 두 배다.
