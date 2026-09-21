@@ -10,71 +10,47 @@ import {
   TabSearch,
 } from "@/components/icons";
 
-const TABS = [
+type TabIcon = (p: { active?: boolean; className?: string }) => React.ReactElement;
+
+const TABS: { href: string; label: string; Icon: TabIcon }[] = [
   { href: "/", label: "홈", Icon: TabHome },
   { href: "/search", label: "검색", Icon: TabSearch },
-] as const;
+  { href: "/compose", label: "글쓰기", Icon: TabCompose },
+  { href: "/activity", label: "활동", Icon: TabActivity },
+  { href: "/me", label: "프로필", Icon: TabProfile },
+];
 
-const TABS_RIGHT = [
-  { href: "/activity", label: "활동", Icon: TabActivity, dot: true },
-  { href: "/me", label: "프로필", Icon: TabProfile, dot: false },
-] as const;
-
-/** 쓰레드 방식 — 라벨 없이 아이콘만, 활성은 채운 아이콘, 작성만 배경 */
+/**
+ * 쓰레드 앱의 떠 있는 탭바. 바닥에 붙은 띠가 아니라 유리 알약이고, 뒤로 피드가 비친다.
+ * 지금 있는 탭은 아이콘을 채우고 알약 안에 더 밝은 알약을 깐다.
+ * 알림 점은 실제 알림이 생기면 붙인다. 항상 켜져 있는 점은 거짓말이다.
+ */
 export function TabBar() {
   const path = usePathname();
-
-  const Item = ({
-    href,
-    label,
-    Icon,
-    dot,
-  }: {
-    href: string;
-    label: string;
-    Icon: (p: { active?: boolean; className?: string }) => React.ReactElement;
-    dot?: boolean;
-  }) => {
-    const active = href === "/" ? path === "/" : path.startsWith(href);
-    return (
-      <Link
-        href={href}
-        aria-label={label}
-        aria-current={active ? "page" : undefined}
-        className={`relative flex h-10 w-14 items-center justify-center ${
-          active ? "text-ink" : "text-muted"
-        }`}
-      >
-        <Icon active={active} className="h-[26px] w-[26px]" />
-        {dot && (
-          <span className="absolute right-[13px] top-[5px] h-2 w-2 rounded-full border-[1.5px] border-bg bg-green" />
-        )}
-      </Link>
-    );
-  };
 
   return (
     <nav
       aria-label="주요 메뉴"
-      className="sticky bottom-0 z-10 flex h-[66px] items-start justify-around border-t border-hairline bg-bg/95 px-2.5 pt-2.5 pb-4 backdrop-blur"
+      className="pointer-events-none fixed inset-x-0 bottom-0 z-20 flex justify-center px-6 pb-[max(env(safe-area-inset-bottom),14px)]"
     >
-      {TABS.map((t) => (
-        <Item key={t.href} {...t} />
-      ))}
-
-      <Link
-        href="/compose"
-        aria-label="글쓰기"
-        className="flex h-10 w-14 items-center justify-center"
-      >
-        <span className="flex h-[35px] w-[46px] items-center justify-center rounded-[11px] bg-grouped text-[#4a5a52]">
-          <TabCompose className="h-[21px] w-[21px]" />
-        </span>
-      </Link>
-
-      {TABS_RIGHT.map((t) => (
-        <Item key={t.href} {...t} />
-      ))}
+      <div className="glass hair pointer-events-auto flex w-full max-w-[400px] items-center rounded-full p-1">
+        {TABS.map(({ href, label, Icon }) => {
+          const active = href === "/" ? path === "/" : path.startsWith(href);
+          return (
+            <Link
+              key={href}
+              href={href}
+              aria-label={label}
+              aria-current={active ? "page" : undefined}
+              className={`flex h-[52px] grow items-center justify-center rounded-full ${
+                active ? "bg-glass-active" : ""
+              }`}
+            >
+              <Icon active={active} className="h-[26px] w-[26px]" />
+            </Link>
+          );
+        })}
+      </div>
     </nav>
   );
 }

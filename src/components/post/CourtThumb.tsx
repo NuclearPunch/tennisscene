@@ -7,14 +7,14 @@ export function CourtThumb({ className }: { className?: string }) {
       className={className}
       aria-label="경기 영상 미리보기"
     >
-      <rect width="320" height="180" fill="#edf2ef" />
-      <g stroke="#cbd9d1" strokeWidth="1.4" fill="none">
+      <rect width="320" height="180" fill="#f5f5f5" />
+      <g stroke="#dcdcdc" strokeWidth="1.4" fill="none">
         <rect x="66" y="16" width="188" height="148" />
         <rect x="84" y="16" width="152" height="148" />
         <rect x="84" y="54" width="152" height="72" />
         <path d="M160 54v72M160 16v6M160 158v6" />
       </g>
-      <path d="M66 90h188" stroke="#9fb3a8" strokeWidth="2.6" />
+      <path d="M66 90h188" stroke="#b8b8b8" strokeWidth="2.6" />
     </svg>
   );
 }

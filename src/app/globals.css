@@ -1,60 +1,149 @@
 @import "tailwindcss";
 
+/*
+ * 시각 언어는 docs/DESIGN.md 에 있다. 값을 바꾸면 거기 이유를 남긴다.
+ *
+ * 기준은 쓰레드 앱이다. 화면은 흑백이고 시스템의 라이트/다크를 그대로 따른다.
+ * 색은 뜻이 있을 때만 쓴다: 배지, 좋아요, 순위 변동, 1위 표식.
+ */
+:root {
+  --bg: #ffffff;
+  --grouped: #f5f5f5;
+  --hairline: rgb(0 0 0 / 0.15);
+  --ink: #000000;
+  --ink-2: #424242;
+  --ink-3: #737373; /* 흰 바탕 위 4.7:1 */
+  --muted: #b8b8b8;
+  --accent: #0f7a4f; /* 배지·좋아요   5.4:1 */
+  --up: #16a06a;
+  --down: #d64545;
+  /* 떠 있는 탭바의 유리 */
+  --glass: rgb(255 255 255 / 0.72);
+  --glass-active: rgb(0 0 0 / 0.07);
+  --glass-shadow: 0 8px 28px rgb(0 0 0 / 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #101010;
+    --grouped: #1e1e1e;
+    --hairline: rgb(243 245 247 / 0.15);
+    --ink: #f3f5f7;
+    --ink-2: #cccccc;
+    --ink-3: #8a8a8a; /* #101010 위 5.5:1 */
+    --muted: #4d4d4d;
+    --accent: #35c48b; /* #101010 위 8.6:1 */
+    --up: #35c48b;
+    --down: #ff6b5e;
+    --glass: rgb(38 38 38 / 0.72);
+    --glass-active: rgb(255 255 255 / 0.12);
+    --glass-shadow: 0 8px 28px rgb(0 0 0 / 0.5);
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--bg);
+  --color-grouped: var(--grouped);
+  --color-hairline: var(--hairline);
+  --color-line: var(--hairline);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-muted: var(--muted);
+  --color-green: var(--accent);
+  --color-green-hi: var(--up);
+  --color-down: var(--down);
+  --color-glass: var(--glass);
+  --color-glass-active: var(--glass-active);
+}
+
 @theme {
-  /* 지면 */
-  --color-bg: #fbfcfb;
-  --color-surface: #ffffff;
-  --color-grouped: #f2f5f3;
-  --color-hairline: #e6ebe8;
-  --color-line: #d9e2dc;
-
-  /* 글자 */
-  --color-ink: #0e1a14;
-  --color-ink-2: #5a6b62;
-  --color-ink-3: #657771;
-  --color-ink-4: #8a9a92;
-  --color-muted: #afbab4;
-
-  /* 그린 */
-  --color-green: #0f7a4f;
-  --color-green-hi: #16a06a;
-  --color-green-bg: #e3f2ea;
-  --color-green-deep: #0a5637;
-  --color-on-deep: #a9dcc2;
-  --color-on-deep-2: #dceae2;
-
-  /* 테니스공 — 흰 배경 위 대비가 1.1:1이라 딥그린 위에서만 쓴다 */
+  /* 브랜드 두 색은 라이트·다크에서 같다. 아바타와 표식에만 쓴다. */
+  --color-green-deep: #0b4a33;
   --color-ball: #d8f550;
 
-  /* 하락 표시 */
-  --color-down: #c0563f;
-
+  /*
+   * 쓰레드는 시스템 서체를 쓴다. 아이폰·맥에서는 SF Pro + Apple SD Gothic Neo 가 그대로 나온다.
+   * 안드로이드·윈도우에는 그 조합이 없어서 같은 골격으로 설계된 Pretendard 로 받는다.
+   */
   --font-sans:
-    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
-    system-ui, sans-serif;
+    -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable",
+    Pretendard, system-ui, Roboto, sans-serif;
 
-  --radius-card: 14px;
-  --radius-panel: 16px;
+  --radius-card: 12px;
+  --radius-media: 8px;
+}
+
+/*
+ * 헤더 높이. 홈 화면에 설치되면 상태바 아래로 내려가야 해서 노치만큼 더 잡는다.
+ * TagBar 가 헤더 바로 밑에 붙으므로 둘이 같은 값을 봐야 한다 — 56 을 두 군데 적으면 어긋난다.
+ */
+:root {
+  --header-h: calc(56px + env(safe-area-inset-top, 0px));
 }
 
 @layer base {
   html {
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: transparent;
+    color-scheme: light dark;
+    /* 고무줄처럼 늘어난 자리도 지면색이어야 한다. 흰 띠가 보이면 웹이라는 게 드러난다. */
+    background: var(--bg);
   }
 
+  /* 두 번 탭해서 확대하느라 생기는 300ms 지연을 없앤다. 누르면 바로 눌려야 앱 같다. */
+  button,
+  a,
+  [role="button"],
+  input,
+  textarea,
+  select {
+    touch-action: manipulation;
+  }
+
+  /*
+   * 크기는 15 하나로 간다. 이름·본문·시간·반응 숫자가 전부 15 이고 굵기와 색으로만 가른다.
+   * 작은 건 13, 큰 건 20. 그 사이 값은 만들지 않는다.
+   * 줄높이는 24 — 쓰레드 앱의 한글 줄간격을 화면에서 잰 비율(1.6)이다.
+   */
   body {
-    background: var(--color-bg);
-    color: var(--color-ink);
+    background: var(--bg);
+    color: var(--ink);
     font-family: var(--font-sans);
-    font-variant-numeric: tabular-nums;
+    font-size: 15px;
+    line-height: 24px;
+    /*
+     * 한글은 어절 단위로 끊는다. 기본값은 글자 단위라 "선수입니 / 다." 처럼
+     * 마지막 한 글자가 다음 줄로 떨어진다. 띄어쓰기 없는 긴 문자열(URL)은 anywhere 가 받는다.
+     */
+    word-break: keep-all;
+    overflow-wrap: anywhere;
   }
 }
 
-/* 숫자는 서체를 바꾸지 않는다. 자릿수만 고정한다. */
+/* 자릿수만 고정한다. 본문 전체에 걸면 "2026년" 같은 글 속 숫자가 벌어진다. */
 @utility num {
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.01em;
+}
+
+/* 0.5px 구분선. Tailwind 의 border 는 1px 이라 따로 둔다. */
+@utility hair {
+  border: 0.5px solid var(--hairline);
+}
+@utility hair-t {
+  border-top: 0.5px solid var(--hairline);
+}
+@utility hair-b {
+  border-bottom: 0.5px solid var(--hairline);
+}
+
+/* 떠 있는 탭바. 뒤의 피드가 비쳐 보인다. */
+@utility glass {
+  background: var(--glass);
+  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
+  box-shadow: var(--glass-shadow);
 }
 
 @utility no-scrollbar {
