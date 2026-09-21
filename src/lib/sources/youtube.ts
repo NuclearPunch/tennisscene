@@ -46,7 +46,38 @@ export const CHANNELS: Channel[] = [
     title: "테니스라이브",
     note: "동호인 대회 라이브 중계. 제목이 조각나 있어(선수만, 부서만) 대회명이 빠질 때가 많다.",
   },
+  {
+    uploads: "UUfk8s5xSKyRG-U49r1U0yTA",
+    title: "어택 덕스 테니스",
+    note:
+      "**우리 데이터와 직접 맞물린다.** 'KATO 안성시장배 마스터즈부 결승전! 김재원 강훈식(송도클레이) VS ...' " +
+      "처럼 대회·부서·라운드·선수·클럽이 다 들어 있고, 그 대회와 선수가 우리 랭킹·결과에 이미 있다.",
+  },
+  {
+    uploads: "UUgNG4r-KdDIt0pSfcp8d9rw",
+    title: "공자테니스",
+    note:
+      "전남·광주 생활체육 대회. '[2026.제30회] 해남땅끝배 ... (오픈부 결승)' 형식이 일정하다. " +
+      "카토가 아닌 대회라 결과 매칭은 안 되지만 동호인 경기 영상으로는 좋다.",
+  },
+  {
+    uploads: "UUOhApwd9XBkeYzsl7fsE2FA",
+    title: "KATA TENNIStube",
+    note:
+      "카타 공식. '[2025 아식스컵 개나리부 결승] 권봉여/최순혜 vs. 정다정/최채영' 로 형식이 가장 깔끔하다. " +
+      "2025-08 이후 멈춰 있지만 30일 신선도 필터가 있어 올릴 게 없을 뿐이고, 재개하면 저절로 잡힌다.",
+  },
 ];
+
+/*
+ * 살펴봤지만 넣지 않은 곳 — 다시 검토할 때 같은 길을 되밟지 않게 적어둔다.
+ *
+ * · 야메테니스 (구독 5.5천, 영상 1,597) — 수가 제일 많지만 대부분 해시태그 범벅 쇼츠다.
+ *   제목의 '#오픈부' 는 경기 부서가 아니라 검색용 태그라 걸러내는 게 맞다.
+ * · 장군테니스 (구독 2.3천) — 지역 초청대회 위주에 2026-05 이후 멈췄다.
+ * · 대한테니스협회TV · 이형택TV · 정진화테니스레슨 — 프로 중계·레슨·예능이다.
+ *   우리는 동호인 미디어다(docs/DECISIONS.md).
+ */
 
 export type RawVideo = {
   providerVideoId: string;
@@ -64,8 +95,13 @@ export type TitleParts = {
 };
 
 /** 카토·카타가 쓰는 부서 이름. `2부` 같은 건 여기 없어서 안 걸린다. */
+/*
+ * 부서 이름. 채널마다 철자가 다르다 — 카토는 '마스터스부', 어택 덕스는 '마스터즈부' 로 쓴다.
+ * 생활체육 대회는 '일반부·골드부·실버부' 를 쓴다. 둘 다 받는다.
+ * `2부` 같은 건 여기 없어서 안 걸린다.
+ */
 const DIVISIONS =
-  "개나리|국화|챌린저|마스터스|베테랑|신인|여자퓨처스|퓨처스|혼합복식|지도자|금배|오픈";
+  "개나리|국화|챌린저|마스터스|마스터즈|베테랑|신인|여자퓨처스|퓨처스|혼합복식|혼복|지도자|금배|일반|골드|실버|오픈";
 const ROUNDS = "결승리그\\s*\\d*경기?|준결승\\s*\\d*|결승\\s*\\d*|\\d+강|예선";
 
 /**
@@ -77,6 +113,11 @@ const ROUNDS = "결승리그\\s*\\d*경기?|준결승\\s*\\d*|결승\\s*\\d*|\\d
  */
 const DIVISION_WITH_ROUND = new RegExp(`(${DIVISIONS})부\\s*(?:${ROUNDS})`);
 const DIVISION_BRACKETED = new RegExp(`[[［]\\s*(${DIVISIONS})부`);
+/**
+ * '혼합복식' 은 '부' 없이 쓰는 채널이 있다("[2025 아식스컵 혼합복식 결승]").
+ * 다른 부서까지 '부' 를 빼고 받으면 "국화 4명의 승부" 같은 문장이 걸려서, 이것만 예외로 둔다.
+ */
+const MIXED_WITH_ROUND = new RegExp(`(혼합복식|혼복)\\s*(?:${ROUNDS})`);
 const ROUND_RE = new RegExp(`(${ROUNDS})`);
 
 /** 해시태그·이모지·홍보 꼬리말을 걷어낸다. */
@@ -94,12 +135,19 @@ function clean(title: string): string {
  * 연도·회차를 떼고 `배|컵|오픈` 으로 끝나는 첫 덩어리를 잡는다.
  */
 function tournamentOf(s: string): string | null {
-  const head = s.split(/[(（[［|]/)[0];
-  const m = head.match(/(?:\d{4,5}\s*)?(?:제?\s*\d+\s*회\s*)?([가-힣A-Za-z0-9 ]{2,20}?(?:배|컵|오픈))/);
+  // 괄호 안은 보통 선수 이름이라 버린다. **대괄호는 버리지 않는다** —
+  // '[2025 아식스컵 개나리부 결승] ...' 처럼 대회명이 그 안에 들어가는 채널이 있다.
+  const head = s
+    .replace(/[(（][^)）]*[)）]/g, " ")
+    .replace(/[[［\]］]/g, " ")
+    .split("|")[0];
+  // 연도 뒤에 점이 붙는 채널이 있다("[2026.제30회]").
+  const m = head.match(/(?:\d{4,5}[.\s]*)?(?:제?\s*\d+\s*회\s*)?([가-힣A-Za-z0-9 ]{2,20}?(?:배|컵|오픈))/);
   if (!m) return null;
   // 채널이 연도를 오타 내기도 한다("026 안성시 LTC배"). 공백이 뒤따를 때만 떼서
   // '815신공회장배' 처럼 숫자가 이름의 일부인 경우를 지키다.
-  const name = m[1].replace(/^\d{3,5}\s+/, "").trim();
+  // 대괄호를 공백으로 바꾸면서 앞에 공백이 붙을 수 있다. 먼저 다듬고 연도를 뗀다.
+  const name = m[1].trim().replace(/^\d{3,5}\s+/, "").trim();
   // 'KATO랭킹시상식' 처럼 대회가 아닌 것이 걸리지 않게 길이를 본다.
   return name.length >= 2 && name.length <= 20 ? name : null;
 }
@@ -107,7 +155,10 @@ function tournamentOf(s: string): string | null {
 export function parseTitle(rawTitle: string): TitleParts {
   const s = clean(rawTitle);
   const division =
-    s.match(DIVISION_WITH_ROUND)?.[1] ?? s.match(DIVISION_BRACKETED)?.[1] ?? null;
+    s.match(DIVISION_WITH_ROUND)?.[1] ??
+    s.match(DIVISION_BRACKETED)?.[1] ??
+    s.match(MIXED_WITH_ROUND)?.[1] ??
+    null;
   const round = s.match(ROUND_RE)?.[1]?.replace(/\s+/g, "") ?? null;
   return {
     tournamentName: tournamentOf(s),

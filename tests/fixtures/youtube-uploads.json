@@ -3496,5 +3496,3303 @@
    "totalResults": 729,
    "resultsPerPage": 25
   }
+ },
+ "어택 덕스 테니스": {
+  "kind": "youtube#playlistItemListResponse",
+  "etag": "pdx4R4MkBb9rhYATLoFVCGSzPo0",
+  "nextPageToken": "EAAaHlBUOkNCa2lFRFU1UlVFM1F6UkNNemt6UXpOR1FqUQ",
+  "items": [
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "ZpWPi4ErdChCjS-DpbsXsiDy1q4",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLl92U1B1NWdEWjBn",
+    "snippet": {
+     "publishedAt": "2026-09-21T05:58:09Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "카타 시흥시장배 오픈부 8강전 단식 최강 윤충식 형님과 입상 직전 맞대결! 우승 후보 2팀이 만났다! 윤충식 정범 VS 천영덕 조승우",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/_vSPu5gDZ0g/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/_vSPu5gDZ0g/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/_vSPu5gDZ0g/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/_vSPu5gDZ0g/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 0,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "_vSPu5gDZ0g"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "YM1LfJBMf5LUxpOUAUvUlZETDUU",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLjY3VjVOenlFUWRB",
+    "snippet": {
+     "publishedAt": "2026-09-20T02:06:11Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "동호인 테니스 고수 특징! 징그럽게 다넘어온다....끝까지 집중!!",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/67V5NzyEQdA/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/67V5NzyEQdA/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/67V5NzyEQdA/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/67V5NzyEQdA/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/67V5NzyEQdA/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 1,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "67V5NzyEQdA"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "4Z60_5ViU6uevy_PKsdhvFydJG8",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLlVDdmQwLUVORUtz",
+    "snippet": {
+     "publishedAt": "2026-09-19T04:15:55Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "문볼러의 긍지!! 때려봐!! 다 넘겨준다!!",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/UCvd0-ENEKs/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/UCvd0-ENEKs/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/UCvd0-ENEKs/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/UCvd0-ENEKs/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/UCvd0-ENEKs/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 2,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "UCvd0-ENEKs"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "SUEmLQCYUVc4Kw-EjgPw6wW4xJI",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLnVnSXd2TlFka2Jn",
+    "snippet": {
+     "publishedAt": "2026-09-17T06:17:58Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "에이스의 역할은?! 중요할때 과감하게 승부를 해야한다!",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/ugIwvNQdkbg/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/ugIwvNQdkbg/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/ugIwvNQdkbg/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/ugIwvNQdkbg/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/ugIwvNQdkbg/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 3,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "ugIwvNQdkbg"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "b60a2WPQ_zo7psRdRscorZIdMvM",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLnR1bDlKX0lDdV9n",
+    "snippet": {
+     "publishedAt": "2026-09-16T01:51:46Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "동호인 최강 포핸드! 움직이면 쏜다!! 랠리 중 전위가 움직인다 싶으면 패싱",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/tul9J_ICu_g/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/tul9J_ICu_g/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/tul9J_ICu_g/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/tul9J_ICu_g/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/tul9J_ICu_g/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 4,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "tul9J_ICu_g"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "r5qmxQV44O-RoutWijE1EHpZSTA",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLnBFcnNNR1FjMUs4",
+    "snippet": {
+     "publishedAt": "2026-09-15T01:00:05Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "동호인 최고 포핸드 김재원 선수의 시그니처샷!! 결승전 노애드에서 나온 포핸드 다운더라인 패싱!!",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/pErsMGQc1K8/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/pErsMGQc1K8/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/pErsMGQc1K8/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/pErsMGQc1K8/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/pErsMGQc1K8/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 5,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "pErsMGQc1K8"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "Pd96D5M37daBQIu-wl7Av5ilYSg",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLnE3Zk5XejFoQkhN",
+    "snippet": {
+     "publishedAt": "2026-09-14T03:51:50Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "이게 넘어온다고?! 어려운 공을 살린 후 파트너가 마무리! 파트너가 서로 든든하게 느껴질때!!",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/q7fNWz1hBHM/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/q7fNWz1hBHM/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/q7fNWz1hBHM/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/q7fNWz1hBHM/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/q7fNWz1hBHM/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 6,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "q7fNWz1hBHM"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "RnL-8_eCEJLaswhDjRhEx9o2jDI",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLkRoUnpxU0JWaVVv",
+    "snippet": {
+     "publishedAt": "2026-09-10T23:03:19Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "KATO 안성시장배 마스터즈부 결승전! 김재원 강훈식(송도클레이) VS 이기원(후아유) 박인용(RnB)",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/DhRzqSBViUo/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/DhRzqSBViUo/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/DhRzqSBViUo/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/DhRzqSBViUo/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 7,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "DhRzqSBViUo"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "gQOprLLvu1IIPTW6XBiofJjzAi0",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLjFfTDJ5Zm5leWw4",
+    "snippet": {
+     "publishedAt": "2026-09-09T05:11:33Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "KATO 안성시장배 마스터즈부 4강전! 천영덕 박종성(어택) VS 박인용(RnB) 이기원(후아유)",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/1_L2yfneyl8/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/1_L2yfneyl8/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/1_L2yfneyl8/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/1_L2yfneyl8/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 8,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "1_L2yfneyl8"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "GuIA0rTbnYV1IO27bCa3UbMpoRw",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLnBKVU5IbnNSV0s0",
+    "snippet": {
+     "publishedAt": "2026-09-08T08:00:28Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "KATO 안성시장배 마스터즈부 8강! 동호인 최강 포핸드 창과 방패가 붙었다! 입상 직전 물러설 수 없는 한판! 천영덕 박종성 VS 최기현 김진현",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/pJUNHnsRWK4/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/pJUNHnsRWK4/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/pJUNHnsRWK4/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/pJUNHnsRWK4/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 9,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "pJUNHnsRWK4"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "wlfs9ig4-_5CzCi2S_b017FBeL4",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLmdBdFdQX2pVdUtV",
+    "snippet": {
+     "publishedAt": "2026-09-07T22:51:01Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "KATO 안성시장배 마스터즈부 16강! 서브가 도대체 얼마나 휘는지....정말 까다로운 왼손2명!! 천영덕 박종성(어택) VS 이재철(천안스카이팀) 김민회(전사)",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/gAtWP_jUuKU/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/gAtWP_jUuKU/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/gAtWP_jUuKU/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/gAtWP_jUuKU/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 10,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "gAtWP_jUuKU"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "8nsnIv-583tBci7B26hbAe4xpa8",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLjc2eE5WUzZ1WjJz",
+    "snippet": {
+     "publishedAt": "2026-09-07T01:54:35Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "KATO 안성시장배 마스터즈부 64강! 타이브레이크를 도대체 몇점까지 가는지!! 이 혈투에서 살아남은 팀은 입상까지! 천영덕 박종성 VS 김동우 오교찬",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/76xNVS6uZ2s/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/76xNVS6uZ2s/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/76xNVS6uZ2s/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/76xNVS6uZ2s/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 11,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "76xNVS6uZ2s"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "BuqcCK1A3IuDwOFaVThSbrdV0xY",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLkRxZF9oM0pGdG84",
+    "snippet": {
+     "publishedAt": "2026-09-03T08:48:12Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "KATO 성남배 베테랑부 결승전! 남궁범수(백두대간) 지규성(춘천클럽) VS 황상률(덕소테니스) 이태국(남양주클럽)",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/Dqd_h3JFto8/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/Dqd_h3JFto8/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/Dqd_h3JFto8/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/Dqd_h3JFto8/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 12,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "Dqd_h3JFto8"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "5pSw-D72Rd4SjaH7Za4EaAKlDNg",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLktFOHB1MFN2QThn",
+    "snippet": {
+     "publishedAt": "2026-09-02T01:54:23Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "KATO 성남배 마스터즈부 4강전!! 이제는 정신력 싸움!! 이후정(올림푸스) 천영덕(어택) VS 노형지(전사) 김재하(TEGO)",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/KE8pu0SvA8g/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/KE8pu0SvA8g/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/KE8pu0SvA8g/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/KE8pu0SvA8g/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 13,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "KE8pu0SvA8g"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "ekb6PyyHgW6VVMH7F4TIwG9MWLA",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLkJhY3NjTTZ0NWRn",
+    "snippet": {
+     "publishedAt": "2026-09-01T07:45:40Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "KATO성남배 마스터즈부 8강! 천영덕 이후정 VS 정윤혁 김태우 입상으로 가는 마지막 문턱을 넘어설 팀은?!!",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/BacscM6t5dg/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/BacscM6t5dg/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/BacscM6t5dg/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/BacscM6t5dg/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 14,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "BacscM6t5dg"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "noyVapT6itkB6YqMQLkHxk6LiRE",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLmRUcXFLeF9wSzFz",
+    "snippet": {
+     "publishedAt": "2026-08-31T23:41:42Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "KATO 성남배 16강 이게 마스터즈부지!! 매경기가 결승....안두환 현동환 VS 천영덕 이후정",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/dTqqKx_pK1s/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/dTqqKx_pK1s/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/dTqqKx_pK1s/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/dTqqKx_pK1s/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/dTqqKx_pK1s/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 15,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "dTqqKx_pK1s"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "lE2yaAaqBewS9U1vWpl0zeBhJb0",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLmx5MGlUMjdLbm5F",
+    "snippet": {
+     "publishedAt": "2026-08-31T05:44:11Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "KATO 성남배 마스터즈부 64강 승부는 5번의 노애드에서! 유승엽 이상일 VS 천영덕 이후정",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/ly0iT27KnnE/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/ly0iT27KnnE/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/ly0iT27KnnE/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/ly0iT27KnnE/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/ly0iT27KnnE/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 16,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "ly0iT27KnnE"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "YyWWJL4I7ztlLkEIGAVDTr55mMo",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLkZNLS1odlRDMVRv",
+    "snippet": {
+     "publishedAt": "2026-08-29T08:01:52Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "KATO LTC배 클럽 단체전 마스터즈부 8강! 동호인 최강자들이 제대로 붙었다!! 두만강(손이수 고용민) VS 어벤져스(최기현 정간용)",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/FM--hvTC1To/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/FM--hvTC1To/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/FM--hvTC1To/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/FM--hvTC1To/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/FM--hvTC1To/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 17,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "FM--hvTC1To"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "XiehErNPhIMpzDvm1jRbMMIKud4",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLk5SX25xcmFNcDQw",
+    "snippet": {
+     "publishedAt": "2026-08-27T23:19:11Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "KATO LTC배 클럽 단체전 마스터즈부 16강 강력한 우승후보 두팀이 만났다!! 매치포인트가 무려 7번 오가는 승부! 강백(지현종 이성기) 어벤져스(최기현 정간용)",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/NR_nqraMp40/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/NR_nqraMp40/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/NR_nqraMp40/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/NR_nqraMp40/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 18,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "NR_nqraMp40"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "ueRVF5Ud2mqQt5AX8iMFgIlwJrc",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLkR6Q3dVaUFXdF9Z",
+    "snippet": {
+     "publishedAt": "2026-08-26T23:23:53Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "KATO LTC배 클럽 단체전 32강전 1대1 상황에서 붙은 3번 복식 경기!! 어택(천영덕 장현태) VS 팀프리즘(김믿음 기주형)",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/DzCwUiAWt_Y/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/DzCwUiAWt_Y/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/DzCwUiAWt_Y/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/DzCwUiAWt_Y/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 19,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "DzCwUiAWt_Y"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "xXdyh2u6WNzTogvrEW6eeXnHOLM",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLkRYVkViVFo2T01R",
+    "snippet": {
+     "publishedAt": "2026-08-26T00:19:37Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "LTC배 클럽 대항전 예선에서 어벤져스와 붙었다!! 1번 복식 어택(천영덕 장현태) VS 어벤져스(김기환 이동철)",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/DXVEbTZ6OMQ/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/DXVEbTZ6OMQ/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/DXVEbTZ6OMQ/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/DXVEbTZ6OMQ/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 20,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "DXVEbTZ6OMQ"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "49szRxU_PG_tF2D-OmXcpK3WyzQ",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLjR4VU94N0dQbEYw",
+    "snippet": {
+     "publishedAt": "2026-08-24T08:01:32Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "양손백드라이발리를 이렇게 친다고?!!! 이런샷 처음 봤습니다!!",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/4xUOx7GPlF0/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/4xUOx7GPlF0/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/4xUOx7GPlF0/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/4xUOx7GPlF0/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/4xUOx7GPlF0/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 21,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "4xUOx7GPlF0"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "I1luXsonJvddToXqpV7-0Ys0R9Q",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLkNpMGRaNVF2LWgw",
+    "snippet": {
+     "publishedAt": "2026-08-24T08:01:07Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "815신공회장배 16강! 엄청난 파워의 잭나이프 백핸드를 구사하는 20대 신성 등장!! 진짜 깜짝 놀랐습니다....최재현 우원철 VS 천영덕 김영조",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/Ci0dZ5Qv-h0/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/Ci0dZ5Qv-h0/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/Ci0dZ5Qv-h0/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/Ci0dZ5Qv-h0/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 22,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "Ci0dZ5Qv-h0"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "aM5SduMX848wJoUjS3Nga0lj9fE",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLnVlQ05fYUZuXzRv",
+    "snippet": {
+     "publishedAt": "2026-08-21T08:01:13Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "815신공회장배 우승, 3위팀이 나온 죽음의조 1조 3경기 방건후 최규영 VS 천영덕 김영조",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/ueCN_aFn_4o/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/ueCN_aFn_4o/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/ueCN_aFn_4o/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/ueCN_aFn_4o/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 23,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "ueCN_aFn_4o"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "POl-mV9xWcd-GNoUZIYMO3oAA1A",
+    "id": "VVVmazhzNXhTS3lSRy1VNDlyMVUweVRBLnZSajdxZERUNkVn",
+    "snippet": {
+     "publishedAt": "2026-08-17T23:25:00Z",
+     "channelId": "UCfk8s5xSKyRG-U49r1U0yTA",
+     "title": "815 신공회장배 예선 레전드오브레전드 대회 우승자 박성전 프로님과 붙었습니다!! 박성전 원용준 VS 천영덕 김영조",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/vRj7qdDT6Eg/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/vRj7qdDT6Eg/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/vRj7qdDT6Eg/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/vRj7qdDT6Eg/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "어택 덕스 테니스",
+     "playlistId": "UUfk8s5xSKyRG-U49r1U0yTA",
+     "position": 24,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "vRj7qdDT6Eg"
+     },
+     "videoOwnerChannelTitle": "어택 덕스 테니스",
+     "videoOwnerChannelId": "UCfk8s5xSKyRG-U49r1U0yTA"
+    }
+   }
+  ],
+  "pageInfo": {
+   "totalResults": 525,
+   "resultsPerPage": 25
+  }
+ },
+ "공자테니스": {
+  "kind": "youtube#playlistItemListResponse",
+  "etag": "fXq1gzUy6LTTu_eMdhXSiO2ckr4",
+  "nextPageToken": "EAAaHlBUOkNCa2lFRFpFUTBSQlFVVTFOakJHUXpZME1UZw",
+  "items": [
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "eo-gsH6pZ8RQwBVJFKA2gpIJPU8",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3LlBiQmExSGF2dXZB",
+    "snippet": {
+     "publishedAt": "2026-09-07T12:26:50Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "[2026.제30회] 해남땅끝배 전남광주특별시 생활체육테니스대회 (일반부64강)",
+     "description": "#테니스 #tennis #전남광주통합특별시 \n\n해남 땅끝배 일반부 경기영상입니다~",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/PbBa1HavuvA/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/PbBa1HavuvA/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/PbBa1HavuvA/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/PbBa1HavuvA/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 0,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "PbBa1HavuvA"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "UWVqTooiW4DlO1XHz4sKZJLAMGE",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3LnR4UTVwQzZVeUxJ",
+    "snippet": {
+     "publishedAt": "2026-05-13T01:00:06Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "광주단체전 최강팀! #tennis #shorts #테니스",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/txQ5pC6UyLI/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/txQ5pC6UyLI/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/txQ5pC6UyLI/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/txQ5pC6UyLI/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/txQ5pC6UyLI/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 1,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "txQ5pC6UyLI"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "2qAtrcdZX2WnTyGm0hCBQbI2NBM",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3LmVCd3BWZ1ViaEI4",
+    "snippet": {
+     "publishedAt": "2026-05-11T09:00:47Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "[2026.제22회] 요넥스상록배 광주생활체육테니스대회 (일반부 결승)",
+     "description": "#tennis #테니스 #shortvideo #shortsfeed #광주 \n\n[2026.제22회] 요넥스상록배 광주생활체육테니스대회 (일반부 결승)\n\n곽승동/조유범VS서형석/정광호 일반부 결승 경기영상입니다.\n\n촬영 허락해주신 동호인분들께 진심으로 감사 말씀드립니다.\n\n테니스를 사랑하는 모든 동호인들이 주인공이 되는 그날까지\n\n공은 자신감 공자테니스 구독&좋아요 부탁 드립니다.",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/eBwpVgUbhB8/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/eBwpVgUbhB8/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/eBwpVgUbhB8/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/eBwpVgUbhB8/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 2,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "eBwpVgUbhB8"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "gc3DBQ1UhmD3mJnIpLHr_1x45BY",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3LkRkaGpQTnA4T1o0",
+    "snippet": {
+     "publishedAt": "2026-05-10T13:30:03Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "[2026.제22회] 요넥스상록배 광주생활체육테니스대회 (골드부 준결승)",
+     "description": "#tennis #테니스 #sports #shortvideo #shortsfeed \n\n[2026.제22회] 요넥스상록배 광주생활체육테니스대회 (골드부 준결승)\n\n골드부 준결승 김평화 이동걸VS 최경룡 이현정 경기영상입니다.\n\n촬영 허락해주신 동호인분들께 진심으로 감사 말씀드립니다.\n\n테니스를 사랑하는 모든 동호인들이 주인공이 되는 그날까지\n\n공은 자신감 공자테니스 구독&좋아요 부탁 드립니다.",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/DdhjPNp8OZ4/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/DdhjPNp8OZ4/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/DdhjPNp8OZ4/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/DdhjPNp8OZ4/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 3,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "DdhjPNp8OZ4"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "7pV6raulSgfIYFcVIg5xJcIQY2s",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3LnN6azZGLUVNX1A4",
+    "snippet": {
+     "publishedAt": "2026-05-10T07:23:53Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "광주테니스 5월의 밤은 뜨거웠다! #tennis #테니스 #shorts",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/szk6F-EM_P8/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/szk6F-EM_P8/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/szk6F-EM_P8/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/szk6F-EM_P8/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/szk6F-EM_P8/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 4,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "szk6F-EM_P8"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "oUP8c3TiuW8rD5iCMHIZHwYs1io",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3LllhQWw3dXlkU19F",
+    "snippet": {
+     "publishedAt": "2026-04-27T12:00:58Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "[2026.제25회] 나주영산강정원배 전남생활체육테니스대회 (오픈부 결승)",
+     "description": "#tennis #테니스 #sports #shortvideo #결승\n\n[2026.제25회] 나주영산강정원배 전남생활체육테니스대회 (오픈부 결승)\n\n이기영/박붕수VS노한샘/양원형 오픈부결승경기영상입니다.\n\n촬영 허락해주신 동호인분들께 진심으로 감사 말씀드립니다.\n\n테니스를 사랑하는 모든 동호인들이 주인공이 되는 그날까지\n\n공은 자신감 공자테니스 구독&좋아요 부탁 드립니다.",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/YaAl7uydS_E/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/YaAl7uydS_E/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/YaAl7uydS_E/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/YaAl7uydS_E/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 5,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "YaAl7uydS_E"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "Pwjs2iIlFFKnm5jxIsVqyZZSG9g",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3LjFDUG0zWVluZ1Y4",
+    "snippet": {
+     "publishedAt": "2026-04-26T22:12:09Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "강함보단 정교함이 필요할때! #shorts #tennis #테니스",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/1CPm3YYngV8/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/1CPm3YYngV8/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/1CPm3YYngV8/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/1CPm3YYngV8/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/1CPm3YYngV8/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 6,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "1CPm3YYngV8"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "PwWzSYrLABZzZ63EGLvLZVviT-Y",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3Lnl4QjZ1dWRCek1N",
+    "snippet": {
+     "publishedAt": "2026-04-26T10:01:23Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "[2026.제25회] 나주영산강정원배 전남생활체육테니스대회 (오픈부준결승)",
+     "description": "#테니스 #tennis #automobile #sports #shortvideo \n\n[2026.제25회] 나주영산강정원배 전남생활체육테니스대회 (오픈부준결승)\n\n강주일/허철환VS노한샘/양원형 오픈부 준결승경기영상입니다.\n\n촬영 허락해주신 동호인분들께 진심으로 감사 말씀드립니다.\n\n테니스를 사랑하는 모든 동호인들이 주인공이 되는 그날까지\n\n공은 자신감 공자테니스 구독&좋아요 부탁 드립니다.",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/yxB6uudBzMM/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/yxB6uudBzMM/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/yxB6uudBzMM/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/yxB6uudBzMM/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 7,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "yxB6uudBzMM"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "GpHV8ccG-K2ofddMXMSDLJNuhV0",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3Lk95SWlEa3RvSWJv",
+    "snippet": {
+     "publishedAt": "2026-04-25T22:30:08Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "[2026.제25회] 나주영산강정원배 전남생활체육테니스대회 (오픈부8강전)",
+     "description": "#tennis #테니스 #automobile #shortvideo #sports \n\n[2026.제25회] 나주영산강정원배 전남생활체육테니스대회 (오픈부8강전)\n\n김건수/이남용VS노한샘/양원형 오픈부8강전 경기영상입니다.\n\n촬영 허락해주신 동호인분들께 진심으로 감사 말씀드립니다.\n\n테니스를 사랑하는 모든 동호인들이 주인공이 되는 그날까지\n\n공은 자신감 공자테니스 구독&좋아요 부탁 드립니다.",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/OyIiDktoIbo/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/OyIiDktoIbo/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/OyIiDktoIbo/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/OyIiDktoIbo/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 8,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "OyIiDktoIbo"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "YyFAeRM0tOvXsUYWA7RPvOqWfPQ",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3LlpRZkdpaVQwUnJv",
+    "snippet": {
+     "publishedAt": "2026-04-25T10:01:00Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "[2026.제25회] 나주영산강정원배 전남생활체육테니스대회 (오픈부8강)",
+     "description": "#tennis #테니스 #automobile #shortvideo #sports \n\n[2026.제25회] 나주영산강정원배 전남생활체육테니스대회 (오픈부8강)\n\n 박춘식/류중갑VS이기영/박붕수 오픈부8강 경기영상입니다.\n\n촬영 허락해주신 동호인분들께 진심으로 감사 말씀드립니다.\n\n테니스를 사랑하는 모든 동호인들이 주인공이 되는 그날까지\n\n공은 자신감 공자테니스 구독&좋아요 부탁 드립니다.",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/ZQfGiiT0Rro/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/ZQfGiiT0Rro/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/ZQfGiiT0Rro/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/ZQfGiiT0Rro/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 9,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "ZQfGiiT0Rro"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "y019UmddTwMKMXElySEDmECDty8",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3LnBkeTlOM1lzQjNz",
+    "snippet": {
+     "publishedAt": "2026-04-23T13:23:09Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "[2026.제25회] 나주영산강정원배 전남생활체육테니스대회(오픈부16강)",
+     "description": "#tennis #테니스 #sports #automobile #전남 \n\n[2026.제25회] 나주영산강정원배 전남생활체육테니스대회(오픈부16강)\n\n배영규/서형석VS노한샘/양원형 오픈부16강 경기영상입니다.\n\n촬영 허락해주신 동호인분들께 진심으로 감사 말씀드립니다.\n\n테니스를 사랑하는 모든 동호인들이 주인공이 되는 그날까지\n\n공은 자신감 공자테니스 구독&좋아요 부탁 드립니다.",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/pdy9N3YsB3s/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/pdy9N3YsB3s/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/pdy9N3YsB3s/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/pdy9N3YsB3s/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 10,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "pdy9N3YsB3s"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "TadCwpRG3x6jBhBFf2-YUcfLDG8",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3Lm9mUUNiX0xDd0pr",
+    "snippet": {
+     "publishedAt": "2026-04-22T10:30:29Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "[2026.제25회] 나주영산강정원배전남생활체육테니스대회 (오픈부64강경기영상)",
+     "description": "#tennis #테니스 #automobile #sports \n\n[2026.제25회] 나주영산강정원배전남생활체육테니스대회 (오픈부64강경기영상)\n\n김진태/나준화VS최순식/김현열 오픈부64강 경기영상입니다.\n\n촬영 허락해주신 동호인분들께 진심으로 감사 말씀드립니다.\n\n테니스를 사랑하는 모든 동호인들이 주인공이 되는 그날까지\n\n공은 자신감 공자테니스 구독&좋아요 부탁 드립니다.",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/ofQCb_LCwJk/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/ofQCb_LCwJk/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/ofQCb_LCwJk/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/ofQCb_LCwJk/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 11,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "ofQCb_LCwJk"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "pRarblT6OqC0IctHIyp2JP1XXvI",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3LlUzUThLYWdOMmNV",
+    "snippet": {
+     "publishedAt": "2026-04-21T10:30:18Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "[2026.제25회] 나주영산강정원배전남생활체육테니스대회 (오픈부64강전)",
+     "description": "#테니스 #tennis #sports #shortvideo \n\n[2026.제25회] 나주영산강정원배전남생활체육테니스대회 (오픈부64강전)\n\n박준범/염지원VS양원형/노한샘 오픈부64강 경기영상입니다.\n\n촬영 허락해주신 동호인분들께 진심으로 감사 말씀드립니다.\n\n테니스를 사랑하는 모든 동호인들이 주인공이 되는 그날까지\n\n공은 자신감 공자테니스 구독&좋아요 부탁 드립니다.",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/U3Q8KagN2cU/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/U3Q8KagN2cU/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/U3Q8KagN2cU/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/U3Q8KagN2cU/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 12,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "U3Q8KagN2cU"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "VwBiLzpOJpTKHbp4Gh_DOtHceLE",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3Lk1Ga1ZyTGJFNmdR",
+    "snippet": {
+     "publishedAt": "2026-04-20T12:46:32Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "[2026. 제25회] 나주 영산강정원배 전남생활체육테니스대회 (오픈부64강)",
+     "description": "#tennis #테니스 #sports #automobile #전남 \n\n[2026. 제25회] 나주 영산강정원배 전남생활체육테니스대회 (오픈부64강)\n\n배영규/서형석VS윤명근/최환 오픈부64강 경기영상입니다\n\n촬영 허락해주신 동호인분들께 진심으로 감사 말씀드립니다.\n\n테니스를 사랑하는 모든 동호인들이 주인공이 되는 그날까지\n\n공은 자신감 공자테니스 구독&좋아요 부탁 드립니다.",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/MFkVrLbE6gQ/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/MFkVrLbE6gQ/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/MFkVrLbE6gQ/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/MFkVrLbE6gQ/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 13,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "MFkVrLbE6gQ"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "iL9xKgrLGgws2LZ8AibSb2eELbk",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3Li1SSGFFT1RzQzZR",
+    "snippet": {
+     "publishedAt": "2026-04-16T09:01:00Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "테니스가 즐거운 이유!! #tennis #테니스 #shorts",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/-RHaEOTsC6Q/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/-RHaEOTsC6Q/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/-RHaEOTsC6Q/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/-RHaEOTsC6Q/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/-RHaEOTsC6Q/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 14,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "-RHaEOTsC6Q"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "IcOPleaQ4Owqtp3_6X0eRaZ662s",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3Lm12emw2UkMyN2lN",
+    "snippet": {
+     "publishedAt": "2026-04-14T22:31:27Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "필사즉생 필생즉사! #테니스 #tennis #shorts",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/mvzl6RC27iM/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/mvzl6RC27iM/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/mvzl6RC27iM/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/mvzl6RC27iM/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/mvzl6RC27iM/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 15,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "mvzl6RC27iM"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "dWGfGRupUoDWcAgpxe7WPDsojRs",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3LldMdVpGSE90RjlB",
+    "snippet": {
+     "publishedAt": "2026-04-14T10:45:34Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "자 이제 테니스를 시작해볼까! #테니스 #tennis #shorts",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/WLuZFHOtF9A/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/WLuZFHOtF9A/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/WLuZFHOtF9A/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/WLuZFHOtF9A/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/WLuZFHOtF9A/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 16,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "WLuZFHOtF9A"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "QTPPqbzsNmg48fgBJHY-WhBbKnM",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3LkVnYUQtQTU4enlZ",
+    "snippet": {
+     "publishedAt": "2026-04-14T04:08:10Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "한 포인트 따기가 하늘의 별따기! #tennis #테니스 #shorts",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/EgaD-A58zyY/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/EgaD-A58zyY/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/EgaD-A58zyY/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/EgaD-A58zyY/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/EgaD-A58zyY/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 17,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "EgaD-A58zyY"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "JxCAZU7Hu82kiZ3DWGSkpGFFv44",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3LnA1b0tLb2dzdXhv",
+    "snippet": {
+     "publishedAt": "2026-04-13T23:59:52Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "템포를 늦추면 기회가 온다! #shorts #tennis #테니스",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/p5oKKogsuxo/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/p5oKKogsuxo/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/p5oKKogsuxo/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/p5oKKogsuxo/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/p5oKKogsuxo/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 18,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "p5oKKogsuxo"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "z9d-xfncvIW22lttr94o4APb-q0",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3LmJILWZIaXp3V2Nz",
+    "snippet": {
+     "publishedAt": "2026-04-12T10:13:48Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "수비가 좋은 발리 공격이 되는순간 #테니스 #shorts #tennis",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/bH-fHizwWcs/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/bH-fHizwWcs/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/bH-fHizwWcs/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/bH-fHizwWcs/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/bH-fHizwWcs/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 19,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "bH-fHizwWcs"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "A3dcdwaAw0-AaBrvGZSmhTCB-ag",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3Lk5tdFdMa3RaeDVj",
+    "snippet": {
+     "publishedAt": "2026-04-12T08:00:22Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "[2026.제24회]광양시장배 전국동호인 테니스대회 마스터즈부결승(살아있는전설VS전설의시작)",
+     "description": "#테니스 #tennis #sports #automobile #전국 \n\n[2026.제24회]광양시장배 전국동호인 테니스대회 마스터즈부결승(살아있는전설VS전설의시작)\n\n마스터즈부 결승 박재관/노한샘VS정우영/최규빈 경기영상입니다.\n\n촬영 허락해주신 동호인분들께 진심으로 감사 말씀드립니다.\n\n테니스를 사랑하는 모든 동호인들이 주인공이 되는 그날까지\n\n공은 자신감 공자테니스 구독&좋아요 부탁 드립니다.",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/NmtWLktZx5c/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/NmtWLktZx5c/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/NmtWLktZx5c/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/NmtWLktZx5c/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 20,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "NmtWLktZx5c"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "HUCU-_2RUI2tZzqs6t3zKba5aLk",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3Lks2SWFkRnd2OTBF",
+    "snippet": {
+     "publishedAt": "2026-04-10T23:00:19Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "[2026.제24회]광양시장배 전국동호인 테니스대회 마스터즈부 (준결승경기영상)",
+     "description": "#tennis #테니스 #sports #automobile #전국 \n\n[2026.제24회]광양시장배 전국동호인 테니스대회 마스터즈부 (준결승경기영상)\n\n마스터즈부 박용근/최웅규VS박재관/노한샘 준결승 경기영상입니다.\n\n촬영 허락해주신 동호인분들께 진심으로 감사 말씀드립니다.\n\n테니스를 사랑하는 모든 동호인들이 주인공이 되는 그날까지\n\n공은 자신감 공자테니스 구독&좋아요 부탁 드립니다.",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/K6IadFwv90E/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/K6IadFwv90E/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/K6IadFwv90E/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/K6IadFwv90E/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 21,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "K6IadFwv90E"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "6t1_GYWQ0cxALZIv5JsFkQoS_YE",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3Ljh3LU9FV3NyejNV",
+    "snippet": {
+     "publishedAt": "2026-04-09T10:00:11Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "[2026.제24회] 광양시장배 전국동호인 테니스대회 마스터즈부 (준결승)",
+     "description": "#tennis #테니스 #sports #automobile \n\n[2026.제24회] 광양시장배 전국동호인 테니스대회 마스터즈부 (준결승)\n\n마스터즈부 준결승 김평화/정병열VS정우영/최규빈 경기영상입니다.\n\n촬영 허락해주신 동호인분들께 진심으로 감사 말씀드립니다.\n\n테니스를 사랑하는 모든 동호인들이 주인공이 되는 그날까지\n\n공은 자신감 공자테니스 구독&좋아요 부탁 드립니다.",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/8w-OEWsrz3U/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/8w-OEWsrz3U/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/8w-OEWsrz3U/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/8w-OEWsrz3U/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 22,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "8w-OEWsrz3U"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "urWTe5toka6_1u4rIJfXs8RPZZ0",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3LkNHZllPdC1YVk5R",
+    "snippet": {
+     "publishedAt": "2026-04-09T00:47:00Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "[2026.제9회]광주광역시협회장배 광주생활체육테니스대회남자단체전8강(나주VS올라운드)",
+     "description": "#tennis #테니스 #sports #광주 \n\n[2026.제9회]광주광역시협회장배 광주생활체육테니스대회남자단체전8강(나주VS올라운드)\n\n올라운드 박재관/유동건VS 빛가람클럽 정광호/서형석 단체전 8강경기영상입니다.\n\n촬영 허락해주신 동호인분들께 진심으로 감사 말씀드립니다.\n\n테니스를 사랑하는 모든 동호인들이 주인공이 되는 그날까지\n\n공은 자신감 공자테니스 구독&좋아요 부탁 드립니다.",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/CGfYOt-XVNQ/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/CGfYOt-XVNQ/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/CGfYOt-XVNQ/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/CGfYOt-XVNQ/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/CGfYOt-XVNQ/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      },
+      "fhd": {
+       "url": "https://i.ytimg.com/vi/CGfYOt-XVNQ/fhddefault.jpg",
+       "width": 1920,
+       "height": 1080
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 23,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "CGfYOt-XVNQ"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "n1DDdrhJfcwioLZjZFFkrGF7uzY",
+    "id": "VVVnTkc0ci1LZERJdDBwU2ZjcDhkOXJ3Llh0Tmt1bWtVUVI4",
+    "snippet": {
+     "publishedAt": "2026-04-07T23:10:00Z",
+     "channelId": "UCgNG4r-KdDIt0pSfcp8d9rw",
+     "title": "[2026.제9회]광주광역시 협회장배 광주생활체육테니스대회 남자단체전 (빛가람VS올라운드8강)",
+     "description": "#tennis #테니스 #sports #automobile #광주 \n[2026.제9회]광주광역시 협회장배 광주생활체육테니스대회 남자단체전\n (빛가람VS올라운드8강)\n\n올라운드 추길수/양원영VS김영록/강등현 단체전 (8강경기 영상입니다)\n\n촬영 허락해주신 동호인분들께 진심으로 감사 말씀드립니다.\n\n테니스를 사랑하는 모든 동호인들이 주인공이 되는 그날까지\n\n공은 자신감 공자테니스 구독&좋아요 부탁 드립니다.",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/XtNkumkUQR8/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/XtNkumkUQR8/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/XtNkumkUQR8/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/XtNkumkUQR8/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      },
+      "maxres": {
+       "url": "https://i.ytimg.com/vi/XtNkumkUQR8/maxresdefault.jpg",
+       "width": 1280,
+       "height": 720
+      },
+      "fhd": {
+       "url": "https://i.ytimg.com/vi/XtNkumkUQR8/fhddefault.jpg",
+       "width": 1920,
+       "height": 1080
+      }
+     },
+     "channelTitle": "공자테니스",
+     "playlistId": "UUgNG4r-KdDIt0pSfcp8d9rw",
+     "position": 24,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "XtNkumkUQR8"
+     },
+     "videoOwnerChannelTitle": "공자테니스",
+     "videoOwnerChannelId": "UCgNG4r-KdDIt0pSfcp8d9rw"
+    }
+   }
+  ],
+  "pageInfo": {
+   "totalResults": 1299,
+   "resultsPerPage": 25
+  }
+ },
+ "KATA TENNIStube": {
+  "kind": "youtube#playlistItemListResponse",
+  "etag": "yUHmgASXb4WezYThh7_9AgMZFc4",
+  "nextPageToken": "EAAaHlBUOkNCa2lFRFl4TWtGRk9FWTRNakpET0RFek9VUQ",
+  "items": [
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "Bzc2qAoIi-effgxrUNBURAtsu2o",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLm1pS2tmTjNERGdB",
+    "snippet": {
+     "publishedAt": "2025-08-23T03:30:38Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 아식스컵 개나리부 결승] 권봉여/최순혜 vs. 정다정/최채영",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/miKkfN3DDgA/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/miKkfN3DDgA/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/miKkfN3DDgA/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/miKkfN3DDgA/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 0,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "miKkfN3DDgA"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "SLRmqCraSchBBW707nFcpJCXOlM",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLllCUkVGRzlYTkNF",
+    "snippet": {
+     "publishedAt": "2025-08-21T03:30:16Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 아식스컵 개나리부 4강2] 권봉여/최순혜 vs. 장하리/양남순",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/YBREFG9XNCE/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/YBREFG9XNCE/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/YBREFG9XNCE/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/YBREFG9XNCE/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 1,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "YBREFG9XNCE"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "mQTKiH1xN2jKhlcxOb7A7-tA1xM",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLm9BS3lJRTVlbTRB",
+    "snippet": {
+     "publishedAt": "2025-08-20T03:30:42Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 아식스컵 개나리부 4강1] 김예지/오명희 vs. 정다정/최채영",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/oAKyIE5em4A/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/oAKyIE5em4A/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/oAKyIE5em4A/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/oAKyIE5em4A/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 2,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "oAKyIE5em4A"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "3UeTTQ5eUBq5lwl1_hxKDEueRQQ",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLmJtakJXRFpfaWlj",
+    "snippet": {
+     "publishedAt": "2025-08-18T03:30:24Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 아식스컵 베테랑부 결승] 임동주/김학윤 vs. 조길우/성기춘",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/bmjBWDZ_iic/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/bmjBWDZ_iic/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/bmjBWDZ_iic/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/bmjBWDZ_iic/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 3,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "bmjBWDZ_iic"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "8JfGCLvGt3lEHDRRfq0zlIzZ3nc",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLkFrdlVqa2NBUzZz",
+    "snippet": {
+     "publishedAt": "2025-08-17T03:30:11Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 아식스컵 베테랑부 4강] 임동주/김학윤 vs. 고운섭/이채응",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/AkvUjkcAS6s/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/AkvUjkcAS6s/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/AkvUjkcAS6s/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/AkvUjkcAS6s/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 4,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "AkvUjkcAS6s"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "eKN5xqMJSxQlOBQPF7YpQT7jSvE",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLk5NZk9OOFF2U1hB",
+    "snippet": {
+     "publishedAt": "2025-08-15T03:30:16Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 아식스컵 국화부 결승] 강윤선/탁수현 vs. 손향지/정혜승",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/NMfON8QvSXA/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/NMfON8QvSXA/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/NMfON8QvSXA/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/NMfON8QvSXA/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 5,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "NMfON8QvSXA"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "Oa0eb1ltp6Z_miI00mLT_8Qi-2E",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLk5NLUR6b1ZlRzFn",
+    "snippet": {
+     "publishedAt": "2025-08-14T03:30:16Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 아식스컵 국화부 4강2] 손향지/정혜승 vs. 김난현/김하정",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/NM-DzoVeG1g/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/NM-DzoVeG1g/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/NM-DzoVeG1g/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/NM-DzoVeG1g/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 6,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "NM-DzoVeG1g"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "_TYjmc3AuhrWVYu9RB7zhHQ6Wko",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLkN1UHhORDdnRTE0",
+    "snippet": {
+     "publishedAt": "2025-08-13T03:30:13Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 아식스컵 국화부 4강1] 고현숙/김창희 vs. 강윤선/탁수현",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/CuPxND7gE14/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/CuPxND7gE14/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/CuPxND7gE14/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/CuPxND7gE14/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 7,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "CuPxND7gE14"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "RP99_a0oLfyUho8ydzYOE4YMp0k",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLlFVS0pUbHpDeldJ",
+    "snippet": {
+     "publishedAt": "2025-08-11T03:30:25Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 아식스컵 혼합복식 결승] 홍지혜/손이수 vs. 유세은/김재원",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/QUKJTlzCzWI/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/QUKJTlzCzWI/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/QUKJTlzCzWI/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/QUKJTlzCzWI/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 8,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "QUKJTlzCzWI"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "74eXq6Apr_1JcxME4gj0rUGrpoY",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLjFiZk9QNTN1MVVF",
+    "snippet": {
+     "publishedAt": "2025-08-10T03:30:03Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 아식스컵 혼합복식 4강2] 김선영/성기춘 vs. 유세은/김재원",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/1bfOP53u1UE/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/1bfOP53u1UE/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/1bfOP53u1UE/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/1bfOP53u1UE/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 9,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "1bfOP53u1UE"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "HioLRYnKkHwjp2_yx2qAn_ACzJY",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLkZwc2JsaG5uU0pr",
+    "snippet": {
+     "publishedAt": "2025-08-09T03:30:18Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 아식스컵 혼합복식 4강1] 홍지혜/손이수 vs. 이미영/신동명",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/FpsblhnnSJk/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/FpsblhnnSJk/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/FpsblhnnSJk/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/FpsblhnnSJk/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 10,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "FpsblhnnSJk"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "u98bxmLRCO8G_FKcFOHseH_i2Yo",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLl81SWV3dUU0b2lr",
+    "snippet": {
+     "publishedAt": "2025-08-07T03:30:33Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 고양호수배 국화부 결승] 최경아/김사랑 vs. 박소이/정혜승",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/_5IewuE4oik/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/_5IewuE4oik/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/_5IewuE4oik/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/_5IewuE4oik/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 11,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "_5IewuE4oik"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "vNo7l0P3DT16aBw9TNqxfj8becA",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLjJHZDR5NTl6Tzk0",
+    "snippet": {
+     "publishedAt": "2025-08-06T03:30:03Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 고양호수배 국화부 4강2] 김명례/정미희 vs. 최경아/김사랑",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/2Gd4y59zO94/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/2Gd4y59zO94/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/2Gd4y59zO94/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/2Gd4y59zO94/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 12,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "2Gd4y59zO94"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "jObBj4PJoxk1f9mEwufwl2E_pGU",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLjRGSDE5a3BLajE0",
+    "snippet": {
+     "publishedAt": "2025-08-05T03:30:02Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 고양호수배 국화부 4강1] 박소이/정혜승 vs. 신숙이/김춘주",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/4FH19kpKj14/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/4FH19kpKj14/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/4FH19kpKj14/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/4FH19kpKj14/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 13,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "4FH19kpKj14"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "aIvcJlY0HvI48xg6I7NukmH2Ke0",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLlVoWXdEeGhuOV9Z",
+    "snippet": {
+     "publishedAt": "2025-08-03T03:30:18Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 안성맞춤배 오픈부 결승] 홍성이/강성한 vs. 이정윤/박용선",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/UhYwDxhn9_Y/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/UhYwDxhn9_Y/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/UhYwDxhn9_Y/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/UhYwDxhn9_Y/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 14,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "UhYwDxhn9_Y"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "JbAGWfTL3kknS_ONXhu46yj6x_I",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLlFySm1BU2QzSEsw",
+    "snippet": {
+     "publishedAt": "2025-07-31T03:30:16Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 안성맞춤배 오픈부 4강2] 이정윤/박용선 vs. 김 훈/김재하",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/QrJmASd3HK0/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/QrJmASd3HK0/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/QrJmASd3HK0/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/QrJmASd3HK0/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 15,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "QrJmASd3HK0"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "h5yV24_8AvMwHayNQFrkh0PCzc8",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLjBNVUI5R2hwSHZj",
+    "snippet": {
+     "publishedAt": "2025-07-24T03:30:00Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 안성맞춤배 오픈부 4강1] 서제국/김민환 vs. 홍성이/강성한",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/0MUB9GhpHvc/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/0MUB9GhpHvc/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/0MUB9GhpHvc/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/0MUB9GhpHvc/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 16,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "0MUB9GhpHvc"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "tbKI8IvqH77PRWOBcL99q7jWo2I",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLmNHdmVwSUNpc1A4",
+    "snippet": {
+     "publishedAt": "2025-07-22T03:30:34Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 안성맞춤배 국화부 결승] 김경진/김세희 vs. 정윤정/김효은",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/cGvepICisP8/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/cGvepICisP8/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/cGvepICisP8/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/cGvepICisP8/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 17,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "cGvepICisP8"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "_dKxq-F1MQbLHW_FUWIcvByo-7E",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLjB6OXVVMjBQVGJz",
+    "snippet": {
+     "publishedAt": "2025-07-19T03:30:00Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 안성맞춤배 국화부 4강2] 박혜진/박미애 vs. 정윤정/김효은",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/0z9uU20PTbs/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/0z9uU20PTbs/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/0z9uU20PTbs/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/0z9uU20PTbs/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 18,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "0z9uU20PTbs"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "DkULmLhbFdjl7J-79t_h1FGlAxs",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLmFVdEl0M05sREpn",
+    "snippet": {
+     "publishedAt": "2025-07-12T03:30:01Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 안성맞춤배 국화부 4강1] 김경진/김세희 vs. 양남경/김은지",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/aUtIt3NlDJg/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/aUtIt3NlDJg/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/aUtIt3NlDJg/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/aUtIt3NlDJg/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 19,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "aUtIt3NlDJg"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "rMfaGXIcwQMOJtrCzu0EsNrUFKI",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLkFuRDduUUU4TXVV",
+    "snippet": {
+     "publishedAt": "2025-07-10T03:30:07Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 (주)마니커배 오픈부 결승] 정승환/김정수 vs. 최민준/홍석승",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/AnD7nQE8MuU/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/AnD7nQE8MuU/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/AnD7nQE8MuU/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/AnD7nQE8MuU/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 20,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "AnD7nQE8MuU"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "rD4sQAy5972jA6ITJgIsrw1qViI",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLmgyOFRvOUN5RjY4",
+    "snippet": {
+     "publishedAt": "2025-07-03T03:30:37Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 (주)마니커배 오픈부 4강2] 이지영/김성원 vs. 최민준/홍석승",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/h28To9CyF68/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/h28To9CyF68/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/h28To9CyF68/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/h28To9CyF68/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 21,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "h28To9CyF68"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "dxIl0cv493FHQcl3vA3eTkb69_Y",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLmwtYTl1UnJ5anFr",
+    "snippet": {
+     "publishedAt": "2025-07-01T03:30:29Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 (주)마니커배 오픈부 4강1] 류해열/마현기 vs. 정승환/김정수",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/l-a9uRryjqk/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/l-a9uRryjqk/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/l-a9uRryjqk/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/l-a9uRryjqk/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 22,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "l-a9uRryjqk"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "ZjX4crxyBgIUenfGLz6IkwIo3Ag",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLkV3Sl9tdmlpRjVZ",
+    "snippet": {
+     "publishedAt": "2025-06-07T03:30:11Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 (주)마니커배 베테랑부 결승] 최두환/조덕형 vs. 최성범/박응규",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/EwJ_mviiF5Y/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/EwJ_mviiF5Y/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/EwJ_mviiF5Y/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/EwJ_mviiF5Y/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 23,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "EwJ_mviiF5Y"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   },
+   {
+    "kind": "youtube#playlistItem",
+    "etag": "hVunJ43-DcnaehrZMqJ1Pr2F6sA",
+    "id": "VVVPaEFwd2Q5WEJrZVl6c2w3ZnNFMkZBLld4bGFkVU1LVDBz",
+    "snippet": {
+     "publishedAt": "2025-06-05T03:30:19Z",
+     "channelId": "UCOhApwd9XBkeYzsl7fsE2FA",
+     "title": "[2025 (주)마니커배 베테랑부 4강] 김관수/한도수 vs. 최성범/박응규",
+     "description": "",
+     "thumbnails": {
+      "default": {
+       "url": "https://i.ytimg.com/vi/WxladUMKT0s/default.jpg",
+       "width": 120,
+       "height": 90
+      },
+      "medium": {
+       "url": "https://i.ytimg.com/vi/WxladUMKT0s/mqdefault.jpg",
+       "width": 320,
+       "height": 180
+      },
+      "high": {
+       "url": "https://i.ytimg.com/vi/WxladUMKT0s/hqdefault.jpg",
+       "width": 480,
+       "height": 360
+      },
+      "standard": {
+       "url": "https://i.ytimg.com/vi/WxladUMKT0s/sddefault.jpg",
+       "width": 640,
+       "height": 480
+      }
+     },
+     "channelTitle": "KATA TENNIStube",
+     "playlistId": "UUOhApwd9XBkeYzsl7fsE2FA",
+     "position": 24,
+     "resourceId": {
+      "kind": "youtube#video",
+      "videoId": "WxladUMKT0s"
+     },
+     "videoOwnerChannelTitle": "KATA TENNIStube",
+     "videoOwnerChannelId": "UCOhApwd9XBkeYzsl7fsE2FA"
+    }
+   }
+  ],
+  "pageInfo": {
+   "totalResults": 937,
+   "resultsPerPage": 25
+  }
  }
 }

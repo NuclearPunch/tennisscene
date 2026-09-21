@@ -96,3 +96,36 @@ test("재생시간을 초로 바꾼다", () => {
   assert.equal(parseDuration(undefined), null);
   assert.equal(parseDuration("이상한값"), null);
 });
+
+test("대괄호 안에 대회명이 들어가는 형식도 읽는다", () => {
+  // KATA TENNIStube 형식. 대괄호를 통째로 버리면 대회명이 사라진다.
+  assert.deepEqual(parseTitle("[2025 아식스컵 개나리부 결승] 권봉여/최순혜 vs. 정다정/최채영"), {
+    tournamentName: "아식스컵",
+    division: "개나리부",
+    round: "결승",
+  });
+  // 공자테니스 형식 — 연도 뒤에 점이 붙고 부서는 괄호 안에 있다
+  assert.deepEqual(
+    parseTitle("[2026.제30회] 해남땅끝배 전남광주특별시 생활체육테니스대회 (일반부64강)"),
+    { tournamentName: "해남땅끝배", division: "일반부", round: "64강" },
+  );
+});
+
+test("채널마다 다른 철자를 받는다", () => {
+  // 카토는 '마스터스부', 어택 덕스는 '마스터즈부' 로 쓴다.
+  const p = parseTitle("KATO 안성시장배 마스터즈부 결승전! 김재원 강훈식(송도클레이) VS 이기원(후아유) 박인용(RnB)");
+  assert.equal(p.tournamentName, "KATO 안성시장배");
+  assert.equal(p.division, "마스터즈부");
+  assert.equal(p.round, "결승");
+  // 혼합복식은 '부' 없이 쓰는 채널이 있다
+  assert.equal(parseTitle("[2025 아식스컵 혼합복식 결승] 홍지혜/손이수 vs. 유세은/김재원").division, "혼합복식부");
+  // 다만 '부' 없는 다른 부서는 안 받는다 — "국화 4명의 승부" 같은 문장이 걸린다
+  assert.equal(parseTitle("국화 4명의 승부!!! 권혜빈,김정숙 vs 김수정,성유미").division, null);
+});
+
+test("해시태그 속 부서는 검색용 태그지 경기 부서가 아니다", () => {
+  // 야메테니스가 모든 쇼츠에 #오픈부 를 붙인다.
+  const p = parseTitle("급할때 오뽜! #테니스 #tennis #테니스복식 #오픈부 #포핸드 #백핸드");
+  assert.equal(p.division, null);
+  assert.equal(p.tournamentName, null);
+});
