@@ -5,10 +5,13 @@ import { loadFeed } from "@/lib/feed";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
-  const cursor = new URL(request.url).searchParams.get("cursor") ?? undefined;
+  const params = new URL(request.url).searchParams;
+  const cursor = params.get("cursor") ?? undefined;
+  // 해시태그 모아보기. 모르는 값은 loadFeed 가 무시하고 전체를 준다.
+  const tag = params.get("tag") ?? undefined;
 
   try {
-    return NextResponse.json(await loadFeed(cursor));
+    return NextResponse.json(await loadFeed(cursor, tag));
   } catch (err) {
     console.error("feed 조회 실패", err);
     return NextResponse.json(
