@@ -1,36 +1,33 @@
-import Link from "next/link";
+"use client";
 
+import Link from "next/link";
+import { AuthGate } from "@/components/AuthGate";
+import { Composer } from "@/components/Composer";
+import { useMe } from "@/lib/me";
+
+/**
+ * 탭바 없는 전체 화면. 쓰는 동안 다른 데로 새지 않게 한다.
+ * 로그인하지 않았으면 같은 자리에서 문(AuthGate)이 먼저 나온다 — 읽기에는 로그인이 없다.
+ */
 export default function ComposePage() {
+  const { me, refresh } = useMe();
+
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-[520px] flex-col border-hairline sm:border-x">
-      <header className="flex h-[54px] shrink-0 items-center justify-between border-b border-hairline px-5">
-        <Link href="/" className="text-[15px] text-ink-2">
-          취소
-        </Link>
-        <span className="text-[15px] font-semibold tracking-[-0.01em]">새 글</span>
-        <button
-          type="button"
-          disabled
-          className="rounded-full bg-grouped px-4 py-1.5 text-[14px] font-semibold text-muted"
-        >
-          게시
-        </button>
-      </header>
-
-      <div className="flex grow gap-3 px-5 py-4">
-        <div className="h-10 w-10 shrink-0 rounded-full bg-grouped" />
-        <div className="grow">
-          <label htmlFor="body" className="sr-only">
-            내용
-          </label>
-          <textarea
-            id="body"
-            rows={8}
-            placeholder="무슨 일이 있었나요?"
-            className="w-full resize-none bg-transparent text-[15px] leading-[1.6] outline-none placeholder:text-muted"
-          />
-        </div>
-      </div>
+      {me.status === "ready" ? (
+        <Composer account={me.account} />
+      ) : (
+        <>
+          <header className="flex h-(--header-h) shrink-0 items-center px-3 pt-[env(safe-area-inset-top,0px)]">
+            <Link href="/" className="w-14">
+              취소
+            </Link>
+          </header>
+          <AuthGate me={me} refresh={refresh}>
+            {null}
+          </AuthGate>
+        </>
+      )}
     </div>
   );
 }
