@@ -1,3 +1,4 @@
+import { expandDivision } from "./divisions";
 import { commentPrompt } from "./prompt";
 import { publicClient } from "./supabase";
 import { formatWeekShort } from "./week";
@@ -284,8 +285,11 @@ export async function searchPosts(q: string): Promise<Post[]> {
   const term = q.trim();
   if (term.length < SEARCH_MIN) return [];
 
+  // 같은 부서의 다른 이름까지 같이 찾는다. 오픈부 == 마스터스부 == 마스터즈부.
+  const terms = expandDivision(term);
+
   const db = publicClient();
-  const { data, error } = await db.rpc("search_posts", { q: term, lim: PAGE_SIZE });
+  const { data, error } = await db.rpc("search_posts", { qs: terms, lim: PAGE_SIZE });
   if (error) throw error;
 
   const now = Date.now();

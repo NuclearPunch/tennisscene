@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SearchBox } from "@/components/SearchBox";
 import { PostCard } from "@/components/post/PostCard";
+import { alsoSearched } from "@/lib/divisions";
 import { FEED_TAGS, SEARCH_MIN, searchPosts } from "@/lib/feed";
 
 export const dynamic = "force-dynamic";
@@ -20,6 +21,9 @@ export default async function SearchPage({
   const { q = "" } = await searchParams;
   const term = q.trim();
   const posts = term.length >= SEARCH_MIN ? await searchPosts(term).catch(() => []) : [];
+  // 같은 부서의 다른 이름으로도 찾았다면 말해 준다.
+  // 안 알려주면 `오픈부` 를 쳤는데 `마스터스부` 글이 나와서 검색이 고장 난 줄 안다.
+  const also = term.length >= SEARCH_MIN ? alsoSearched(term) : [];
 
   return (
     <div>
@@ -45,12 +49,23 @@ export default async function SearchPage({
         </div>
       ) : posts.length === 0 ? (
         <p className="px-3 py-10 text-center text-ink-3">
-          &lsquo;{term}&rsquo; 로 찾은 글이 없습니다
+          &lsquo;{term}&rsquo;
+          {also.length > 0 && <>{` · ${also.join(", ")}`}</>} 로 찾은 글이 없습니다
         </p>
       ) : (
         <>
           <p className="px-3 pt-1 pb-3 text-[13px] leading-[18px] text-ink-3">
             {posts.length}건
+            {also.length > 0 && (
+              <>
+                {" · "}
+                {/* 같은 부서를 부르는 다른 이름들. 단체마다 달라서 같이 찾는다. */}
+                {/* 조사는 붙여 쓴다. `마스터즈부 도` 로 벌어지면 안 된다. */}
+                <span className="text-muted">
+                  {`${also.join(", ")}도 같은 부서라 함께 찾았습니다`}
+                </span>
+              </>
+            )}
           </p>
           {posts.map((p) => (
             <PostCard key={p.id} post={p} />
