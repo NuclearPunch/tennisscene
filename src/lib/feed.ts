@@ -51,9 +51,25 @@ export type FeedTag = {
   types: PostType[];
 };
 
+/**
+ * 봇이 실제로 피드에 올리는 타입.
+ *
+ * **새 수집 잡을 붙이면 여기와 `FEED_TAGS` 를 같이 고쳐야 한다.**
+ * 한쪽만 고치면 그 글은 피드에 뜨는데 어떤 태그로도 안 모인다 —
+ * 유튜브를 붙이고 태그를 안 더해서 영상 45건이 그렇게 떠 있었다.
+ * 둘이 어긋나면 테스트가 잡는다(tests/feedTags.test.ts).
+ */
+export const PUBLISHED_TYPES = [
+  "tournament",
+  "result",
+  "video",
+  "ranking",
+] as const satisfies readonly PostType[];
+
 export const FEED_TAGS: FeedTag[] = [
   { slug: "tournament", label: "대회일정", types: ["tournament"] },
   { slug: "result", label: "대회결과", types: ["result"] },
+  { slug: "video", label: "경기영상", types: ["video"] },
   { slug: "ranking", label: "주간랭킹", types: ["ranking"] },
 ];
 
