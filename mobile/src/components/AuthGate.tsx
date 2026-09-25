@@ -1,11 +1,15 @@
+import * as WebBrowser from "expo-web-browser";
+import { CheckSquare, Square } from "phosphor-react-native";
 import { useState } from "react";
-import { KeyboardAvoidingView, Platform, Pressable, ScrollView, View } from "react-native";
+import { KeyboardAvoidingView, Linking, Platform, Pressable, ScrollView, View } from "react-native";
 import { Logo } from "@/components/brand/Logo";
 import { T } from "@/components/T";
 import { Button, Field } from "@/components/ui";
 import { webUrl } from "@/lib/api";
+import { CONTACT_EMAIL } from "@/lib/config";
 import { type Me, useMe } from "@/lib/me";
 import { supabase } from "@/lib/supabase";
+import { useColors } from "@/lib/theme";
 
 /**
  * 쓰려고 할 때만 나오는 문. 읽기에는 로그인이 없다. 웹의 AuthGate 와 같은 흐름이다.
@@ -57,6 +61,9 @@ function Login({ purpose }: { purpose: GatePurpose }) {
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // 가입은 약관·방침 동의와 만 14세 이상 확인이 있어야 된다(애플 1.2, 개인정보보호법 제22조의2).
+  const [agreed, setAgreed] = useState(false);
+  const [adult, setAdult] = useState(false);
 
   async function submit() {
     setBusy(true);
@@ -109,8 +116,35 @@ function Login({ purpose }: { purpose: GatePurpose }) {
             {error}
           </T>
         ) : null}
+        {signup && (
+          <View style={{ gap: 6, marginTop: 4, paddingHorizontal: 4 }}>
+            <Check checked={agreed} onChange={setAgreed}>
+              <T v="small" c="ink2">
+                <T v="small" c="ink2" style={{ textDecorationLine: "underline" }} onPress={() => void WebBrowser.openBrowserAsync(webUrl("/terms"))}>
+                  이용약관
+                </T>
+                과{" "}
+                <T v="small" c="ink2" style={{ textDecorationLine: "underline" }} onPress={() => void WebBrowser.openBrowserAsync(webUrl("/privacy"))}>
+                  개인정보 처리방침
+                </T>
+                에 동의합니다 (필수)
+              </T>
+            </Check>
+            <Check checked={adult} onChange={setAdult}>
+              <T v="small" c="ink2">
+                만 14세 이상입니다 (필수)
+              </T>
+            </Check>
+          </View>
+        )}
         <View style={{ marginTop: 4 }}>
-          <Button big label={signup ? "가입하기" : "로그인"} onPress={() => void submit()} busy={busy} disabled={!email || !password} />
+          <Button
+            big
+            label={signup ? "가입하기" : "로그인"}
+            onPress={() => void submit()}
+            busy={busy}
+            disabled={!email || !password || (signup && !(agreed && adult))}
+          />
         </View>
       </View>
       <Pressable
@@ -122,7 +156,43 @@ function Login({ purpose }: { purpose: GatePurpose }) {
       >
         <T c="ink3">{signup ? "이미 계정이 있어요" : "처음이에요 — 가입하기"}</T>
       </Pressable>
+      <LegalLinks />
     </Shell>
+  );
+}
+
+function Check({ checked, onChange, children }: { checked: boolean; onChange: (v: boolean) => void; children: React.ReactNode }) {
+  const c = useColors();
+  return (
+    <Pressable
+      accessibilityRole="checkbox"
+      accessibilityState={{ checked }}
+      onPress={() => onChange(!checked)}
+      style={{ flexDirection: "row", alignItems: "flex-start", gap: 8 }}
+    >
+      {checked ? <CheckSquare size={18} color={c.ink} weight="fill" /> : <Square size={18} color={c.ink3} />}
+      <View style={{ flex: 1 }}>{children}</View>
+    </Pressable>
+  );
+}
+
+/** 약관·방침·문의. 로그인 문 아래와 프로필에 둔다 — 애플은 앱 안에서 쉽게 찾을 수 있어야 한다고 한다. */
+export function LegalLinks() {
+  const link = { textDecorationLine: "underline" } as const;
+  return (
+    <T v="small" c="ink3" style={{ textAlign: "center" }}>
+      <T v="small" c="ink3" style={link} onPress={() => void WebBrowser.openBrowserAsync(webUrl("/terms"))}>
+        이용약관
+      </T>
+      {" · "}
+      <T v="small" c="ink3" style={link} onPress={() => void WebBrowser.openBrowserAsync(webUrl("/privacy"))}>
+        개인정보 처리방침
+      </T>
+      {" · "}
+      <T v="small" c="ink3" style={link} onPress={() => void Linking.openURL(`mailto:${CONTACT_EMAIL}`)}>
+        문의
+      </T>
+    </T>
   );
 }
 

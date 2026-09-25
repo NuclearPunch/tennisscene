@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fail, isCaller, requireAccount } from "@/lib/api";
+import { fail, failIfSuspended, isCaller, requireAccount } from "@/lib/api";
 import { validatePostInput } from "@/lib/postInput";
 
 export const dynamic = "force-dynamic";
@@ -18,6 +18,8 @@ export async function POST(request: Request, ctx: { params: Promise<{ id: string
 
   const checked = validatePostInput(await request.json().catch(() => null));
   if (!checked.ok) return fail(400, checked.reason);
+  const suspended = await failIfSuspended(caller.db);
+  if (suspended) return suspended;
 
   const { data, error } = await caller.db
     .from("posts")

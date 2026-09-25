@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { LegalLinks } from "@/components/AuthGate";
 import { useModeration } from "@/lib/moderationClient";
 import { browserClient } from "@/lib/supabase-browser";
 
@@ -59,6 +60,10 @@ export function AccountSettings() {
             ))}
           </ul>
         )}
+      </section>
+
+      <section className="hair-t px-3 py-4">
+        <LegalLinks />
       </section>
 
       <section className="hair-t px-3 py-4">

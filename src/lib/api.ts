@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { CONTACT_EMAIL } from "@/lib/legal";
 import { userClient } from "@/lib/supabase";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
@@ -47,4 +48,14 @@ export async function requireAdmin(request: Request): Promise<Caller | NextRespo
   if (error) return fail(500, "권한을 확인하지 못했습니다");
   if (data !== true) return fail(403, "관리자만 할 수 있습니다");
   return caller;
+}
+
+/**
+ * 이용이 정지된 회원이면 403 을 준다. 글·댓글 쓰기 전에 부른다.
+ * 막는 건 DB 정책(posts_insert_own)이 한다 — 이건 이유를 알려주려는 것이다.
+ * RLS 거부 코드만 보고 "정지" 라고 짐작하면, 다른 이유로 막혔을 때 틀린 말을 하게 된다.
+ */
+export async function failIfSuspended(db: SupabaseClient): Promise<NextResponse | null> {
+  const { data } = await db.rpc("is_suspended");
+  return data === true ? fail(403, `이용이 정지된 계정입니다. 문의: ${CONTACT_EMAIL}`) : null;
 }

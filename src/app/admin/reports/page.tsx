@@ -66,6 +66,25 @@ function Item({ row, onDone }: { row: Row; onDone: () => void }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [suspended, setSuspended] = useState<string | null>(null);
+
+  async function suspend() {
+    if (!window.confirm("이 글을 쓴 회원의 이용을 정지할까요? 정지되면 글과 댓글을 쓸 수 없습니다.")) return;
+    setBusy(true);
+    setError(null);
+    try {
+      const r = await adminFetch<{ handle: string }>(`/api/admin/reports/${row.post_id}/suspend`, {
+        method: "POST",
+        body: JSON.stringify({ reason: row.reasons.join(", ") }),
+      });
+      setSuspended(r.handle);
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
   async function resolve(verdict: "remove" | "keep") {
     setBusy(true);
     setError(null);
@@ -108,7 +127,18 @@ function Item({ row, onDone }: { row: Row; onDone: () => void }) {
         >
           {row.hidden ? "내림 확정" : "내리기"}
         </button>
+        {row.author_kind === "user" && !suspended && !row.author_name.endsWith("(정지됨)") && (
+          <button
+            type="button"
+            disabled={busy}
+            onClick={() => void suspend()}
+            className="ml-auto h-[34px] cursor-pointer rounded-full px-3.5 font-semibold text-down disabled:opacity-40"
+          >
+            작성자 이용 정지
+          </button>
+        )}
       </div>
+      {suspended && <p className="pt-1 text-[13px] leading-[18px]">{`@${suspended} 의 이용을 정지했습니다.`}</p>}
       {error && <p className="pt-1 text-[13px] leading-[18px] text-down">{error}</p>}
     </li>
   );

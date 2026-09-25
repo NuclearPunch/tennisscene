@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Logo } from "@/components/Logo";
 import { Reply } from "@/components/icons";
+import { CONTACT_EMAIL } from "@/lib/legal";
 import type { Me } from "@/lib/me";
 import { browserClient } from "@/lib/supabase-browser";
 
@@ -56,6 +57,9 @@ function Login({ purpose }: { purpose: GatePurpose }) {
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // 가입은 약관·방침 동의와 만 14세 이상 확인이 있어야 된다(애플 1.2, 개인정보보호법 제22조의2).
+  const [agreed, setAgreed] = useState(false);
+  const [adult, setAdult] = useState(false);
   // 카카오는 Supabase 대시보드에서 켜는 순간 버튼이 나타난다. 꺼져 있는 버튼을 보여주지 않는다.
   const [kakao, setKakao] = useState(false);
 
@@ -152,7 +156,22 @@ function Login({ purpose }: { purpose: GatePurpose }) {
             {error}
           </p>
         )}
-        <button type="submit" disabled={busy || !email || !password} className={`mt-1 ${PRIMARY}`}>
+        {signup && (
+          <div className="mt-1 flex flex-col gap-1.5 px-1">
+            <Check checked={agreed} onChange={setAgreed}>
+              <a href="/terms" target="_blank" className="underline">이용약관</a>과{" "}
+              <a href="/privacy" target="_blank" className="underline">개인정보 처리방침</a>에 동의합니다 (필수)
+            </Check>
+            <Check checked={adult} onChange={setAdult}>
+              만 14세 이상입니다 (필수)
+            </Check>
+          </div>
+        )}
+        <button
+          type="submit"
+          disabled={busy || !email || !password || (signup && !(agreed && adult))}
+          className={`mt-1 ${PRIMARY}`}
+        >
           {busy ? "잠시만요" : signup ? "가입하기" : "로그인"}
         </button>
       </form>
@@ -167,7 +186,44 @@ function Login({ purpose }: { purpose: GatePurpose }) {
       >
         {signup ? "이미 계정이 있어요" : "처음이에요 — 가입하기"}
       </button>
+      <LegalLinks />
     </Shell>
+  );
+}
+
+/** 체크 상자. 글자를 눌러도 체크된다. 안의 링크는 체크를 바꾸지 않고 문서를 연다. */
+function Check({
+  checked,
+  onChange,
+  children,
+}: {
+  checked: boolean;
+  onChange: (v: boolean) => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <label className="flex cursor-pointer items-start gap-2 text-[13px] leading-[18px] text-ink-2">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={(e) => onChange(e.target.checked)}
+        className="mt-[1px] h-4 w-4 shrink-0 accent-[var(--ink)]"
+      />
+      <span>{children}</span>
+    </label>
+  );
+}
+
+/** 약관·방침·문의. 로그인 문 아래와 프로필에 둔다 — 애플은 앱 안에서 쉽게 찾을 수 있어야 한다고 한다. */
+export function LegalLinks() {
+  return (
+    <p className="text-center text-[13px] leading-[18px] text-ink-3">
+      <a href="/terms" className="underline">이용약관</a>
+      {" · "}
+      <a href="/privacy" className="underline">개인정보 처리방침</a>
+      {" · "}
+      <a href={`mailto:${CONTACT_EMAIL}`} className="underline">문의</a>
+    </p>
   );
 }
 

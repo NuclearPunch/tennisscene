@@ -44,7 +44,10 @@ src/lib/me.ts          useMe() — guest / needs-profile / ready
 src/components/post/   PostCard → Attachment 가 type 으로 분기
 src/app/(app)/         탭바가 붙는 셸. / · /search · /activity · /me
 src/app/compose/       탭바 없는 전체화면
-src/app/admin/         관리자(유튜브 채널·수집 기록·글 숨기기). 권한은 DB 의 is_admin() 이 본다
+src/app/admin/         관리자(신고·유튜브 채널·수집 기록·글 숨기기). 권한은 DB 의 is_admin() 이 본다
+src/app/terms|privacy/ 약관·개인정보 처리방침. 앱도 이 페이지를 연다. 운영 정보는 src/lib/legal.ts
+src/lib/moderation.ts  글쓰기 전 욕설 거르기. 신고·차단은 src/lib/moderationClient.tsx
+mobile/                네이티브 앱(Expo). 같은 서버 API, 타입만 공유(mobile/README.md)
 ```
 
 포스트 타입을 추가할 때는 `types.ts`의 `Attachment` 유니온에 넣고

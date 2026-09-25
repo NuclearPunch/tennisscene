@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { failIfSuspended } from "@/lib/api";
 import { validatePostInput } from "@/lib/postInput";
 import { userClient } from "@/lib/supabase";
 
@@ -31,6 +32,8 @@ export async function POST(request: Request) {
     return fail(401, "로그인이 만료됐습니다. 다시 로그인해주세요");
   }
   if (!me.data) return fail(403, "프로필을 먼저 만들어주세요");
+  const suspended = await failIfSuspended(db);
+  if (suspended) return suspended;
 
   const { data, error } = await db
     .from("posts")

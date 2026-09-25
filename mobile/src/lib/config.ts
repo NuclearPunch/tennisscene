@@ -12,3 +12,9 @@ export const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_flM-Z-3LAE-QeIhKZhL9aw_q
 
 /** 피드·검색·글쓰기 API. 웹과 같은 서버를 쓴다. */
 export const API_URL = "https://tennisscene.vercel.app";
+
+/**
+ * 문의 메일. 웹 src/lib/legal.ts 의 CONTACT_EMAIL 과 **같아야 한다** — 그 파일은 앱 번들 밖이라
+ * 값을 가져올 수 없어서 한 줄 옮겨 둔다. 약관·방침 문서 자체는 웹에 한 벌만 있고 앱은 그걸 연다.
+ */
+export const CONTACT_EMAIL = "skwjdgn2@gmail.com";

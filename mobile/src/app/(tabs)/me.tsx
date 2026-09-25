@@ -3,7 +3,7 @@ import { CaretRight } from "phosphor-react-native";
 import { useEffect, useState } from "react";
 import { Pressable, ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { AuthGate } from "@/components/AuthGate";
+import { AuthGate, LegalLinks } from "@/components/AuthGate";
 import { Avatar } from "@/components/post/Avatar";
 import { T } from "@/components/T";
 import { Button } from "@/components/ui";
@@ -59,6 +59,9 @@ function Profile({ account }: { account: Author }) {
         </Pressable>
       )}
       <Blocked />
+      <View style={{ borderTopWidth: HAIR, borderTopColor: c.hairline, paddingVertical: 16 }}>
+        <LegalLinks />
+      </View>
       <Leave />
     </ScrollView>
   );

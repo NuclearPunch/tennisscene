@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { jobDb } from "@/lib/db";
 import { runAiPosts } from "@/lib/jobs/aiPosts";
 import { runPublish } from "@/lib/jobs/publish";
+import { runPurge } from "@/lib/jobs/purge";
 import { runAndRecord } from "@/lib/jobs/record";
 import { runResults } from "@/lib/jobs/results";
 import { spreadBotPosts, spreadNote } from "@/lib/jobs/schedule";
@@ -62,6 +63,8 @@ export async function GET(request: Request) {
   // 랭킹은 주간 다이제스트다(CLAUDE.md 규칙 3). 월요일에만 뜨고 게시한다.
   // 수집을 먼저 한 뒤 게시해야 그 주 스냅샷을 읽는다.
   const jobs: [string, Job][] = [
+    // 1년 지난 내린 글을 지운다(개인정보 처리방침 3번). 쿼리 두 개라 제일 가볍다.
+    ["purge", runPurge],
     // 대회 목록 한 번 + 상세 몇 번. 제일 가볍다.
     ["tournaments", runTournaments],
     // 유튜브는 API 가 빠르다. 채널 수만큼 호출하고 끝난다.
