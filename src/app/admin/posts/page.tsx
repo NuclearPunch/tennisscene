@@ -48,8 +48,11 @@ export default function PostsPage() {
   const [more, setMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // "예약" 을 가르는 기준 시각. 목록을 받아온 때로 고정한다 — 렌더마다 시계를 보면 화면이 흔들린다.
+  const [loadedAt, setLoadedAt] = useState(0);
 
   const append = useCallback((posts: Row[], before?: string) => {
+    if (!before) setLoadedAt(Date.now());
     setRows((prev) => (before && prev ? [...prev, ...posts] : posts));
     setMore(posts.length === PAGE);
     setError(null);
@@ -88,12 +91,13 @@ export default function PostsPage() {
   return (
     <div className="pb-10">
       <p className="px-3 pt-4 pb-2 text-[13px] leading-[18px] text-ink-3">
-        최근 글입니다. 숨기면 피드·검색·상세에서 모두 빠지고, 여기서 다시 되살릴 수 있습니다.
+        최근 글입니다. 봇 글은 하루에 걸쳐 나눠 올라가서, 맨 위에는 아직 안 뜬 예약 글이 보입니다.
+        숨기면 피드·검색·상세에서 모두 빠지고, 여기서 다시 되살릴 수 있습니다.
       </p>
       {error && <p className="px-3 py-6 text-ink-3">{error}</p>}
       <ul>
         {rows?.map((r) => (
-          <PostItem key={r.id} row={r} onChange={(p) => replace(r.id, p)} />
+          <PostItem key={r.id} row={r} now={loadedAt} onChange={(p) => replace(r.id, p)} />
         ))}
       </ul>
       {rows && more && (
@@ -113,7 +117,7 @@ export default function PostsPage() {
   );
 }
 
-function PostItem({ row, onChange }: { row: Row; onChange: (p: Partial<Row>) => void }) {
+function PostItem({ row, now, onChange }: { row: Row; now: number; onChange: (p: Partial<Row>) => void }) {
   const [asking, setAsking] = useState(false);
   const [reason, setReason] = useState("");
   const [busy, setBusy] = useState(false);
@@ -138,6 +142,8 @@ function PostItem({ row, onChange }: { row: Row; onChange: (p: Partial<Row>) => 
   }
 
   const text = row.body || row.title || "";
+  // 아직 예약 시각이 안 된 글. 피드에는 안 보이고 여기서만 보인다 — 뜨기 전에 뺄 수 있다.
+  const scheduled = Date.parse(row.created_at) > now;
   return (
     <li className={`hair-t px-3 py-3 ${row.hidden ? "opacity-60" : ""}`}>
       <div className="flex items-start gap-3">
@@ -146,14 +152,14 @@ function PostItem({ row, onChange }: { row: Row; onChange: (p: Partial<Row>) => 
             {[
               row.author_name,
               TYPE[row.type] ?? row.type,
-              when(row.created_at),
+              scheduled ? `${when(row.created_at)} 예약` : when(row.created_at),
               (row.like_count > 0 || row.comment_count > 0) && `좋아요 ${row.like_count} · 댓글 ${row.comment_count}`,
             ]
               .filter(Boolean)
               .join(" · ")}
           </p>
-          {row.hidden ? (
-            <p className="line-clamp-2 break-keep">{text}</p>
+          {row.hidden || scheduled ? (
+            <p className="line-clamp-3 break-keep whitespace-pre-line">{text}</p>
           ) : (
             <Link href={`/p/${row.id}`} className="line-clamp-2 break-keep">
               {text}

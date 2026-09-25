@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import { jobDb } from "@/lib/db";
+import { runAiPosts } from "@/lib/jobs/aiPosts";
 import { runPublish } from "@/lib/jobs/publish";
 import { runAndRecord } from "@/lib/jobs/record";
 import { runResults } from "@/lib/jobs/results";
+import { spreadBotPosts, spreadNote } from "@/lib/jobs/schedule";
 import { runSnapshot } from "@/lib/jobs/snapshot";
 import { runTournaments } from "@/lib/jobs/tournaments";
 import { runYoutube } from "@/lib/jobs/youtube";
@@ -70,6 +72,8 @@ export async function GET(request: Request) {
           ["publish", runPublish],
         ] as [string, Job][])
       : []),
+    // AI 계정 글. 계정들을 동시에 불러서 10초 남짓이다.
+    ["ai", runAiPosts],
     // 카토에 예의를 지키느라 요청 사이를 쉰다. 제일 오래 걸려서 맨 뒤에 둔다.
     ["results", runResults],
   ];
@@ -83,6 +87,12 @@ export async function GET(request: Request) {
       // 한 잡이 죽어도 나머지는 돌린다. 카토가 랭킹 페이지만 바꿨는데
       // 대회 결과까지 못 올리면 손해가 두 배다. 결과는 job_runs 에 남아 관리자 화면에 뜬다.
       const out = await runAndRecord(db, name, job, "cron");
+      // 잡마다 나눠 올린다. 60초에 걸려 크론이 중간에 죽어도 그때까지 올라온 글은 흩어져 있다.
+      const spread = await spreadBotPosts(db, now).catch((err) => {
+        console.error(`[cron] 나눠 올리기 실패: ${err instanceof Error ? err.message : err}`);
+        return { count: 0, until: null };
+      });
+      if (spread.count > 0) console.log(`[cron] ${spreadNote(spread)}`);
       const sec = (out.ms / 1000).toFixed(1);
       if (out.ok) {
         // 얼마나 걸렸는지 남긴다. 무료 플랜 상한이 60초라 어느 잡이 먹는지 보여야 한다.

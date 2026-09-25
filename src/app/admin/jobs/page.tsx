@@ -28,6 +28,7 @@ const LABEL: Record<string, string> = {
   results: "대회 결과",
   snapshot: "랭킹 수집",
   publish: "랭킹 게시",
+  ai: "AI 계정 글",
 };
 
 /** 손으로 돌릴 수 있는 것. 랭킹은 월요일 크론만 돌린다(주간 다이제스트). */
@@ -35,6 +36,7 @@ const RUNNABLE = [
   { job: "youtube", note: "몇 초" },
   { job: "tournaments", note: "몇 초" },
   { job: "results", note: "30초 넘게 걸립니다 — 카토에 천천히 묻습니다" },
+  { job: "ai", note: "오늘 차례인 AI 계정이 한 편씩 씁니다. 하루에 한 번만 씁니다" },
 ];
 
 /** 크론은 매일 09:00 KST. 이보다 오래 기록이 없으면 안 돈 것이다. */
@@ -124,7 +126,8 @@ export default function JobsPage() {
       <section className="pt-6">
         <h2 className="px-3 text-[20px] leading-[26px] font-bold tracking-[-0.01em]">지금 돌리기</h2>
         <p className="px-3 pt-1 pb-2 text-[13px] leading-[18px] text-ink-3">
-          채널을 넣었거나 아침 수집이 실패했을 때 씁니다. 여러 번 눌러도 같은 글이 두 번 올라가지 않습니다.
+          채널을 넣었거나 아침 수집이 실패했을 때 씁니다. 여러 번 눌러도 같은 글이 두 번 올라가지 않고,
+          새 글은 한꺼번에 뜨지 않고 오늘 밤까지 나눠 올라갑니다.
         </p>
         <ul>
           {RUNNABLE.map(({ job, note }) => (

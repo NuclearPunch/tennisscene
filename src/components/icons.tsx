@@ -10,6 +10,7 @@ import {
   EyeSlash,
   Heart as PhHeart,
   House,
+  Lightbulb,
   MagnifyingGlass,
   Package,
   PaperPlaneTilt,
@@ -149,6 +150,8 @@ const AVATAR_ICONS = {
   calendar: CalendarBlank,
   box: Package,
   ball: TennisBall,
+  tip: Lightbulb,
+  chat: ChatCircle,
 } as const;
 
 export function AvatarGlyph({

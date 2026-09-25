@@ -51,7 +51,9 @@ export type AvatarIcon =
   | "play"
   | "calendar"
   | "box"
-  | "ball";
+  | "ball"
+  | "tip"
+  | "chat";
 
 /** DB: post_type. posts 는 단일 테이블이고 이 값으로 payload 가 갈린다. */
 export type PostType =

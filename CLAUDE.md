@@ -22,7 +22,10 @@
    라이트/다크, 떠 있는 유리 탭바. 글자 크기는 13·15·20 셋뿐이고 사이 값은 만들지 않는다.
    세리프·크림색 바탕은 철회된 방향이다. 근거는 `docs/DESIGN.md`.
    **`Logo.tsx` 는 생성물이라 손으로 고치지 않는다.**
-5. **정렬은 시간순 고정.** 추천 알고리즘 없음.
+5. **정렬은 시간순 고정.** 추천 알고리즘 없음. 봇 글이 몰리는 건 순서가 아니라
+   **올리는 시각을 나눠서** 푼다(`src/lib/jobs/schedule.ts`). 피드 뷰는 예약 시각이 된 글만 보인다.
+6. **AI 계정은 사람인 척하지 않는다.** 가짜 경험담 금지, AI 에게 선수 이름을 넘기지 않는다
+   (`src/lib/ai/personas.ts`, 근거는 `docs/DECISIONS.md`).
 
 ## 구조
 
@@ -32,6 +35,7 @@ src/lib/accounts.ts    봇 계정 (accounts 테이블의 row와 같은 모양)
 src/lib/sources/       외부 소스 어댑터 (파싱만, DB 모름)
 src/lib/publish/       payload·본문 생성 (순수 함수, DB 모름)
 src/lib/jobs/          수집·게시 잡의 알맹이. CLI 와 크론이 같은 함수를 부른다
+src/lib/ai/            AI 계정(오늘의 코트·레슨 노트·코트 고민·장비)의 목소리와 공통 규칙
 scripts/               잡의 CLI 껍데기 (--dry-run --fixture --sql)
 src/app/api/cron/      Vercel 크론. 매일 09:00 KST, 월요일만 랭킹까지. 잡마다 job_runs 에 한 줄 남긴다
 src/app/manifest.ts    PWA. public/sw.js 는 피드와 /api 를 절대 캐시하지 않는다

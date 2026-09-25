@@ -42,6 +42,23 @@ export const BOTS = {
     icon: "box",
     tone: "ball",
   },
+  // ── AI 가 쓰는 계정. 봇 배지가 달리고, 사람인 척하지 않는다(src/lib/jobs/aiPosts.ts).
+  court: {
+    id: "b_court",
+    name: "레슨 노트",
+    handle: "court",
+    kind: "bot",
+    icon: "tip",
+    tone: "green",
+  },
+  talk: {
+    id: "b_talk",
+    name: "코트 고민",
+    handle: "talk",
+    kind: "bot",
+    icon: "chat",
+    tone: "neutral",
+  },
   pro: {
     id: "b_pro",
     name: "프로 테니스",
