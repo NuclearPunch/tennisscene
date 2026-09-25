@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { AvatarGlyph, Verified } from "@/components/icons";
 import { Avatar } from "./Avatar";
 import { Attachment } from "./Attachment";
@@ -49,6 +50,16 @@ export function PostCard({
         </div>
 
         {post.body && <p className="whitespace-pre-line">{post.body}</p>}
+
+        {post.hashtag && (
+          // 봇 계정 이름만으로는 안 갈린다 — '대회 알림' 이 일정도 결과도 올린다.
+          <Link
+            href={`/?tag=${post.hashtag.slug}`}
+            className="mt-0.5 inline-block text-ink-3"
+          >
+            #{post.hashtag.label}
+          </Link>
+        )}
 
         {post.attachment && <Attachment a={post.attachment} />}
         {post.quote && <QuoteCard q={post.quote} />}

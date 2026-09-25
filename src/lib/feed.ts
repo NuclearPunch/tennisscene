@@ -77,6 +77,12 @@ export function findFeedTag(slug?: string | null): FeedTag | undefined {
   return slug ? FEED_TAGS.find((t) => t.slug === slug) : undefined;
 }
 
+/** 이 타입의 글에 붙는 해시태그. 봇 계정 이름만으로는 안 갈린다 —
+ *  '대회 알림' 은 대회 일정과 대회 결과를 둘 다 올린다. */
+export function tagOfType(type: PostType): FeedTag | undefined {
+  return FEED_TAGS.find((t) => (t.types as readonly PostType[]).includes(type));
+}
+
 /** 단체 코드 → 화면 표시명. DB 에는 코드로 저장한다. */
 const ORG_LABEL: Record<string, string> = {
   kato: "카토",
@@ -248,6 +254,7 @@ function toPost(row: Row, now?: number): Post {
       reposts: row.repost_count,
       likes: row.like_count,
     },
+    hashtag: row.author_kind === "bot" ? tagOfType(row.type) : undefined,
     prompt:
       commentPrompt({
         type: row.type,
@@ -263,6 +270,27 @@ export type FeedPage = {
   /** 다음 장을 받을 커서. 없으면 끝이다. */
   nextCursor: string | null;
 };
+
+/** 검색어의 최소 길이. 한 글자로는 거의 전부가 걸려서 검색이 아니게 된다. */
+export const SEARCH_MIN = 2;
+
+/**
+ * 글 검색 (F-4.1).
+ *
+ * **선수 명부를 만들지 않는다**(CLAUDE.md). 본문·대회명·영상 제목·부서만 본다.
+ * 범위와 이유는 `search_posts` 함수 주석에 적혀 있다.
+ */
+export async function searchPosts(q: string): Promise<Post[]> {
+  const term = q.trim();
+  if (term.length < SEARCH_MIN) return [];
+
+  const db = publicClient();
+  const { data, error } = await db.rpc("search_posts", { q: term, lim: PAGE_SIZE });
+  if (error) throw error;
+
+  const now = Date.now();
+  return ((data ?? []) as unknown as Row[]).map((r) => toPost(r, now));
+}
 
 /**
  * 글 하나와 그 댓글. 포스트 상세 화면이 쓴다.

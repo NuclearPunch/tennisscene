@@ -597,6 +597,11 @@ export type Post = {
   quote?: Quote;
   stats: PostStats;
   /**
+   * 이 글의 해시태그. 눌러서 같은 종류만 모아 본다.
+   * 타입에서 뽑으므로 저장하지 않는다. 유저 글에는 없다.
+   */
+  hashtag?: { slug: string; label: string };
+  /**
    * 봇 글에 붙는 댓글 유도 한 줄. 저장하지 않고 조회 시점에 만든다(src/lib/prompt.ts).
    * 댓글이 이미 있거나 유저 글이면 없다.
    */

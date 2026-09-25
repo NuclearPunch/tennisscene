@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import { ComposePrompt } from "@/components/ComposePrompt";
 import { InstallHint } from "@/components/InstallHint";
 import { PostCard } from "@/components/post/PostCard";
@@ -33,8 +34,16 @@ async function fetchPage(
   return res.json();
 }
 
-export function FeedStream({ initial }: { initial: FeedPage }) {
-  const [tag, setTag] = useState<string | null>(null);
+export function FeedStream({
+  initial,
+  tag,
+}: {
+  initial: FeedPage;
+  /** 주소(`?tag=`)에서 온 값. 화면이 아니라 주소가 정답이다. */
+  tag: string | null;
+}) {
+  const router = useRouter();
+  const [switching, startSwitch] = useTransition();
   const [posts, setPosts] = useState<Post[]>(initial.posts);
   const [cursor, setCursor] = useState<string | null>(initial.nextCursor);
   const [loading, setLoading] = useState(false);
@@ -77,31 +86,16 @@ export function FeedStream({ initial }: { initial: FeedPage }) {
     }
   }, [cursor, tag]);
 
+  /**
+   * 태그를 바꾸는 건 **주소를 바꾸는 것**이다. 목록은 서버가 다시 그리고,
+   * 페이지가 `key` 로 이 컴포넌트를 새로 만든다. 그래서 여기서 목록을 손대지 않는다 —
+   * 예전에는 클라이언트가 따로 받아오느라 경합 처리까지 해야 했다.
+   */
   const changeTag = useCallback(
-    async (next: string | null) => {
-      const id = ++reqId.current;
-      inFlight.current = null;
-      setTag(next);
-      // 먼저 비운다. #대회결과 를 눌렀는데 랭킹 글이 잠깐 남아 있으면 안 눌린 것처럼 보인다.
-      setPosts([]);
-      setCursor(null);
-      setLoading(true);
-      setFailed(false);
-
-      try {
-        const page = await fetchPage(null, next);
-        if (reqId.current !== id) return;
-        setPosts(page.posts);
-        setCursor(page.nextCursor);
-        window.scrollTo({ top: 0 });
-      } catch {
-        if (reqId.current !== id) return;
-        setFailed(true);
-      } finally {
-        if (reqId.current === id) setLoading(false);
-      }
+    (next: string | null) => {
+      startSwitch(() => router.push(next ? `/?tag=${next}` : "/"));
     },
-    [],
+    [router],
   );
 
   useEffect(() => {
@@ -130,7 +124,7 @@ export function FeedStream({ initial }: { initial: FeedPage }) {
     <div>
       <InstallHint />
       <ComposePrompt />
-      <TagBar active={tag} onChange={(next) => void changeTag(next)} />
+      <TagBar active={tag} onChange={changeTag} />
 
       {posts.map((post) => (
         <PostCard key={post.id} post={post} />
@@ -146,7 +140,7 @@ export function FeedStream({ initial }: { initial: FeedPage }) {
           {tag && (
             <button
               type="button"
-              onClick={() => void changeTag(null)}
+              onClick={() => changeTag(null)}
               className="hair h-[34px] cursor-pointer rounded-full px-4 font-semibold"
             >
               전체 보기
@@ -155,7 +149,7 @@ export function FeedStream({ initial }: { initial: FeedPage }) {
         </div>
       )}
 
-      {loading && (
+      {(loading || switching) && (
         <p className="py-6 text-center text-ink-3">불러오는 중</p>
       )}
 
@@ -164,7 +158,7 @@ export function FeedStream({ initial }: { initial: FeedPage }) {
           <p className="text-ink-3">불러오지 못했습니다</p>
           <button
             type="button"
-            onClick={() => void (posts.length === 0 ? changeTag(tag) : loadMore())}
+            onClick={() => void loadMore()}
             className="hair h-[34px] cursor-pointer rounded-full px-4 font-semibold"
           >
             다시 시도
