@@ -6,3 +6,5 @@ scripts
 docs
 supabase
 .claude
+# 앱(Expo)은 따로 빌드한다. 웹 배포에 올릴 이유가 없다
+mobile
