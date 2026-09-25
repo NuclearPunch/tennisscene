@@ -28,7 +28,7 @@ export default async function SearchPage({
       {term.length < SEARCH_MIN ? (
         <div className="px-3 py-8">
           <p className="text-ink-3">
-            대회 이름, 선수 이름, 영상 제목으로 찾습니다. 두 글자부터요.
+            대회·선수·소속·영상 제목으로 찾습니다. 두 글자부터요.
           </p>
           <p className="mt-6 mb-2 font-semibold">종류별로 모아 보기</p>
           <div className="flex flex-wrap gap-1.5">

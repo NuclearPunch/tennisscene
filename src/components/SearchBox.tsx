@@ -28,7 +28,7 @@ export function SearchBox({ initial }: { initial: string }) {
           type="search"
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          placeholder="대회·선수·영상 검색"
+          placeholder="대회·선수·소속 검색"
           aria-label="검색어"
           // 브라우저 기본 지우기 버튼은 모양이 제각각이라 숨기고 우리 것을 쓴다.
           className="min-w-0 grow bg-transparent outline-none placeholder:text-ink-3 [&::-webkit-search-cancel-button]:hidden"
