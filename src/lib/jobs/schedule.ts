@@ -79,15 +79,19 @@ function groupOf(row: { type: string; author_id: string }): string {
 }
 
 /**
- * `since` 이후 새로 올라온 봇 글과, 아직 예약 시각이 안 된 봇 글을 한데 모아 다시 짠다.
+ * `since` 이후 새로 올라온 봇 글과, **오늘 창 안에** 예약된 봇 글을 한데 모아 다시 짠다.
  * 여러 번 불러도 된다 — 잡 하나 끝날 때마다 부르면 60초 제한에 걸려 크론이 중간에 죽어도
  * 그때까지 올라온 글은 나눠져 있다.
+ *
+ * 창 밖(다음 날 이후)에 예약된 글은 건드리지 않는다. 며칠에 걸쳐 미리 넣어 둔 글이
+ * 다음 날 아침 하루치로 몰려 버리면 안 된다 — 그 글은 그날 아침 수집 때 그날 몫과 함께 짜인다.
  */
 export async function spreadBotPosts(
   db: Sql,
   since: Date,
   now: Date = new Date(),
 ): Promise<{ count: number; until: Date | null }> {
+  const end = windowEnd(now);
   const rows = await db<{ id: string; type: string; author_id: string }[]>`
     select p.id, p.type::text as type, p.author_id
     from posts p
@@ -95,12 +99,14 @@ export async function spreadBotPosts(
     where a.kind = 'bot'
       and p.parent_id is null
       and p.deleted_at is null
-      and (p.created_at >= ${since} or p.created_at > ${now})
+      and (
+        (p.created_at >= ${since} and p.created_at <= ${now})  -- 방금 올라온 것
+        or (p.created_at > ${now} and p.created_at <= ${end})  -- 오늘 안에 뜰 예약
+      )
     order by p.created_at, p.id`;
   if (rows.length === 0) return { count: 0, until: null };
 
   const ordered = interleave(rows, groupOf);
-  const end = windowEnd(now);
   const times = slots(ordered.length, now, end);
   const values = ordered.map((r, i) => [r.id, times[i].toISOString()]);
 
