@@ -33,13 +33,14 @@ src/lib/sources/       외부 소스 어댑터 (파싱만, DB 모름)
 src/lib/publish/       payload·본문 생성 (순수 함수, DB 모름)
 src/lib/jobs/          수집·게시 잡의 알맹이. CLI 와 크론이 같은 함수를 부른다
 scripts/               잡의 CLI 껍데기 (--dry-run --fixture --sql)
-src/app/api/cron/      Vercel 크론. 매일 09:00 KST, 월요일만 랭킹까지
+src/app/api/cron/      Vercel 크론. 매일 09:00 KST, 월요일만 랭킹까지. 잡마다 job_runs 에 한 줄 남긴다
 src/app/manifest.ts    PWA. public/sw.js 는 피드와 /api 를 절대 캐시하지 않는다
 src/lib/postInput.ts   글쓰기 검증. 화면과 API 가 같은 함수를 쓴다
 src/lib/me.ts          useMe() — guest / needs-profile / ready
 src/components/post/   PostCard → Attachment 가 type 으로 분기
 src/app/(app)/         탭바가 붙는 셸. / · /search · /activity · /me
 src/app/compose/       탭바 없는 전체화면
+src/app/admin/         관리자(유튜브 채널·수집 기록·글 숨기기). 권한은 DB 의 is_admin() 이 본다
 ```
 
 포스트 타입을 추가할 때는 `types.ts`의 `Attachment` 유니온에 넣고

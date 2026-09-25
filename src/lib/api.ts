@@ -32,3 +32,19 @@ export async function requireAccount(
 export function isCaller(v: Caller | NextResponse): v is Caller {
   return "accountId" in v;
 }
+
+/**
+ * 관리자만. 여기 검사는 403 을 일찍 주려는 것이고, **진짜 방어는 DB 가 한다** —
+ * 채널·기록 테이블의 RLS 와 admin_* 함수가 is_admin() 을 다시 본다.
+ *
+ * 예외는 "지금 돌리기" 하나다. 잡은 직접 연결로 도니까 DB 가 사람을 모른다.
+ * 그 라우트는 이 검사만 믿으므로 반드시 이걸 거친다.
+ */
+export async function requireAdmin(request: Request): Promise<Caller | NextResponse> {
+  const caller = await requireAccount(request);
+  if (!isCaller(caller)) return caller;
+  const { data, error } = await caller.db.rpc("is_admin");
+  if (error) return fail(500, "권한을 확인하지 못했습니다");
+  if (data !== true) return fail(403, "관리자만 할 수 있습니다");
+  return caller;
+}

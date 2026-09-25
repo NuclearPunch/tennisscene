@@ -6,7 +6,8 @@ import {
   loadPostedVideoIds,
   upsertVideo,
 } from "@/lib/repositories/posts";
-import { CHANNELS, parseTitle, youtube } from "@/lib/sources/youtube";
+import { loadEnabledChannels } from "@/lib/repositories/channels";
+import { parseTitle, type TitleParts, youtube } from "@/lib/sources/youtube";
 import { SourceStructureError } from "@/lib/sources/types";
 import type { JobReport } from "./types";
 
@@ -99,7 +100,13 @@ export async function runYoutube(
   let failed = 0;
   let skipped = 0;
 
-  for (const channel of CHANNELS) {
+  // 채널은 관리자 화면에서 켜고 끈다. 다 꺼져 있으면 할 일이 없다 — 실패가 아니다.
+  const channels = await loadEnabledChannels(db);
+  if (channels.length === 0) {
+    return { job: "youtube", summary: "켜진 채널이 없다. 수집하지 않았다", lines: [] };
+  }
+
+  for (const channel of channels) {
     let videos;
     try {
       videos = await youtube.fetchUploads(channel.uploads, key, PER_CHANNEL);
@@ -185,7 +192,7 @@ export async function runYoutube(
     }
   }
 
-  if (failed === CHANNELS.length) {
+  if (failed === channels.length) {
     // 전부 실패했으면 유튜브 쪽 문제다. 조용히 넘기면 영상이 왜 안 오는지 모른다.
     throw new SourceStructureError("모든 채널에서 업로드를 못 받았다", "youtube");
   }
@@ -198,4 +205,42 @@ export async function runYoutube(
       (failed > 0 ? ` · 채널 ${failed}개 실패` : ""),
     lines,
   };
+}
+
+export type PreviewVideo = {
+  providerVideoId: string;
+  title: string;
+  publishedAt: string;
+  seconds: number | null;
+  parts: TitleParts;
+  /** 경기 영상으로 판정됐나. 잡이 쓰는 isMatchVideo 그대로다. */
+  match: boolean;
+  /** 게시 대상 기간(최근 30일) 안인가 */
+  fresh: boolean;
+};
+
+/**
+ * 채널을 넣기 전에 **실제로 무엇이 올라갈지** 본다.
+ *
+ * 매일 도는 잡과 같은 함수(parseTitle · isMatchVideo · 30일)로 판정한다.
+ * 화면용으로 따로 짜면 "미리보기에선 잡히는데 실제론 안 올라가는" 일이 생긴다.
+ * 3 유닛쯤 든다(업로드 1 + 길이 1 + 채널 찾기 1).
+ */
+export async function previewUploads(uploads: string, key: string): Promise<PreviewVideo[]> {
+  const videos = await youtube.fetchUploads(uploads, key, PER_CHANNEL);
+  const durations = await youtube.fetchDurations(videos.map((v) => v.providerVideoId), key);
+  const now = new Date();
+  return videos.map((v) => {
+    const parts = parseTitle(v.title);
+    const seconds = durations.get(v.providerVideoId) ?? null;
+    return {
+      providerVideoId: v.providerVideoId,
+      title: v.title,
+      publishedAt: v.publishedAt,
+      seconds,
+      parts,
+      match: isMatchVideo(parts, seconds),
+      fresh: isFresh(v.publishedAt, now),
+    };
+  });
 }

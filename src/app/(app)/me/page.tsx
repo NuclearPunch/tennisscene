@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Avatar } from "@/components/post/Avatar";
 import { Placeholder } from "@/components/Placeholder";
+import { checkAdmin } from "@/lib/adminFetch";
 import { useMe } from "@/lib/me";
 import { browserClient } from "@/lib/supabase-browser";
 
@@ -12,13 +14,21 @@ import { browserClient } from "@/lib/supabase-browser";
  */
 export default function MePage() {
   const { me } = useMe();
+  // 관리자에게만 문을 보인다. 권한은 관리자 화면과 API 가 다시 본다.
+  const [admin, setAdmin] = useState(false);
+  useEffect(() => {
+    if (me.status === "ready") void checkAdmin().then(setAdmin);
+  }, [me.status]);
 
   if (me.status === "loading") return null;
 
   if (me.status !== "ready") {
     return (
       <div className="flex flex-col items-center">
-        <Placeholder title="프로필" note="로그인하면 내 이름으로 글을 올릴 수 있습니다." />
+        <Placeholder
+          title="프로필"
+          note="로그인하면 내 이름으로 글을 올릴 수 있습니다."
+        />
         <Link
           href="/compose"
           className="-mt-16 flex h-[34px] items-center rounded-full bg-ink px-4 font-semibold text-bg"
@@ -30,21 +40,34 @@ export default function MePage() {
   }
 
   return (
-    <div className="flex items-center gap-3 px-3 py-4">
-      <Avatar author={me.account} size={56} />
-      <div className="min-w-0 grow">
-        <p className="truncate text-[20px] leading-[26px] font-bold tracking-[-0.01em]">
-          {me.account.name}
-        </p>
-        <p className="truncate text-ink-3">@{me.account.handle}</p>
+    <div>
+      <div className="flex items-center gap-3 px-3 py-4">
+        <Avatar author={me.account} size={56} />
+        <div className="min-w-0 grow">
+          <p className="truncate text-[20px] leading-[26px] font-bold tracking-[-0.01em]">
+            {me.account.name}
+          </p>
+          <p className="truncate text-ink-3">@{me.account.handle}</p>
+        </div>
+        <button
+          type="button"
+          onClick={() => void browserClient().auth.signOut()}
+          className="hair h-[34px] shrink-0 cursor-pointer rounded-full px-4 font-semibold"
+        >
+          로그아웃
+        </button>
       </div>
-      <button
-        type="button"
-        onClick={() => void browserClient().auth.signOut()}
-        className="hair h-[34px] shrink-0 cursor-pointer rounded-full px-4 font-semibold"
-      >
-        로그아웃
-      </button>
+      {admin && (
+        <Link
+          href="/admin"
+          className="hair-t flex h-12 items-center justify-between px-3 font-semibold"
+        >
+          관리자
+          <span aria-hidden className="text-ink-3">
+            ›
+          </span>
+        </Link>
+      )}
     </div>
   );
 }

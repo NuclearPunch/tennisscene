@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import { jobDb } from "@/lib/db";
 import { runPublish } from "@/lib/jobs/publish";
+import { runAndRecord } from "@/lib/jobs/record";
 import { runResults } from "@/lib/jobs/results";
 import { runSnapshot } from "@/lib/jobs/snapshot";
 import { runTournaments } from "@/lib/jobs/tournaments";
 import { runYoutube } from "@/lib/jobs/youtube";
 import type { Job, JobReport } from "@/lib/jobs/types";
-import { SourceStructureError } from "@/lib/sources/types";
 
 export const dynamic = "force-dynamic";
 /**
@@ -80,20 +80,17 @@ export async function GET(request: Request) {
 
   try {
     for (const [name, job] of jobs) {
-      const started = Date.now();
-      try {
-        const report = await job(db);
+      // 한 잡이 죽어도 나머지는 돌린다. 카토가 랭킹 페이지만 바꿨는데
+      // 대회 결과까지 못 올리면 손해가 두 배다. 결과는 job_runs 에 남아 관리자 화면에 뜬다.
+      const out = await runAndRecord(db, name, job, "cron");
+      const sec = (out.ms / 1000).toFixed(1);
+      if (out.ok) {
         // 얼마나 걸렸는지 남긴다. 무료 플랜 상한이 60초라 어느 잡이 먹는지 보여야 한다.
-        const ms = Date.now() - started;
-        done.push({ ...report, summary: `${report.summary} (${(ms / 1000).toFixed(1)}초)` });
-        console.log(`[cron] ${report.job} ${(ms / 1000).toFixed(1)}s — ${report.summary}`);
-      } catch (err) {
-        // 한 잡이 죽어도 나머지는 돌린다. 카토가 랭킹 페이지만 바꿨는데
-        // 대회 결과까지 못 올리면 손해가 두 배다.
-        const structural = err instanceof SourceStructureError;
-        const reason = err instanceof Error ? err.message : String(err);
-        failed.push({ job: name, reason, structural });
-        console.error(`[cron] ${name} 실패${structural ? " (구조 변경)" : ""}: ${reason}`);
+        done.push({ ...out.report, summary: `${out.report.summary} (${sec}초)` });
+        console.log(`[cron] ${out.report.job} ${sec}s — ${out.report.summary}`);
+      } else {
+        failed.push({ job: out.job, reason: out.reason, structural: out.structural });
+        console.error(`[cron] ${name} 실패${out.structural ? " (구조 변경)" : ""}: ${out.reason}`);
       }
     }
   } finally {

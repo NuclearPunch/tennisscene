@@ -158,3 +158,23 @@ test("카타 채널 제목은 대회·부서·라운드가 다 나온다", () =>
     round: "결승",
   });
 });
+
+test("관리자가 붙여넣는 채널 주소는 모양이 여러 가지다", async () => {
+  const { parseChannelInput } = await import("../src/lib/sources/youtube");
+  const handle = { kind: "handle", value: "@KATATENNIS" };
+  const id = { kind: "id", value: "UCiTHNeO-ti75vj3QlFHclAA" };
+  assert.deepEqual(parseChannelInput("https://www.youtube.com/@KATATENNIS"), handle);
+  assert.deepEqual(parseChannelInput("youtube.com/@KATATENNIS/videos"), handle);
+  assert.deepEqual(parseChannelInput("  @KATATENNIS "), handle);
+  assert.deepEqual(parseChannelInput("https://www.youtube.com/channel/UCiTHNeO-ti75vj3QlFHclAA"), id);
+  // 업로드 목록 ID 를 붙여넣어도 채널로 바꿔 찾는다
+  assert.deepEqual(parseChannelInput("UUiTHNeO-ti75vj3QlFHclAA"), id);
+  // 주소창에서 복사한 한글 핸들은 '@' 까지 인코딩돼 온다
+  assert.deepEqual(
+    parseChannelInput("https://www.youtube.com/%40%ED%85%8C%EB%8B%88%EC%8A%A4%EB%9D%BC%EC%9D%B4%EB%B8%8C"),
+    { kind: "handle", value: "@테니스라이브" },
+  );
+  // 옛 주소는 API 로 못 찾는다. 모른다고 해야 화면이 "@주소를 붙여넣어 달라" 고 안내한다.
+  assert.equal(parseChannelInput("https://www.youtube.com/c/oldstyle"), null);
+  assert.equal(parseChannelInput("그냥 글자"), null);
+});

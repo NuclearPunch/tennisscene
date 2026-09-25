@@ -19,109 +19,49 @@ export type Channel = {
   /** 업로드 재생목록 ID. 채널 ID 의 `UC` 를 `UU` 로 바꾼 값이다. */
   uploads: string;
   title: string;
-  /** 왜 넣었는지. 채널을 빼고 넣을 때 근거가 남아야 한다. */
-  note: string;
+};
+
+/** 관리자가 붙여넣은 주소로 찾은 채널. */
+export type ResolvedChannel = Channel & {
+  handle: string | null;
+  subscribers: number | null;
+  videoCount: number | null;
+  thumbnailUrl: string | null;
 };
 
 /**
- * 동호인 영상을 올리는 채널.
+ * 관리자가 붙여넣는 모양들. 유튜브 주소는 여러 꼴로 돈다.
  *
- * 프로 중계 채널(대한테니스협회TV 등)은 넣지 않았다 — 우리는 동호인 미디어다
- * (docs/DECISIONS.md). 유튜브 영상은 그 채널이 유튜브에 올린 자기 콘텐츠이고
- * 퍼가라고 만든 플랫폼이라, 단체 데이터 이용 제한(생체 약관)과는 다른 문제다.
+ *   https://www.youtube.com/@jangguntennis      → 핸들
+ *   https://youtube.com/@jangguntennis/videos   → 핸들
+ *   @jangguntennis                              → 핸들
+ *   https://www.youtube.com/channel/UCo4x…      → 채널 ID
+ *   UCo4x… / UUo4x…                             → 채널 ID / 업로드 목록
+ *
+ * `/c/이름` `/user/이름` 옛 주소는 API 로 못 찾는다(forUsername 은 옛 계정만 된다).
+ * 그런 건 채널 페이지에서 @핸들 주소를 복사해 달라고 한다.
  */
-export const CHANNELS: Channel[] = [
-  {
-    uploads: "UUgQVX3fx6bazHfD6VLCADbA",
-    title: "KATO Tennis",
-    note: "카토 공식. 제목 규칙이 가장 정확하다(대회·부서·라운드·선수). 다만 업로드가 뜸하다.",
-  },
-  {
-    uploads: "UUeXOI5jmoJmhumQ-JlO_1pA",
-    title: "클라스테니스",
-    note: "동호인 실전 경기 전문. 활발하지만 제목이 홍보문구에 가까워 메타데이터를 덜 믿는다.",
-  },
-  {
-    uploads: "UUzL5Vf5U9Ir_5cAQPVfKtgQ",
-    title: "테니스라이브",
-    note: "동호인 대회 라이브 중계. 제목이 조각나 있어(선수만, 부서만) 대회명이 빠질 때가 많다.",
-  },
-  {
-    uploads: "UUfk8s5xSKyRG-U49r1U0yTA",
-    title: "어택 덕스 테니스",
-    note:
-      "**우리 데이터와 직접 맞물린다.** 'KATO 안성시장배 마스터즈부 결승전! 김재원 강훈식(송도클레이) VS ...' " +
-      "처럼 대회·부서·라운드·선수·클럽이 다 들어 있고, 그 대회와 선수가 우리 랭킹·결과에 이미 있다.",
-  },
-  {
-    uploads: "UUgNG4r-KdDIt0pSfcp8d9rw",
-    title: "공자테니스",
-    note:
-      "전남·광주 생활체육 대회. '[2026.제30회] 해남땅끝배 ... (오픈부 결승)' 형식이 일정하다. " +
-      "카토가 아닌 대회라 결과 매칭은 안 되지만 동호인 경기 영상으로는 좋다.",
-  },
-  {
-    uploads: "UUOhApwd9XBkeYzsl7fsE2FA",
-    title: "KATA TENNIStube",
-    note:
-      "카타 공식. '[2025 아식스컵 개나리부 결승] 권봉여/최순혜 vs. 정다정/최채영' 로 형식이 가장 깔끔하다. " +
-      "2025-08 이후 멈춰 있지만 30일 신선도 필터가 있어 올릴 게 없을 뿐이고, 재개하면 저절로 잡힌다.",
-  },
-  {
-    uploads: "UUiTHNeO-ti75vj3QlFHclAA",
-    title: "KATATENNIS",
-    note:
-      "카타가 지금 쓰는 채널(위 TENNIStube 는 멈췄다). '2026 파티온배 오픈부 준결승2' 처럼 " +
-      "대회·부서·라운드만 딱 쓴다. 20편 중 경기 10편이 전부 걸렸고 나머지는 쇼츠였다(2026-09 확인).",
-  },
-  {
-    uploads: "UUo4xDJEgAkl_oPeJk_gjMlQ",
-    title: "장군테니스",
-    note:
-      "지역 협회장배·초청대회('파주시협회장배 레전드 초청 대회 🎾 준결승전'). 20편 중 경기 10편이 잡히고 " +
-      "나머지는 쇼츠다. 2026-05 이후 멈췄지만 KATA TENNIStube 와 같은 이유로 둔다 — 하루 1 유닛이고 재개하면 잡힌다.",
-  },
-];
+export function parseChannelInput(raw: string):
+  | { kind: "handle"; value: string }
+  | { kind: "id"; value: string }
+  | null {
+  // 주소창에서 복사한 한글 핸들은 '@' 까지 인코딩돼 온다(%40%ED%85%8C…). 통째로 먼저 푼다.
+  let s = raw.trim();
+  try {
+    s = decodeURIComponent(s);
+  } catch {
+    // 깨진 인코딩이면 받은 그대로 읽는다
+  }
+  const id = s.match(/(?:^|\/channel\/)(U[CU][A-Za-z0-9_-]{22})(?:$|[/?#])/);
+  if (id) return { kind: "id", value: `UC${id[1].slice(2)}` };
+  // 핸들은 유튜브가 한글도 허용한다(@테니스라이브).
+  const h = s.match(/(?:^|youtube\.com\/)(@[^/?#\s]+)/);
+  return h ? { kind: "handle", value: h[1] } : null;
+}
 
 /*
- * 살펴봤지만 넣지 않은 곳 — 다시 검토할 때 같은 길을 되밟지 않게 적어둔다.
- * 숫자는 2026-09 에 최근 20편을 이 파일의 parseTitle 과 경기 영상 판정에 실제로 돌려본 것이다.
- *
- * **넣으려면 제목 해석부터 손봐야 하는 곳**
- * · 테니스TV (구독 2.4만) — 815신공 테니스마스터즈 동호인 경기를 4K 로 12~17분씩 올린다.
- *   815신공은 우리 대회 데이터에도 있다. 그런데 20편 중 0편이 걸린다 —
- *   '815신공 테니스마스터즈' 가 대회 이름으로 안 잡히고, "결승진출팀은 과연? ... (4강전)" 에서
- *   라운드를 앞의 '결승' 으로 잘못 읽는다. 괄호 끝의 라운드를 우선하게 고치면 들어올 수 있다.
- *   WTA 슬로모션도 섞여 있지만 1분 미만이라 길이로 걸러진다.
- * · VIEW티플 테니스 (영상 1,288) — 경기도지사기·도민체전 시군 대항전. 10분짜리 실경기가 많은데
- *   '50세부·20세부' 가 부서 목록에 없고 '경기도지사기' 도 대회로 안 잡혀 0편이다.
- *   걸리는 3편은 전부 쇼츠였다.
- * · THE TENNIS방극종 (구독 6.8천) — '[더 테니스 ] 2026 비슬산배 국화부 4강전' 형식이라 15편이 걸리지만
- *   채널 머리말 '더 테니스' 를 대회 이름으로 읽는다. 게다가 2026-06 이후 멈췄다.
- * · 지스타테니스 — '[전국 남자 복식 최고수전 4강] 안병건, 지현종 VS ...' 로 깔끔하고 우리 랭킹 선수가
- *   나오지만, '최고수전' 이 대회로 안 잡혀 0편이다. 2025-10 이후 멈췄다.
- *
- * **넣어도 거의 안 나오는 곳**
- * · 최인테니스 — 순천만국가정원배 지도자부. 걸리는 5편 중 4편이 쇼츠라 길이로 걸러내면 1편 남는다.
- *
- * **동호인 대회 영상이 아닌 곳**
- * · 야메테니스 (구독 5.5천, 영상 1,597) — 수가 제일 많지만 대부분 해시태그 범벅 쇼츠다.
- *   제목의 '#오픈부' 는 경기 부서가 아니라 검색용 태그라 걸러내는 게 맞다.
- * · 대한테니스협회TV · 이형택TV · 정진화테니스레슨 — 프로 중계·레슨·예능이다.
- *   우리는 동호인 미디어다(docs/DECISIONS.md). 정진화는 대회 결승도 있지만 2019년 것들이다.
- * · 양구매치 — 주니어 대회(초등부·고등부·16세부).
- * · 테니스에미친남자들 · CS테니스 — 클럽 연습 게임. '박인용(오픈부)' 는 선수 소개지 경기 부서가 아니다.
- * · 메모리슬립 테니스팀 — 클럽 입상 홍보 쇼츠. 해시태그 범벅이라 야메테니스와 같은 이유로 뺀다.
- * · 테니스피플 (영상 4,905) — 요즘 제목이 '20260920092141 1' 같은 타임스탬프다.
- * · 아테TV (2024-03) · 테테테 (2023-11) — 멈췄다.
- * · WS테니스 · 스까치자 · 올마이티 — 레슨·쇼츠·프로.
- * · Honey Life (구독 9.6천) — 테니스 브이로그·쇼츠. 경기 영상이 없고 2026-03 이후 멈췄다.
- * · 비스포크테니스 · 테니스의 기준 · 테니스각 · 테트리스 tennis — 쇼츠·레슨·프로 슬로모션.
- * · 고우석 테니스 — 개인 모임 영상. 걸리는 한 편은 제목에 스스로 '불펌' 이라고 적었다.
- *
- * 찾는 방법도 적어둔다. 키워드 검색은 유튜브 순위에 기대서 제목을 대회식으로 안 쓰는 채널을 놓친다.
- * 우리 결과 포스트의 우승·준우승 선수 이름으로 역추적하는 게 더 확실했다 —
- * 2026-09 에 12개 조로 찾았을 때 두 조 이상 걸린 채널은 전부 이미 넣었거나 위에 적은 곳이었다.
+ * 채널 목록은 DB(`youtube_channels`)에 있다. 관리자 화면에서 넣고 끈다.
+ * 넣은 이유·뺀 이유도 거기 note 에 있다 — 예전엔 이 파일 주석이었다.
  */
 
 export type RawVideo = {
@@ -277,6 +217,42 @@ export const youtube = {
       for (const v of d.items ?? []) out.set(v.id, parseDuration(v.contentDetails?.duration));
     }
     return out;
+  },
+
+  /** 주소·핸들로 채널을 찾는다. 1 유닛. 못 찾으면 null. */
+  async resolveChannel(raw: string, key: string): Promise<ResolvedChannel | null> {
+    const input = parseChannelInput(raw);
+    if (!input) return null;
+    const d = (await call(
+      "channels",
+      {
+        part: "snippet,statistics,contentDetails",
+        ...(input.kind === "handle" ? { forHandle: input.value } : { id: input.value }),
+      },
+      key,
+    )) as {
+      items?: {
+        snippet: {
+          title: string;
+          customUrl?: string;
+          thumbnails?: Record<string, { url: string }>;
+        };
+        statistics?: { subscriberCount?: string; videoCount?: string; hiddenSubscriberCount?: boolean };
+        contentDetails: { relatedPlaylists: { uploads: string } };
+      }[];
+    };
+    const c = d.items?.[0];
+    if (!c) return null;
+    const num = (v: string | undefined) => (v === undefined ? null : Number(v));
+    const t = c.snippet.thumbnails ?? {};
+    return {
+      uploads: c.contentDetails.relatedPlaylists.uploads,
+      title: c.snippet.title,
+      handle: c.snippet.customUrl ?? (input.kind === "handle" ? input.value : null),
+      subscribers: c.statistics?.hiddenSubscriberCount ? null : num(c.statistics?.subscriberCount),
+      videoCount: num(c.statistics?.videoCount),
+      thumbnailUrl: (t.medium ?? t.default)?.url ?? null,
+    };
   },
 
   /** 재생은 유튜브에서. 우리가 직접 틀지 않는다(API 약관). */
