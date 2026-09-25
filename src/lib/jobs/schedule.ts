@@ -20,30 +20,50 @@ const MIN_WINDOW_MS = 3 * 3600_000;
 const KST_OFFSET_MS = 9 * 3600_000;
 
 /**
- * 같은 무리가 붙지 않게 세운다. 매번 **남은 게 가장 많은 무리**에서 하나를 뽑되,
- * 바로 앞과 같은 무리는 다른 무리가 남아 있는 한 피한다.
+ * 같은 무리가 붙지 않게 세운다. **무리마다 자기 개수에 맞춰 전체 길이에 고르게 편다** —
+ * k 번째 글의 자리는 (k + 0.5) / 무리 크기.
  *
- * 영상이 압도적으로 많으면 끝에 영상끼리 붙는 건 피할 수 없다 — 섞을 게 없어서다.
- * 무리 안의 순서는 들어온 순서 그대로 둔다(같은 채널의 8강 → 4강 → 결승이 뒤집히지 않게).
+ * 예전엔 "남은 게 가장 많은 무리부터" 뽑았는데, 그러면 적은 무리가 앞에서 먼저 바닥나고
+ * 많은 무리(영상)가 **끝에 몰린다.** 끝은 가장 늦게 뜨는 글, 곧 피드 맨 위다.
+ * 실제로 영상 10개가 피드 꼭대기에 줄줄이 붙었다.
+ *
+ * 영상이 압도적으로 많으면 영상끼리 붙는 건 피할 수 없다. 다만 고르게 퍼져서
+ * 한 곳에 몰리지 않는다(영상 15 · 다른 글 5 → 영상은 많아야 3개씩 붙는다).
+ *
+ * `sub` 를 주면 무리 안에서 돌아가며 세운다 — AI 글을 한 무리로 묶되 같은 계정이 연달아 나오지 않게.
+ * 그 밖에는 무리 안의 순서를 들어온 순서 그대로 둔다(같은 채널의 8강 → 4강 → 결승이 뒤집히지 않게).
  */
-export function interleave<T>(items: T[], group: (t: T) => string): T[] {
-  const queues = new Map<string, T[]>();
+export function interleave<T>(items: T[], group: (t: T) => string, sub?: (t: T) => string): T[] {
+  const groups = new Map<string, T[]>();
   for (const it of items) {
     const k = group(it);
-    if (!queues.has(k)) queues.set(k, []);
-    queues.get(k)!.push(it);
+    if (!groups.has(k)) groups.set(k, []);
+    groups.get(k)!.push(it);
+  }
+
+  const order = [...groups.keys()];
+  const placed: { it: T; pos: number; g: number }[] = [];
+  order.forEach((key, g) => {
+    const list = sub ? roundRobin(groups.get(key)!, sub) : groups.get(key)!;
+    list.forEach((it, k) => placed.push({ it, pos: (k + 0.5) / list.length, g }));
+  });
+  // 같은 자리면 무리 순서대로 — 크기가 같은 무리들은 A B C A B C 로 돈다.
+  placed.sort((a, b) => a.pos - b.pos || a.g - b.g);
+  return placed.map((x) => x.it);
+}
+
+/** 계정별 줄을 하나씩 번갈아 뽑는다. 계정 안의 순서는 그대로. */
+function roundRobin<T>(items: T[], key: (t: T) => string): T[] {
+  const lanes = new Map<string, T[]>();
+  for (const it of items) {
+    const k = key(it);
+    if (!lanes.has(k)) lanes.set(k, []);
+    lanes.get(k)!.push(it);
   }
   const out: T[] = [];
-  let prev: string | null = null;
-  while (out.length < items.length) {
-    let best: string | null = null;
-    for (const [k, q] of queues) {
-      if (q.length === 0) continue;
-      if (k === prev && [...queues].some(([k2, q2]) => k2 !== prev && q2.length > 0)) continue;
-      if (best === null || q.length > queues.get(best)!.length) best = k;
-    }
-    out.push(queues.get(best!)!.shift()!);
-    prev = best;
+  const queues = [...lanes.values()];
+  for (let i = 0; out.length < items.length; i++) {
+    for (const q of queues) if (q[i] !== undefined) out.push(q[i]);
   }
   return out;
 }
@@ -71,11 +91,15 @@ export function windowEnd(now: Date): Date {
 }
 
 /**
- * 무리를 나누는 기준. 자동 게시 글은 종류(영상·결과·일정·랭킹)로, AI 글은 계정으로 —
- * 레슨 노트 둘이 붙는 것도, 영상 둘이 붙는 것도 피한다.
+ * 무리를 나누는 기준. 자동 게시 글은 종류(영상·결과·일정·랭킹)로 나누고, AI 글은 한 무리로 묶는다 —
+ * 계정마다 따로 두면 서로 다른 AI 계정 글 셋이 연달아 붙는다. 무리 안에서는 계정을 돌아가며 세운다.
  */
-function groupOf(row: { type: string; author_id: string }): string {
-  return row.type === "text" ? `ai:${row.author_id}` : row.type;
+export function groupOf(row: { type: string }): string {
+  return row.type === "text" ? "ai" : row.type;
+}
+
+export function subOf(row: { author_id: string }): string {
+  return row.author_id;
 }
 
 /**
@@ -106,7 +130,7 @@ export async function spreadBotPosts(
     order by p.created_at, p.id`;
   if (rows.length === 0) return { count: 0, until: null };
 
-  const ordered = interleave(rows, groupOf);
+  const ordered = interleave(rows, groupOf, subOf);
   const times = slots(ordered.length, now, end);
   const values = ordered.map((r, i) => [r.id, times[i].toISOString()]);
 

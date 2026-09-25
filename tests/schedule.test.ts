@@ -5,15 +5,34 @@ import { interleave, slots, windowEnd } from "../src/lib/jobs/schedule";
 /** 같은 글자가 연속으로 붙은 최대 길이 */
 const maxRun = (s: string) => Math.max(...(s.match(/(.)\1*/g) ?? [""]).map((r) => r.length));
 
-test("같은 종류가 붙지 않게 번갈아 세운다", () => {
-  // 실제로 있었던 모양: 영상 10, 결과 3, 일정 1, AI 글 3
-  const items = [..."VVVVVVVVVV", ..."SSS", "T", ..."ABC"];
-  const out = interleave(items, (x) => x).join("");
-  assert.equal(out.length, items.length);
-  // 영상이 절반 넘게 많아서 끝에 영상끼리 붙는 건 어쩔 수 없다. 그래도 34 연속 같은 일은 없다.
+test("같은 종류가 붙지 않게 고르게 편다 — 피드 맨 위(끝)에 몰리지 않는다", () => {
+  // 실제로 있었던 모양: 영상 15, AI 글 5. 예전 방식은 영상 10개가 끝(피드 꼭대기)에 몰렸다.
+  const out = interleave([..."VVVVVVVVVVVVVVV", ..."AAAAA"], (x) => x).join("");
+  assert.equal(out.length, 20);
   assert.ok(maxRun(out) <= 3, out);
-  // 앞쪽은 완전히 섞여 있다
-  assert.equal(maxRun(out.slice(0, 14)), 1, out);
+  // 끝 다섯 개 안에도 AI 글이 있다
+  assert.match(out.slice(-5), /A/, out);
+  assert.match(out.slice(0, 5), /A/, out);
+});
+
+test("영상·결과·일정·AI 가 섞인 날", () => {
+  const out = interleave([..."VVVVVVVVVV", ..."SSS", "T", ..."AAA"], (x) => x).join("");
+  assert.equal(out.length, 17);
+  assert.ok(maxRun(out) <= 3, out);
+});
+
+test("AI 글은 한 무리로 펴되 같은 계정이 연달아 나오지 않는다", () => {
+  const items = [
+    ...Array.from({ length: 6 }, (_, i) => ({ g: "video", a: "m", n: `v${i}` })),
+    { g: "ai", a: "talk", n: "t1" }, { g: "ai", a: "talk", n: "t2" },
+    { g: "ai", a: "today", n: "d1" }, { g: "ai", a: "court", n: "c1" },
+  ];
+  const out = interleave(items, (x) => x.g, (x) => x.a);
+  const ai = out.filter((x) => x.g === "ai").map((x) => x.a);
+  for (let i = 1; i < ai.length; i++) assert.notEqual(ai[i], ai[i - 1], ai.join(","));
+  // AI 글끼리 바로 붙지 않는다
+  const seq = out.map((x) => (x.g === "ai" ? "A" : "V")).join("");
+  assert.doesNotMatch(seq, /AA/, seq);
 });
 
 test("종류가 골고루면 하나도 안 붙는다", () => {
