@@ -2,11 +2,13 @@ import { router } from "expo-router";
 import { Pressable, View } from "react-native";
 import { Verified } from "@/components/Icons";
 import { T } from "@/components/T";
+import { useModeration } from "@/lib/moderation";
 import { HAIR, useColors } from "@/lib/theme";
 import type { Post } from "@/lib/types";
 import { Attachment } from "./Attachment";
 import { Avatar } from "./Avatar";
 import { PostActions } from "./PostActions";
+import { PostMenu } from "./PostMenu";
 
 /**
  * 봇·브랜드·유저가 전부 같은 틀을 쓴다. 구분은 이름 옆 배지 하나뿐이다(CLAUDE.md 규칙 2).
@@ -16,7 +18,11 @@ import { PostActions } from "./PostActions";
  */
 export function PostCard({ post, variant = "feed" }: { post: Post; variant?: "feed" | "thread" }) {
   const c = useColors();
+  const { hidden } = useModeration();
   const open = variant === "feed" ? () => router.push(`/p/${post.id}`) : undefined;
+
+  // 신고했거나 차단한 사람의 글은 그리지 않는다(애플 1.2).
+  if (hidden(post)) return null;
 
   return (
     <View
@@ -40,6 +46,7 @@ export function PostCard({ post, variant = "feed" }: { post: Post; variant?: "fe
             </T>
             {post.author.kind !== "user" && <Verified />}
             <T c="ink3">{post.timeLabel}</T>
+            <PostMenu post={post} />
           </View>
 
           {post.body ? <T>{post.body}</T> : null}

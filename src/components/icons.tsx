@@ -6,6 +6,7 @@ import {
   CaretUp as PhCaretUp,
   ChartBar,
   ChatCircle,
+  DotsThree,
   CloudRain,
   EyeSlash,
   Heart as PhHeart,
@@ -113,6 +114,11 @@ export const Play = ({ className }: Sized) => (
 /** 익명으로 올리기. 가면이나 탐정 아이콘은 장난스럽다 — "안 보인다"는 뜻만 담는다. */
 export const Incognito = ({ className }: Sized) => (
   <EyeSlash className={className} weight="regular" />
+);
+
+/** 글 메뉴(신고·차단). 머리줄 끝에 조용히 있다. */
+export const More = ({ className }: Sized) => (
+  <DotsThree className={className} weight="bold" />
 );
 
 /** 걸린 해시태그를 푼다. 칩 안에 들어가서 아주 작다. */

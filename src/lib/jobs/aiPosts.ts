@@ -1,5 +1,6 @@
 import type { Sql } from "postgres";
 import { PERSONAS, type Persona, systemPrompt } from "@/lib/ai/personas";
+import { hasBlockedWords } from "@/lib/moderation";
 import type { JobReport } from "./types";
 
 /**
@@ -105,6 +106,7 @@ export function checkBody(
   if (/(^|[\s.,!?])(제가|저는|저도|저희|제\s(친구|파트너|클럽|동호회|코치))/.test(body)) {
     return { ok: false, reason: "1인칭 경험담이다" };
   }
+  if (hasBlockedWords(body)) return { ok: false, reason: "거르는 표현이 있다" };
   const head = body.slice(0, 18);
   if (recent.some((r) => r.startsWith(head))) return { ok: false, reason: "최근 글과 첫마디가 같다" };
   return { ok: true, body };

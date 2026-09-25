@@ -8,6 +8,7 @@ import { checkAdmin } from "@/lib/adminFetch";
 import { useMe } from "@/lib/me";
 
 const NAV = [
+  { href: "/admin/reports", label: "신고" },
   { href: "/admin/channels", label: "유튜브 채널" },
   { href: "/admin/jobs", label: "수집 기록" },
   { href: "/admin/posts", label: "글 관리" },

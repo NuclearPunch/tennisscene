@@ -4,6 +4,7 @@ import { Avatar } from "./Avatar";
 import { Attachment } from "./Attachment";
 import { CommentPrompt } from "./CommentPrompt";
 import { PostActions } from "./PostActions";
+import { Moderated, PostMenu } from "./PostMenu";
 import type { Post, Quote } from "@/lib/types";
 
 function QuoteCard({ q }: { q: Quote }) {
@@ -39,36 +40,40 @@ export function PostCard({
   variant?: "feed" | "thread";
 }) {
   return (
-    <article className="hair-b flex gap-2.5 px-3 pt-3 pb-1">
-      <Avatar author={post.author} />
+    // 신고했거나 차단한 사람의 글은 그리지 않는다(애플 1.2).
+    <Moderated post={post}>
+      <article className="hair-b flex gap-2.5 px-3 pt-3 pb-1">
+        <Avatar author={post.author} />
 
-      <div className="min-w-0 grow">
-        <div className="flex items-center gap-1.5">
-          <span className="truncate font-semibold">{post.author.name}</span>
-          {post.author.kind !== "user" && <Verified />}
-          <span className="shrink-0 text-ink-3">{post.timeLabel}</span>
+        <div className="min-w-0 grow">
+          <div className="flex items-center gap-1.5">
+            <span className="truncate font-semibold">{post.author.name}</span>
+            {post.author.kind !== "user" && <Verified />}
+            <span className="shrink-0 text-ink-3">{post.timeLabel}</span>
+            <PostMenu post={post} />
+          </div>
+
+          {post.body && <p className="whitespace-pre-line">{post.body}</p>}
+
+          {post.hashtag && (
+            // 봇 계정 이름만으로는 안 갈린다 — '대회 알림' 이 일정도 결과도 올린다.
+            <Link
+              href={`/?tag=${post.hashtag.slug}`}
+              className="mt-0.5 inline-block text-ink-3"
+            >
+              #{post.hashtag.label}
+            </Link>
+          )}
+
+          {post.attachment && <Attachment a={post.attachment} />}
+          {post.quote && <QuoteCard q={post.quote} />}
+          {variant === "feed" && post.prompt && (
+            <CommentPrompt postId={post.id} text={post.prompt} />
+          )}
+
+          <PostActions id={post.id} stats={post.stats} />
         </div>
-
-        {post.body && <p className="whitespace-pre-line">{post.body}</p>}
-
-        {post.hashtag && (
-          // 봇 계정 이름만으로는 안 갈린다 — '대회 알림' 이 일정도 결과도 올린다.
-          <Link
-            href={`/?tag=${post.hashtag.slug}`}
-            className="mt-0.5 inline-block text-ink-3"
-          >
-            #{post.hashtag.label}
-          </Link>
-        )}
-
-        {post.attachment && <Attachment a={post.attachment} />}
-        {post.quote && <QuoteCard q={post.quote} />}
-        {variant === "feed" && post.prompt && (
-          <CommentPrompt postId={post.id} text={post.prompt} />
-        )}
-
-        <PostActions id={post.id} stats={post.stats} />
-      </div>
-    </article>
+      </article>
+    </Moderated>
   );
 }

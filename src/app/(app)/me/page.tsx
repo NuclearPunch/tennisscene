@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Avatar } from "@/components/post/Avatar";
+import { AccountSettings } from "@/components/AccountSettings";
 import { AuthGate } from "@/components/AuthGate";
 import { checkAdmin } from "@/lib/adminFetch";
 import { useMe } from "@/lib/me";
@@ -72,6 +73,7 @@ export default function MePage() {
           </span>
         </Link>
       )}
+      <AccountSettings />
     </div>
   );
 }

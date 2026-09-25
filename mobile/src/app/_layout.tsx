@@ -4,6 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import { MeProvider, useMe } from "@/lib/me";
+import { ModerationProvider } from "@/lib/moderation";
 import { ReactionProvider, useReactions } from "@/lib/reactions";
 import { useColors } from "@/lib/theme";
 
@@ -32,25 +33,34 @@ export default function RootLayout() {
     <ThemeProvider
       value={{
         ...base,
-        colors: { ...base.colors, background: c.bg, card: c.bg, text: c.ink, border: c.hairline, primary: c.ink },
+        colors: {
+          ...base.colors,
+          background: c.bg,
+          card: c.bg,
+          text: c.ink,
+          border: c.hairline,
+          primary: c.ink,
+        },
       }}
     >
       <MeProvider>
         <ReactionProvider>
-          <ForgetOnSignOut />
-          <StatusBar style="auto" />
-          <Stack
-            screenOptions={{
-              headerShadowVisible: false,
-              headerTintColor: c.ink,
-              headerStyle: { backgroundColor: c.bg },
-              contentStyle: { backgroundColor: c.bg },
-              headerBackButtonDisplayMode: "minimal",
-            }}
-          >
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="p/[id]" options={{ title: "스레드" }} />
-          </Stack>
+          <ModerationProvider>
+            <ForgetOnSignOut />
+            <StatusBar style="auto" />
+            <Stack
+              screenOptions={{
+                headerShadowVisible: false,
+                headerTintColor: c.ink,
+                headerStyle: { backgroundColor: c.bg },
+                contentStyle: { backgroundColor: c.bg },
+                headerBackButtonDisplayMode: "minimal",
+              }}
+            >
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="p/[id]" options={{ title: "스레드" }} />
+            </Stack>
+          </ModerationProvider>
         </ReactionProvider>
       </MeProvider>
     </ThemeProvider>

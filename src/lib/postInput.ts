@@ -6,6 +6,8 @@
  * `check (char_length(body) <= 500)` 이다.
  */
 
+import { BLOCKED_MESSAGE, hasBlockedWords } from "./moderation";
+
 export const POST_MAX = 500;
 /** 남은 글자가 이만큼 이하일 때부터 숫자를 보여준다. 처음부터 500 을 띄워두면 부담스럽다. */
 export const COUNTER_FROM = 50;
@@ -54,6 +56,9 @@ export function validatePostInput(input: unknown): PostInputResult {
   if (n > POST_MAX) {
     return { ok: false, reason: `${POST_MAX}자까지 쓸 수 있습니다 (지금 ${n}자)` };
   }
+
+  // 욕설·혐오 표현은 저장 전에 막는다(애플 1.2). 글과 댓글이 이 함수를 같이 쓴다.
+  if (hasBlockedWords(clean)) return { ok: false, reason: BLOCKED_MESSAGE };
 
   return { ok: true, value: { body: clean, isAnonymous: isAnonymous === true } };
 }

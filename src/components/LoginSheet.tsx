@@ -53,7 +53,8 @@ export function LoginSheet({ open, onClose }: { open: boolean; onClose: () => vo
             <Close className="h-4 w-4" />
           </button>
         </div>
-        <AuthGate me={me} refresh={refresh}>
+        {/* 좋아요·신고·차단하려다 뜨는 창이다. "로그인하고 글쓰기" 는 엉뚱하다. */}
+        <AuthGate me={me} refresh={refresh} purpose="account">
           {null}
         </AuthGate>
       </div>
