@@ -91,7 +91,7 @@ export function CommentComposer({
             value={body}
             placeholder={placeholder ?? "댓글 남기기"}
             onFocus={() => {
-              if (me.status === "guest" || me.status === "needs-profile") setLogin(true);
+              if (me.status !== "ready" && me.status !== "loading") setLogin(true);
             }}
             onChange={(e) => setBody(e.target.value)}
             onKeyDown={(e) => {

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Avatar } from "@/components/post/Avatar";
-import { Placeholder } from "@/components/Placeholder";
+import { AuthGate } from "@/components/AuthGate";
 import { checkAdmin } from "@/lib/adminFetch";
 import { useMe } from "@/lib/me";
 import { browserClient } from "@/lib/supabase-browser";
@@ -11,30 +11,34 @@ import { browserClient } from "@/lib/supabase-browser";
 /**
  * 지금은 "내가 누구로 로그인했는지"와 로그아웃만 있다. 들어오는 문을 만들었으면
  * 나가는 문도 있어야 한다. 내가 쓴 글 목록은 F-4.3 에서 붙인다.
+ *
+ * **로그인은 여기서 한다.** 예전엔 글쓰기 화면으로 보냈는데, 로그인하러 온 사람이
+ * 로그인하자마자 빈 글쓰기 창을 보게 됐다. 로그인하고 나면 이 자리에 프로필이 뜬다.
  */
 export default function MePage() {
-  const { me } = useMe();
+  const { me, refresh } = useMe();
   // 관리자에게만 문을 보인다. 권한은 관리자 화면과 API 가 다시 본다.
-  const [admin, setAdmin] = useState(false);
+  // true/false 가 아니라 "관리자로 확인된 계정" 을 기억한다 — 로그아웃하고 다른 계정으로
+  // 들어왔을 때 앞 사람의 관리자 문이 잠깐이라도 남지 않게.
+  const accountId = me.status === "ready" ? me.account.id : null;
+  const [adminOf, setAdminOf] = useState<string | null>(null);
   useEffect(() => {
-    if (me.status === "ready") void checkAdmin().then(setAdmin);
-  }, [me.status]);
+    if (!accountId) return;
+    let alive = true;
+    void checkAdmin().then((ok) => alive && setAdminOf(ok ? accountId : null));
+    return () => {
+      alive = false;
+    };
+  }, [accountId]);
 
   if (me.status === "loading") return null;
 
   if (me.status !== "ready") {
     return (
-      <div className="flex flex-col items-center">
-        <Placeholder
-          title="프로필"
-          note="로그인하면 내 이름으로 글을 올릴 수 있습니다."
-        />
-        <Link
-          href="/compose"
-          className="-mt-16 flex h-[34px] items-center rounded-full bg-ink px-4 font-semibold text-bg"
-        >
-          로그인
-        </Link>
+      <div className="flex min-h-[70dvh] flex-col">
+        <AuthGate me={me} refresh={refresh} purpose="account">
+          {null}
+        </AuthGate>
       </div>
     );
   }
@@ -57,7 +61,7 @@ export default function MePage() {
           로그아웃
         </button>
       </div>
-      {admin && (
+      {adminOf === me.account.id && (
         <Link
           href="/admin"
           className="hair-t flex h-12 items-center justify-between px-3 font-semibold"

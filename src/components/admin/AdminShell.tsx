@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { AuthGate } from "@/components/AuthGate";
 import { checkAdmin } from "@/lib/adminFetch";
 import { useMe } from "@/lib/me";
 
@@ -19,27 +20,34 @@ const NAV = [
  * 이 컴포넌트를 우회해도 데이터는 한 줄도 안 나온다.
  */
 export function AdminShell({ children }: { children: React.ReactNode }) {
-  const { me } = useMe();
+  const { me, refresh } = useMe();
   const path = usePathname();
-  const [admin, setAdmin] = useState<boolean | null>(null);
+  // 확인이 끝난 계정과 그 결과. 계정이 바뀌면 다시 확인하기 전까지 아무것도 안 보인다.
+  const accountId = me.status === "ready" ? me.account.id : null;
+  const [checked, setChecked] = useState<{ id: string; admin: boolean } | null>(null);
 
   useEffect(() => {
-    if (me.status !== "ready") return;
+    if (!accountId) return;
     let alive = true;
-    void checkAdmin().then((ok) => alive && setAdmin(ok));
+    void checkAdmin().then((admin) => alive && setChecked({ id: accountId, admin }));
     return () => {
       alive = false;
     };
-  }, [me.status]);
+  }, [accountId]);
 
+  const admin = accountId && checked?.id === accountId ? checked.admin : null;
+
+  // undefined: 들어와도 됨 · null: 아직 확인 중 · "login": 그 자리에서 로그인 · 문자열: 막힌 이유
   const gate =
-    me.status === "loading" || (me.status === "ready" && admin === null)
+    me.status === "loading"
       ? null
       : me.status !== "ready"
-        ? "로그인한 뒤 들어올 수 있습니다"
-        : admin === false
-          ? "관리자만 볼 수 있습니다"
-          : undefined;
+        ? "login"
+        : admin === null
+          ? null
+          : admin === false
+            ? "관리자만 볼 수 있습니다"
+            : undefined;
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-[640px] flex-col border-hairline sm:border-x">
@@ -74,7 +82,11 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
       {gate === undefined ? (
         <main className="grow">{children}</main>
-      ) : gate === null ? null : (
+      ) : gate === null ? null : gate === "login" ? (
+        <AuthGate me={me} refresh={refresh} purpose="account">
+          {null}
+        </AuthGate>
+      ) : (
         <p className="px-8 py-20 text-center text-ink-3">{gate}</p>
       )}
     </div>

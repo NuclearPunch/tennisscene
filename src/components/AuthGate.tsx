@@ -11,8 +11,13 @@ import { browserClient } from "@/lib/supabase-browser";
  *
  *   guest          → 로그인 / 가입
  *   needs-profile  → 닉네임과 아이디 한 번
+ *   error          → 계정을 확인하지 못함. 다시 시도 (닉네임 화면을 띄우지 않는다)
  *   ready          → children
+ *
+ * 글쓰기에서도, 프로필 탭에서도 쓴다. 제목만 목적에 맞게 바꾼다 —
+ * 프로필 탭에서 로그인하는 사람에게 "로그인하고 글쓰기" 는 엉뚱하다.
  */
+export type GatePurpose = "write" | "account";
 
 const FIELD =
   "h-12 w-full rounded-card bg-grouped px-4 outline-none placeholder:text-ink-3";
@@ -45,7 +50,7 @@ function authMessage(raw: string): string {
   return "문제가 생겼습니다. 잠시 뒤 다시 시도해주세요";
 }
 
-function Login() {
+function Login({ purpose }: { purpose: GatePurpose }) {
   const [mode, setMode] = useState<"login" | "signup" | "sent">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -96,7 +101,7 @@ function Login() {
   const signup = mode === "signup";
   return (
     <Shell
-      title={signup ? "테니스씬 시작하기" : "로그인하고 글쓰기"}
+      title={signup ? "테니스씬 시작하기" : purpose === "write" ? "로그인하고 글쓰기" : "로그인"}
       note="읽는 건 누구나, 쓰는 건 로그인한 사람만."
     >
       {kakao && (
@@ -244,17 +249,48 @@ function Profile({ userId, onDone }: { userId: string; onDone: () => Promise<voi
   );
 }
 
+/** 로그인은 됐는데 계정을 못 읽었다. 닉네임을 새로 받으면 안 된다 — 이미 있을 수 있다. */
+function Retry({ refresh }: { refresh: () => Promise<void> }) {
+  const [busy, setBusy] = useState(false);
+  return (
+    <Shell title="계정을 확인하지 못했습니다" note="잠시 뒤 다시 시도해주세요.">
+      <button
+        type="button"
+        disabled={busy}
+        onClick={async () => {
+          setBusy(true);
+          await refresh();
+          setBusy(false);
+        }}
+        className={PRIMARY}
+      >
+        {busy ? "확인하는 중" : "다시 시도"}
+      </button>
+      <button
+        type="button"
+        onClick={() => void browserClient().auth.signOut()}
+        className="cursor-pointer text-ink-3"
+      >
+        로그아웃
+      </button>
+    </Shell>
+  );
+}
+
 export function AuthGate({
   me,
   refresh,
+  purpose = "write",
   children,
 }: {
   me: Me;
   refresh: () => Promise<void>;
+  purpose?: GatePurpose;
   children: React.ReactNode;
 }) {
   if (me.status === "loading") return <div className="grow" />;
-  if (me.status === "guest") return <Login />;
+  if (me.status === "guest") return <Login purpose={purpose} />;
+  if (me.status === "error") return <Retry refresh={refresh} />;
   if (me.status === "needs-profile") {
     return <Profile userId={me.session.user.id} onDone={refresh} />;
   }
