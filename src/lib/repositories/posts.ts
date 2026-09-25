@@ -285,17 +285,18 @@ export async function upsertVideo(
  *
  * 이게 없으면 매일 영상 120건을 전부 다시 써서 DB 왕복만 수십 초가 된다.
  */
-export async function loadFreshVideoIds(
+export async function loadFreshVideos(
   db: Sql,
   provider: string,
   maxAgeDays = 20,
-): Promise<Set<string>> {
-  const rows = await db<{ provider_video_id: string }[]>`
-    select provider_video_id
+): Promise<Map<string, number | null>> {
+  // 길이도 같이 준다. 경기 영상인지 가를 때 길이를 보는데, 아는 영상은 길이를 다시 받지 않는다.
+  const rows = await db<{ provider_video_id: string; duration_seconds: number | null }[]>`
+    select provider_video_id, duration_seconds
     from videos
     where provider = ${provider}
       and refreshed_at > now() - (${maxAgeDays} || ' days')::interval`;
-  return new Set(rows.map((r) => r.provider_video_id));
+  return new Map(rows.map((r) => [r.provider_video_id, r.duration_seconds]));
 }
 
 /** 이미 포스트로 올린 영상. 중복 insert 를 시도조차 안 하게 한다. */

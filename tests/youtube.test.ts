@@ -129,3 +129,32 @@ test("해시태그 속 부서는 검색용 태그지 경기 부서가 아니다"
   assert.equal(p.division, null);
   assert.equal(p.tournamentName, null);
 });
+
+test("쇼츠는 제목이 경기 같아도 경기 영상이 아니다", async () => {
+  const { isMatchVideo } = await import("../src/lib/jobs/youtube");
+  // 실제로 28초짜리가 "결승 경기 영상" 으로 올라간 적이 있다.
+  const final = parseTitle("동호인 테니스 마스터즈부 결승전! 앞뒤좌우 최선을 다하는 플레이");
+  assert.equal(final.division, "마스터즈부");
+  assert.equal(isMatchVideo(final, 28), false);
+  assert.equal(isMatchVideo(final, 180), false); // 쇼츠 상한 3분까지는 쇼츠일 수 있다
+  assert.equal(isMatchVideo(final, 498), true); // 올라간 경기 중 제일 짧은 것
+});
+
+test("길이를 모르면 올리지 않는다", async () => {
+  const { isMatchVideo } = await import("../src/lib/jobs/youtube");
+  // 그날 재생시간을 못 받았으면 다음 날 다시 받아서 판단한다.
+  assert.equal(isMatchVideo(parseTitle("2026 파티온배 오픈부 결승"), null), false);
+});
+
+test("카타 채널 제목은 대회·부서·라운드가 다 나온다", () => {
+  assert.deepEqual(parseTitle("2026 파티온배 오픈부 준결승2"), {
+    tournamentName: "파티온배",
+    division: "오픈부",
+    round: "준결승2",
+  });
+  assert.deepEqual(parseTitle("2026 파티온배 신인부 결승"), {
+    tournamentName: "파티온배",
+    division: "신인부",
+    round: "결승",
+  });
+});

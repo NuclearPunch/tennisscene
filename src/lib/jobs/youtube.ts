@@ -2,7 +2,7 @@ import type { Sql } from "postgres";
 import { buildVideoPost } from "@/lib/publish/videoPost";
 import {
   insertVideoPost,
-  loadFreshVideoIds,
+  loadFreshVideos,
   loadPostedVideoIds,
   upsertVideo,
 } from "@/lib/repositories/posts";
@@ -23,13 +23,29 @@ const PER_CHANNEL = 20;
 const FRESH_DAYS = 30;
 
 /**
+ * 이 길이 이하는 쇼츠일 수 있다. 유튜브 쇼츠 상한이 3분이다.
+ *
+ * 올라간 경기 영상 중 제일 짧은 게 8분 18초였고, 그 아래는 28초짜리 쇼츠 하나뿐이었다.
+ * 사이가 넓어서 선을 어디 그어도 되지만, 쇼츠 상한에 맞춰 둔다.
+ */
+const SHORTS_MAX_SECONDS = 180;
+
+/**
  * **경기 영상만 올린다.**
  *
  * 채널에는 쇼츠 하이라이트("도대체 몇 번을 살리는 거야?!"), 시상식, 장학금 전달도 섞여 있다.
  * 제목에서 대회나 (부서 + 라운드)를 건졌다는 건 그게 경기 영상이라는 뜻이다.
  * 못 건졌으면 올리지 않는다 — 거르지 않으면 한 번에 60건이 피드를 덮는다.
+ *
+ * **길이도 본다.** 쇼츠도 제목은 "마스터즈부 결승전!" 이라 제목만으로는 못 가른다.
+ * 28초짜리가 "결승 경기 영상" 으로 올라간 적이 있다.
+ * 길이를 모르면 올리지 않는다 — 다음 날 다시 받아서 판단한다.
  */
-function isMatchVideo(parts: { tournamentName: string | null; division: string | null; round: string | null }): boolean {
+export function isMatchVideo(
+  parts: { tournamentName: string | null; division: string | null; round: string | null },
+  seconds: number | null,
+): boolean {
+  if (seconds === null || seconds <= SHORTS_MAX_SECONDS) return false;
   return Boolean(parts.tournamentName || (parts.division && parts.round));
 }
 
@@ -73,9 +89,9 @@ export async function runYoutube(
    * 두 번의 조회로 바꾼다.
    */
   const [fresh, posted] = dry
-    ? [new Set<string>(), new Set<string>()]
+    ? [new Map<string, number | null>(), new Set<string>()]
     : await Promise.all([
-        loadFreshVideoIds(db, "youtube"),
+        loadFreshVideos(db, "youtube"),
         loadPostedVideoIds(db, "youtube"),
       ]);
   let inserted = 0;
@@ -95,8 +111,14 @@ export async function runYoutube(
       continue;
     }
 
-    // 새로 쓸 것만 재생시간을 받는다. 이미 아는 영상은 길이도 이미 안다.
-    const need = videos.filter((v) => !fresh.has(v.providerVideoId));
+    /*
+     * 새로 쓸 것만 재생시간을 받는다. 이미 아는 영상은 길이도 이미 안다.
+     *
+     * 길이를 모르는 채로 저장된 영상(그날 videos.list 가 실패했다)은 아는 걸로 치지 않는다.
+     * 길이가 없으면 경기 영상 판정을 못 하니까, 받아질 때까지 매일 다시 받는다.
+     */
+    const isKnown = (id: string) => typeof fresh.get(id) === "number";
+    const need = videos.filter((v) => !isKnown(v.providerVideoId));
     const durations = await youtube
       .fetchDurations(need.map((v) => v.providerVideoId), key)
       .catch(() => new Map<string, number | null>());
@@ -105,7 +127,8 @@ export async function runYoutube(
 
     for (const v of videos) {
       const parts = parseTitle(v.title);
-      const worth = isMatchVideo(parts) && isFresh(v.publishedAt, now);
+      const seconds = durations.get(v.providerVideoId) ?? fresh.get(v.providerVideoId) ?? null;
+      const worth = isMatchVideo(parts, seconds) && isFresh(v.publishedAt, now);
 
       if (dry) {
         if (!worth) {
@@ -123,7 +146,7 @@ export async function runYoutube(
       // videos 에 먼저 넣는다. 게시를 건너뛰더라도 수집 기록은 남아야
       // 유튜브 약관이 요구하는 30일 갱신 대상을 추적할 수 있다.
       // 이미 알고 갱신할 때도 안 됐으면 건드리지 않는다.
-      const known = fresh.has(v.providerVideoId);
+      const known = isKnown(v.providerVideoId);
       if (known && (!worth || posted.has(v.providerVideoId))) {
         if (!worth) skipped++;
         else duplicate++;
@@ -138,7 +161,7 @@ export async function runYoutube(
             providerVideoId: v.providerVideoId,
             title: v.title,
             channelTitle: v.channelTitle,
-            durationSeconds: durations.get(v.providerVideoId) ?? null,
+            durationSeconds: seconds,
             thumbnailUrl: v.thumbnailUrl,
             publishedAt: v.publishedAt,
             ...parts,
@@ -155,12 +178,7 @@ export async function runYoutube(
         continue;
       }
 
-      const post = buildVideoPost(
-        v,
-        parts,
-        durations.get(v.providerVideoId) ?? null,
-        videoId,
-      );
+      const post = buildVideoPost(v, parts, seconds, videoId);
       const outcome = await insertVideoPost(db, BOT, post.body, post.payload);
       if (outcome === "inserted") inserted++;
       else duplicate++;
