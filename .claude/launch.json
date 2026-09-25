@@ -4,8 +4,20 @@
     {
       "name": "tennis-scene",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
       "port": 3000
+    },
+    {
+      "name": "tennis-app-web",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-lc",
+        "source ~/.nvm/nvm.sh >/dev/null && cd mobile && nvm use 24 >/dev/null && CI=1 npx expo start --web --port 8081"
+      ],
+      "port": 8081
     }
   ]
 }
