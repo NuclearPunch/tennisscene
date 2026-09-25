@@ -5,10 +5,25 @@ import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import { MeProvider, useMe } from "@/lib/me";
 import { ModerationProvider } from "@/lib/moderation";
+import { registerPush, shouldAskOnce, useNotificationRouting } from "@/lib/push";
 import { ReactionProvider, useReactions } from "@/lib/reactions";
 import { useColors } from "@/lib/theme";
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
+
+/**
+ * 로그인하면 이 기기를 알림 받을 곳으로 등록한다. 권한은 처음 한 번만 묻는다.
+ * 이미 허락한 기기는 켤 때마다 다시 등록한다 — 토큰이 바뀌었을 수 있다.
+ */
+function PushRegistrar() {
+  const { me } = useMe();
+  const accountId = me.status === "ready" ? me.account.id : null;
+  useEffect(() => {
+    if (accountId) void registerPush({ ask: shouldAskOnce() });
+  }, [accountId]);
+  useNotificationRouting();
+  return null;
+}
 
 /** 로그아웃하면 앞 사람의 하트를 지운다. */
 function ForgetOnSignOut() {
@@ -47,6 +62,7 @@ export default function RootLayout() {
         <ReactionProvider>
           <ModerationProvider>
             <ForgetOnSignOut />
+          <PushRegistrar />
             <StatusBar style="auto" />
             <Stack
               screenOptions={{

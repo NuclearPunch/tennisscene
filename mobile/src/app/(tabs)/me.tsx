@@ -1,7 +1,7 @@
 import * as WebBrowser from "expo-web-browser";
 import { CaretRight } from "phosphor-react-native";
 import { useEffect, useState } from "react";
-import { Pressable, ScrollView, View } from "react-native";
+import { Linking, Pressable, ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AuthGate, LegalLinks } from "@/components/AuthGate";
 import { Avatar } from "@/components/post/Avatar";
@@ -9,6 +9,7 @@ import { T } from "@/components/T";
 import { Button } from "@/components/ui";
 import { webUrl } from "@/lib/api";
 import { useModeration } from "@/lib/moderation";
+import { type PushState, pushState, registerPush, signOut } from "@/lib/push";
 import { supabase } from "@/lib/supabase";
 import { HAIR, useColors } from "@/lib/theme";
 import type { Author } from "@/lib/types";
@@ -46,7 +47,7 @@ function Profile({ account }: { account: Author }) {
           </T>
           <T c="ink3" numberOfLines={1}>{`@${account.handle}`}</T>
         </View>
-        <Button kind="line" label="로그아웃" onPress={() => void supabase.auth.signOut()} />
+        <Button kind="line" label="로그아웃" onPress={() => void signOut()} />
       </View>
       {adminOf === account.id && (
         // 관리자 화면은 웹에 있다. 운영 도구까지 앱에 넣을 이유가 없다.
@@ -58,12 +59,46 @@ function Profile({ account }: { account: Author }) {
           <CaretRight size={16} color={c.ink3} />
         </Pressable>
       )}
+      <Notify />
       <Blocked />
       <View style={{ borderTopWidth: HAIR, borderTopColor: c.hairline, paddingVertical: 16 }}>
         <LegalLinks />
       </View>
       <Leave />
     </ScrollView>
+  );
+}
+
+/**
+ * 알림 — 내 글에 댓글, 월요일 주간 랭킹. 처음에 거절한 사람도 여기서 다시 켤 수 있어야 한다.
+ * 한 번 거절하면 앱이 다시 물을 수 없어서(운영체제 규칙) 설정 앱으로 보낸다.
+ */
+function Notify() {
+  const c = useColors();
+  const [state, setState] = useState<PushState | null>(null);
+  useEffect(() => {
+    let alive = true;
+    void pushState().then((s) => alive && setState(s));
+    return () => {
+      alive = false;
+    };
+  }, []);
+  if (state === null || state === "unsupported") return null;
+
+  const label = { granted: "켜짐", denied: "꺼짐", undetermined: "꺼짐" }[state];
+  return (
+    <View style={{ flexDirection: "row", alignItems: "center", gap: 12, paddingHorizontal: 12, paddingVertical: 12, borderTopWidth: HAIR, borderTopColor: c.hairline }}>
+      <View style={{ flex: 1 }}>
+        <T w="600">{`알림 ${label}`}</T>
+        <T v="small" c="ink3">
+          내 글에 댓글이 달리면, 월요일 주간 랭킹이 나오면 알려드려요
+        </T>
+      </View>
+      {state === "undetermined" && (
+        <Button kind="line" label="켜기" onPress={() => void registerPush({ ask: true }).then(setState)} />
+      )}
+      {state === "denied" && <Button kind="line" label="설정 열기" onPress={() => void Linking.openSettings()} />}
+    </View>
   );
 }
 
@@ -114,7 +149,7 @@ function Leave() {
       return setError("탈퇴하지 못했습니다. 잠시 뒤 다시 시도해주세요");
     }
     // 로그인 정보가 지워졌으니 이 기기의 세션도 버린다. 화면은 로그인 문으로 돌아간다.
-    await supabase.auth.signOut().catch(() => {});
+    await signOut().catch(() => {});
   }
 
   return (

@@ -8,6 +8,7 @@ import { Button, Field } from "@/components/ui";
 import { webUrl } from "@/lib/api";
 import { CONTACT_EMAIL } from "@/lib/config";
 import { type Me, useMe } from "@/lib/me";
+import { signOut } from "@/lib/push";
 import { supabase } from "@/lib/supabase";
 import { useColors } from "@/lib/theme";
 
@@ -265,7 +266,7 @@ function Retry({ refresh }: { refresh: () => Promise<void> }) {
           setBusy(false);
         }}
       />
-      <Pressable onPress={() => void supabase.auth.signOut()} style={{ alignSelf: "center", padding: 8 }}>
+      <Pressable onPress={() => void signOut()} style={{ alignSelf: "center", padding: 8 }}>
         <T c="ink3">로그아웃</T>
       </Pressable>
     </Shell>

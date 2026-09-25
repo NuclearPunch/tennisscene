@@ -30,6 +30,7 @@ const LABEL: Record<string, string> = {
   publish: "랭킹 게시",
   ai: "AI 계정 글",
   purge: "오래된 글 정리",
+  push: "알림 전달 확인",
 };
 
 /** 손으로 돌릴 수 있는 것. 랭킹은 월요일 크론만 돌린다(주간 다이제스트). */

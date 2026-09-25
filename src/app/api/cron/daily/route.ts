@@ -3,9 +3,11 @@ import { jobDb } from "@/lib/db";
 import { runAiPosts } from "@/lib/jobs/aiPosts";
 import { runPublish } from "@/lib/jobs/publish";
 import { runPurge } from "@/lib/jobs/purge";
+import { runPushReceipts } from "@/lib/jobs/pushReceipts";
 import { runAndRecord } from "@/lib/jobs/record";
 import { runResults } from "@/lib/jobs/results";
 import { spreadBotPosts, spreadNote } from "@/lib/jobs/schedule";
+import { broadcastRanking } from "@/lib/push";
 import { runSnapshot } from "@/lib/jobs/snapshot";
 import { runTournaments } from "@/lib/jobs/tournaments";
 import { runYoutube } from "@/lib/jobs/youtube";
@@ -65,6 +67,8 @@ export async function GET(request: Request) {
   const jobs: [string, Job][] = [
     // 1년 지난 내린 글을 지운다(개인정보 처리방침 3번). 쿼리 두 개라 제일 가볍다.
     ["purge", runPurge],
+    // 어제 보낸 알림의 전달 결과. 영수증이 24시간 뒤 사라져서 매일 본다.
+    ["push", runPushReceipts],
     // 대회 목록 한 번 + 상세 몇 번. 제일 가볍다.
     ["tournaments", runTournaments],
     // 유튜브는 API 가 빠르다. 채널 수만큼 호출하고 끝난다.
@@ -104,6 +108,18 @@ export async function GET(request: Request) {
       } else {
         failed.push({ job: out.job, reason: out.reason, structural: out.structural });
         console.error(`[cron] ${name} 실패${out.structural ? " (구조 변경)" : ""}: ${out.reason}`);
+      }
+    }
+    // 월요일에 이번 주 랭킹 글이 새로 생겼으면 알린다. 다시 돌려도 새 글이 없으니 두 번 안 간다.
+    if (monday) {
+      const [{ n }] = await db<{ n: number }[]>`
+        select count(*)::int n from posts where type = 'ranking' and created_at >= ${now}`;
+      if (n > 0) {
+        const r = await broadcastRanking(db).catch((err) => {
+          console.error(`[cron] 랭킹 알림 실패: ${err instanceof Error ? err.message : err}`);
+          return { sent: 0 };
+        });
+        console.log(`[cron] 랭킹 알림 ${r.sent}건`);
       }
     }
   } finally {

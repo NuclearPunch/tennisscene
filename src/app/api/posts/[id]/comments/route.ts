@@ -1,6 +1,8 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 import { fail, failIfSuspended, isCaller, requireAccount } from "@/lib/api";
+import { jobDb } from "@/lib/db";
 import { validatePostInput } from "@/lib/postInput";
+import { notifyReply } from "@/lib/push";
 
 export const dynamic = "force-dynamic";
 
@@ -41,6 +43,24 @@ export async function POST(request: Request, ctx: { params: Promise<{ id: string
     console.error("댓글 저장 실패", error);
     return fail(500, "댓글을 올리지 못했습니다");
   }
+
+  // 글쓴이에게 알린다. 응답을 보낸 뒤에 한다 — 알림 서버가 느려도 댓글 저장이 늦어지면 안 된다.
+  // 토큰은 아무도 읽을 수 없는 테이블이라 서버 직접 연결로 찾는다.
+  after(async () => {
+    const db = jobDb();
+    try {
+      await notifyReply(db, {
+        parentId: id,
+        commenterId: caller.accountId,
+        anonymous: checked.value.isAnonymous,
+        body: checked.value.body,
+      });
+    } catch (err) {
+      console.error("[push] 댓글 알림 실패", err instanceof Error ? err.message : err);
+    } finally {
+      await db.end();
+    }
+  });
 
   return NextResponse.json({ id: data.id, createdAt: data.created_at }, { status: 201 });
 }
