@@ -15,6 +15,12 @@
 ![Expo](https://img.shields.io/badge/Expo-000020?style=flat-square&logo=expo&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white)
 
+<p>
+  <img src="docs/screenshots/feed.png" width="260" alt="피드 — 대회 일정과 경기 영상"/>
+  <img src="docs/screenshots/weekly-ranking.png" width="260" alt="주간 랭킹 카드"/>
+  <img src="docs/screenshots/tournament-result.png" width="260" alt="대회 결과 카드"/>
+</p>
+
 ## 주요 기능
 
 - **단일 피드** — 랭킹·대회·영상을 탭으로 쪼개지 않고 하나의 시간순 피드에 담습니다. 추천 알고리즘 없음.
